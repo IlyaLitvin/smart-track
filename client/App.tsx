@@ -1,40 +1,69 @@
-import React from 'react';
-import {} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import LoginScreen from './screens/auth/LoginScreen';
-import RegisterScreen from './screens/auth/RegisterScreen';
-import PostsScreen from './screens/main/PostsScreen';
-import CreateScreen from './screens/main/CreateScreen';
-import ProfileScreen from './screens/main/ProfileScreen';
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import LoginScreen from './src/screens/Auth/LoginScreen';
+import RegisterScreen from './src/screens/Auth/RegisterScreen';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {StyleSheet} from 'react-native';
 
 const AuthStack = createStackNavigator();
-const MainTab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
-const useRoute = (isAuth) => {
-  if(!isAuth ) {
-   return <AuthStack.Navigator>
-      <AuthStack.Screen options={{headerShown: false}} name='Login' component={LoginScreen}/>
-      <AuthStack.Screen options={{headerShown: false}} name='Register' component={RegisterScreen}/>
-    </AuthStack.Navigator> 
-  };
-  return <MainTab.Navigator>
-    <MainTab.Screen name='Posts' component={PostsScreen} />
-    <MainTab.Screen name='Create' component={CreateScreen} />
-    <MainTab.Screen name='Profile' component={ProfileScreen} />
-  </MainTab.Navigator>
+const styles = StyleSheet.create({
+  drawer: {
+    width: '100%',
+    backgroundColor: 'background: rgba(33, 33, 85, 1)',
+    marginTop: 60,
+  },
+});
+
+const useRoute = isAuth => {
+  if (!isAuth) {
+    return (
+      <AuthStack.Navigator>
+        <AuthStack.Screen
+          options={{headerShown: false}}
+          name="Login"
+          component={LoginScreen}
+        />
+        <AuthStack.Screen
+          options={{headerShown: false}}
+          name="Register"
+          component={RegisterScreen}
+        />
+      </AuthStack.Navigator>
+    );
+  }
+  return (
+    <Drawer.Navigator
+      drawerStyle={styles.drawer}
+      hideStatusBar={false}
+      drawerContentOptions={{
+        activeBackgroundColor: '#6AC7BE',
+        labelStyle: {
+          color: 'white',
+          fontSize: 25,
+        },
+        itemStyle: {
+          paddingLeft: 25,
+          marginLeft: '21.1428%',
+          borderTopLeftRadius: 20,
+          borderBottomLeftRadius: 20,
+        },
+      }}
+      drawerPosition="right"
+      overlayColor={'transparent'}
+      minSwipeDistance={1000}>
+      <Drawer.Screen name="Dashboard" component={'as'} />
+      <Drawer.Screen name="Staff" component={'sa'} />
+    </Drawer.Navigator>
+  );
 };
 
 export default function App() {
   const routing = useRoute(false);
-  return (
-    <NavigationContainer>
-      {routing}
-    </NavigationContainer> 
-  );
-};
-
+  return <NavigationContainer>{routing}</NavigationContainer>;
+}
 
 // auth
-
