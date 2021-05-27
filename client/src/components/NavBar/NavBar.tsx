@@ -2,16 +2,23 @@ import React from 'react';
 import {
   StyleSheet,
   Text,
-  View
+  View,
+  TouchableOpacity
 } from 'react-native';
 import BurgerMenu from '../../assets/image/Group 1710.svg';
 
 export default function NavBar() {
+    const openMenu = () => {
+        
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.header}> 
                 <Text style={styles.headerLogo}>Logo</Text>
+                <TouchableOpacity activeOpacity={0.5} onPress={openMenu}>
                 <BurgerMenu style={{width: 10, height: 10}} />
+                </TouchableOpacity>
             </View> 
         </View>       
     );
@@ -35,8 +42,5 @@ const styles = StyleSheet.create({
         color: "#fff",        
         lineHeight: 36,
         fontWeight: "600",
-    },
-    headerBurger: {
-        
     },
   });
