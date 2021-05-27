@@ -23,7 +23,7 @@ const useRoute = (isAuth) => {
   return <MainTab.Navigator tabBarOptions={{showLabel: false}}>
     <MainTab.Screen options={{
         tabBarIcon: ({focused, size, color}) => {
-            <BurgerMenu style={{width: 10, height: 10}} />
+            <BurgerMenu  />
         },
     }} name='Posts' component={PostsScreen} />
     <MainTab.Screen name='Create' component={CreateScreen} />
