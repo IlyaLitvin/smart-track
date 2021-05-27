@@ -6,6 +6,10 @@ import LoginScreen from './src/screens/Auth/LoginScreen';
 import RegisterScreen from './src/screens/Auth/RegisterScreen';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {StyleSheet} from 'react-native';
+import Dashboard from './src/screens/Dashboard/Dashboard';
+import Staff from './src/screens/Staff/Staff';
+import Sequence from './src/screens/Sequence/Sequence';
+import Alerts from './src/screens/Allerts/Alerts';
 
 const AuthStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -38,7 +42,6 @@ const useRoute = isAuth => {
   return (
     <Drawer.Navigator
       drawerStyle={styles.drawer}
-      hideStatusBar={false}
       drawerContentOptions={{
         activeBackgroundColor: '#6AC7BE',
         labelStyle: {
@@ -55,14 +58,16 @@ const useRoute = isAuth => {
       drawerPosition="right"
       overlayColor={'transparent'}
       minSwipeDistance={1000}>
-      <Drawer.Screen name="Dashboard" component={'as'} />
-      <Drawer.Screen name="Staff" component={'sa'} />
+      <Drawer.Screen name="Dashboard" component={Dashboard} />
+      <Drawer.Screen name="Staff" component={Staff} />
+      <Drawer.Screen name="Alerts" component={Alerts} />
+      <Drawer.Screen name="Sequence" component={Sequence} />
     </Drawer.Navigator>
   );
 };
 
 export default function App() {
-  const routing = useRoute(false);
+  const routing = useRoute(true);
   return <NavigationContainer>{routing}</NavigationContainer>;
 }
 

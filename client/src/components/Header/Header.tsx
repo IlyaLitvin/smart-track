@@ -1,7 +1,8 @@
 import {DrawerNavigationProp} from '@react-navigation/drawer';
 import React from 'react';
-import { StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Burger} from '../../common/Burger';
 
 const paddingHorizontal = '6.3888%';
 
@@ -31,6 +32,7 @@ export default function Header({navigation}: HeaderProps) {
   return (
     <View style={styles.header}>
       <Text style={styles.child}>Logo</Text>
+      <Burger onPress={navigation.toggleDrawer} />
     </View>
   );
 }
