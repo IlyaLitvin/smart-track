@@ -1,3 +1,4 @@
+
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
@@ -39,6 +40,10 @@ const useRoute = isAuth => {
       </AuthStack.Navigator>
     );
   }
+
+export default function App() {
+  const routing = useRoute(true);
+
   return (
     <Drawer.Navigator
       drawerStyle={styles.drawer}
@@ -65,10 +70,3 @@ const useRoute = isAuth => {
     </Drawer.Navigator>
   );
 };
-
-export default function App() {
-  const routing = useRoute(true);
-  return <NavigationContainer>{routing}</NavigationContainer>;
-}
-
-// auth
