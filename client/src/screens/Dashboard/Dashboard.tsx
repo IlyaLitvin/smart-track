@@ -1,8 +1,13 @@
+import {DrawerNavigationProp} from '@react-navigation/drawer';
 import React from 'react';
 import {Text, View} from 'react-native';
 import Header from '../../components/Header/Header';
 
-export default function Dashboard({navigation}) {
+type HeaderProps = {
+  navigation: DrawerNavigationProp<any, any>;
+};
+
+export default function Dashboard({navigation}: HeaderProps) {
   return (
     <>
       <Header navigation={navigation} />
