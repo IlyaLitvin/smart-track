@@ -1,6 +1,5 @@
-
-import 'react-native-gesture-handler';
 import * as React from 'react';
+import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import LoginScreen from './src/screens/Auth/LoginScreen';
@@ -40,35 +39,38 @@ const useRoute = isAuth => {
       </AuthStack.Navigator>
     );
   }
-
+  return  <Drawer.Navigator
+    drawerStyle={styles.drawer}
+    drawerContentOptions={{
+      activeBackgroundColor: '#6AC7BE',
+      labelStyle: {
+        color: 'white',
+        fontSize: 25,
+      },
+      itemStyle: {
+        paddingLeft: 25,
+        marginLeft: '21.1428%',
+        borderTopLeftRadius: 20,
+        borderBottomLeftRadius: 20,
+      },
+    }}
+    drawerPosition="right"
+    overlayColor={'transparent'}
+    minSwipeDistance={1000}>
+    <Drawer.Screen name="Dashboard" component={Dashboard} />
+    <Drawer.Screen name="Staff" component={Staff} />
+    <Drawer.Screen name="Alerts" component={Alerts} />
+    <Drawer.Screen name="Sequence" component={Sequence} />
+  </Drawer.Navigator>
+}
 export default function App() {
   const routing = useRoute(true);
 
   return (
-    <Drawer.Navigator
-      drawerStyle={styles.drawer}
-      drawerContentOptions={{
-        activeBackgroundColor: '#6AC7BE',
-        labelStyle: {
-          color: 'white',
-          fontSize: 25,
-        },
-        itemStyle: {
-          paddingLeft: 25,
-          marginLeft: '21.1428%',
-          borderTopLeftRadius: 20,
-          borderBottomLeftRadius: 20,
-        },
-      }}
-      drawerPosition="right"
-      overlayColor={'transparent'}
-      minSwipeDistance={1000}>
-      <Drawer.Screen name="Dashboard" component={Dashboard} />
-      <Drawer.Screen name="Staff" component={Staff} />
-      <Drawer.Screen name="Alerts" component={Alerts} />
-      <Drawer.Screen name="Sequence" component={Sequence} />
-    </Drawer.Navigator>
-  );
+    <NavigationContainer>
+      {routing}
+    </NavigationContainer> 
+  ); 
 };
 
 export default function App() {
