@@ -72,3 +72,9 @@ export default function App() {
     </NavigationContainer> 
   ); 
 };
+
+export default function App() {
+  const routing = useRoute(true);
+  return <NavigationContainer>{routing}</NavigationContainer>;
+}
+

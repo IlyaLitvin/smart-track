@@ -1,3 +1,4 @@
+import {DrawerNavigationProp} from '@react-navigation/drawer';
 import React from 'react';
 import { 
     Text, 
@@ -10,7 +11,11 @@ import {
 import ModalDropdown from 'react-native-modal-dropdown';
 import Header from '../../components/Header/Header';
 
-export default function Dashboard({navigation}) {
+type HeaderProps = {
+  navigation: DrawerNavigationProp<any, any>;
+};
+
+export default function Dashboard({navigation}: HeaderProps) {
     return (
         <>
         <Header navigation = {navigation}/>
@@ -154,4 +159,6 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         backgroundColor: "rgba(242, 215, 117, 0.19)",        
     },
-});
+
+
+
