@@ -70,3 +70,9 @@ export default function App() {
     </Drawer.Navigator>
   );
 };
+
+export default function App() {
+  const routing = useRoute(true);
+  return <NavigationContainer>{routing}</NavigationContainer>;
+}
+

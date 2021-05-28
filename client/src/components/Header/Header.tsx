@@ -1,7 +1,6 @@
 import {DrawerNavigationProp} from '@react-navigation/drawer';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Burger} from '../../common/Burger';
 
 const paddingHorizontal = '6.3888%';
@@ -21,6 +20,8 @@ const styles = StyleSheet.create({
   child: {
     fontSize: 24,
     color: 'white',
+    fontFamily: 'Poppins',
+    fontWeight: '700',
   },
 });
 
