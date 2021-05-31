@@ -14,7 +14,7 @@ export default function Staff({navigation}: HeaderProps) {
       <Header navigation={navigation} />
       <ScrollView style={styles.container}>
         <View style={styles.docWrapper}>
-          <View>
+          <View style={{width: 36, backgroundColor: "#6AC7BE", opacity: 0.3, }}>
             <Text style={styles.postNumber}>1</Text>
           </View>
           <View style={styles.mainBox}>
