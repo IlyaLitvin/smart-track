@@ -33,7 +33,7 @@ interface ButtonProps {
   style?: StyleProp<ViewStyle>;
   focusStyle?: StyleProp<ViewStyle> | StyleProp<TextStyle>;
   text: string;
-  onPress: () => any;
+  onPress: () => void;
 }
 
 export function Button({style, focusStyle, text, onPress}: ButtonProps) {
