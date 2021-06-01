@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import EditSvg from '../../../assets/images/Edit.svg';
 import AlertsEllipse from '../../../components/AlertsEllipse/AlertsEllipse';
+import EditSvg from '../../../assets/images/Edit.svg';
 interface CardProps {
   item: {
     id: Number;
