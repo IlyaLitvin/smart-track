@@ -6,6 +6,7 @@ import {
   ScrollView,
   StyleSheet,
   TouchableWithoutFeedback,
+  Platform,
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -22,19 +23,24 @@ const styles = StyleSheet.create({
   scroll: {
     maxHeight: 150,
     borderWidth: 1,
-    paddingVertical: 11,
     borderColor: '#D3D3FF',
     paddingHorizontal: 20,
     position: 'absolute',
     width: '100%',
     borderRadius: 20,
+    shadowColor: 'white',
     left: 0,
     backgroundColor: 'white',
     zIndex: 9999,
+    elevation: Platform.OS === 'android' ? 50 : 0,
+    shadowOpacity: 0,
   },
   wrapperSelect: {
     position: 'relative',
     width: 200,
+  },
+  option: {
+    marginTop: 11,
   },
 });
 
@@ -69,7 +75,7 @@ export default function Picker({options, onSelect}: PickerTypes) {
             onPress={() => {
               onPress(el);
             }}>
-            <Text>{el.name}</Text>
+            <Text style={styles.option}>{el.name}</Text>
           </TouchableWithoutFeedback>
         ))}
       </ScrollView>

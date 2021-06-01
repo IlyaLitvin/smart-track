@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Picker from '../../common/inputs/Picker';
 import Header from '../../components/Header/Header';
-import Card from './Card/Card';
+import Card from './Cards/Card';
 
 const styles = StyleSheet.create({
   title: {
@@ -39,7 +39,12 @@ export default function Sequence({navigation}) {
               {id: 73, name: 'Black6 Black'},
               {id: 74, name: 'Black6 Black'},
               {id: 75, name: 'Black6 Black'},
-              {id: 76, name: 'Black6 Black'},
+              {id: 76, name: 'Black723 Black'},
+              {id: 762, name: 'Black723 Black'},
+              {id: 763, name: 'Black723 Black'},
+              {id: 764, name: 'Black723 Black'},
+              {id: 765, name: 'Black723 Black'},
+              {id: 766, name: 'Black7256 Black'},
             ]}
             onSelect={setValue}
           />
