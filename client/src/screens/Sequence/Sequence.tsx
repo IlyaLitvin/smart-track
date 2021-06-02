@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import {DrawerNavigationProp} from '@react-navigation/drawer';
+import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Picker from '../../common/inputs/Picker';
 import Header from '../../components/Header/Header';
-import Card from './Cards/Card';
+import DragAndDrop from './DragAndDrop/DragAndDrop';
 
 const styles = StyleSheet.create({
   title: {
@@ -19,37 +20,25 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
   },
 });
-export default function Sequence({navigation}) {
-  const [value, setValue] = useState({name: '', id: 0});
+type HeaderProps = {
+  navigation: DrawerNavigationProp<any, any>;
+};
+export default function Sequence({navigation}: HeaderProps) {
   return (
     <>
       <Header navigation={navigation} />
       <View style={styles.wrapper}>
         <View>
           <Text style={styles.title}>Choose a Doctor</Text>
-          <Picker
-            options={[
-              {id: 1, name: 'Black Black'},
-              {id: 2, name: 'Black1 Black'},
-              {id: 3, name: 'Black2 Black'},
-              {id: 4, name: 'Black 3Black'},
-              {id: 5, name: 'Black5 Black'},
-              {id: 7, name: 'Black6 Black'},
-              {id: 72, name: 'Black6 Black'},
-              {id: 73, name: 'Black6 Black'},
-              {id: 74, name: 'Black6 Black'},
-              {id: 75, name: 'Black6 Black'},
-              {id: 76, name: 'Black723 Black'},
-              {id: 762, name: 'Black723 Black'},
-              {id: 763, name: 'Black723 Black'},
-              {id: 764, name: 'Black723 Black'},
-              {id: 765, name: 'Black723 Black'},
-              {id: 766, name: 'Black7256 Black'},
-            ]}
-            onSelect={setValue}
-          />
+          <Picker options={[]} onSelect={e => console.log(e)} />
         </View>
-        <Card />
+        <DragAndDrop
+          rooms={[]}
+          assignedRooms={[]}
+          onDelete={console.log}
+          onEdit={console.log}
+          onSelect={console.log}
+        />
       </View>
     </>
   );

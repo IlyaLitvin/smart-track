@@ -40,13 +40,17 @@ export default function Staff({navigation}: HeaderProps) {
       </ScrollView>
     </>
   );
-};
+}
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "#F6F6FF",
-      fontFamily: "Poppins",      
-      fontStyle: "normal",   
-    },
+
+  container: {
+    flex: 1,
+    backgroundColor: '#F6F6FF',
+    paddingLeft: 16,
+    paddingRight: 16,
+    fontFamily: 'Poppins',
+    fontStyle: 'normal',
+  },
 });
+
