@@ -1,7 +1,7 @@
 import {gql} from '@apollo/client';
 
 export const GET_ALL_RECEPTIONISTS = gql`
-    query getAllReceptionists() {
+    query {
         getAllReceptionists {
             id, name, email, phone
         }

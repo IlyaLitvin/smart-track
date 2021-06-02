@@ -1,9 +1,10 @@
 import React from 'react';
 import {View} from 'react-native';
 import {Button} from '../../../../common/button/Button';
-import Card from '../../common/Card';
+import Assistant from '../../../../components/Assistant/Assistant'
 
-export default function Assistants() {
+
+export default function AssistantsTab() {
   return (
     <View
       style={{
@@ -19,7 +20,7 @@ export default function Assistants() {
         text="Add new"
       />
       <View>
-        <Card item={{id: 1, name: 'name', color: 'fff'}} />
+        <Assistant />
       </View>
     </View>
   );

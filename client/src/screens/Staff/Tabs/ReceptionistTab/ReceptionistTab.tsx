@@ -1,9 +1,9 @@
 import React from 'react';
 import {View} from 'react-native';
 import {Button} from '../../../../common/button/Button';
-import Card from '../../common/Card';
+import Receptionist from '../../../../components/Receptionist/Receptionist'
 
-export default function Doctors() {
+export default function ReceptionistTab() {
   return (
     <View
       style={{
@@ -19,7 +19,7 @@ export default function Doctors() {
         text="Add new"
       />
       <View>
-        <Card item={{id: 1, name: 'name', color: 'fff'}} />
+        <Receptionist />
       </View>
     </View>
   );

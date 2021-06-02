@@ -1,16 +1,18 @@
 import React from 'react';
 import {View} from 'react-native';
 import {Button} from '../../../../common/button/Button';
-import Card from '../../common/Card';
+import Doctors from '../../../../components/Doctors/Doctors'
 
-export default function Receptionist() {
+export default function DoctorsTab() {
   return (
     <View
       style={{
+        flex: 1,
         backgroundColor: '#E5E5E5',
         minHeight: '100%',
         paddingTop: 24,
         paddingHorizontal: 16,
+        paddingBottom: 10
       }}>
       <Button
         onPress={() => {
@@ -19,7 +21,7 @@ export default function Receptionist() {
         text="Add new"
       />
       <View>
-        <Card item={{id: 1, name: 'name', color: 'fff'}} />
+        <Doctors />
       </View>
     </View>
   );

@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
 import Header from '../../components/Header/Header';
-import Doctor from '../../components/Doctor/Doctor';
+import Doctor from '../../components/CurrentDoctor/CurrentDoctor';
 
 type HeaderProps = {
   navigation: DrawerNavigationProp<any, any>;
@@ -16,8 +16,6 @@ export default function Dashboard({navigation}: HeaderProps) {
         <>
         <Header navigation = {navigation}/>
         <ScrollView style={styles.container}>
-            <Doctor />
-            <Doctor />
             <Doctor />
         </ScrollView>
         </>
