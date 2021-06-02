@@ -1,9 +1,20 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {useQuery, useMutation} from '@apollo/client';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {GET_ALL_DOCTORS} from '../../https/query/Doctor';
 import EditSvg from '../../assets/images/Edit.svg';
 import TrashSvg from '../../assets/images/trash-2 2.svg';
 
 export default function Doctors() {
+  const {data, loading, error} = useQuery(GET_ALL_DOCTORS);
+  const [doctors, setDoctors] = useState([]);
+
+  useEffect(()=>{
+    if(!loading) {
+      setDoctors(data.getAllDoctors);
+    };
+  },[data,loading]);
+
   return (
     <>
     <View style={styles.docWrapper}>

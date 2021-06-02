@@ -8,7 +8,7 @@ import {
 import Room from '../Room/Room';
 
 
-export default function Doctor() {
+export default function CurrentDoctor() {
     return (
         <View style={{height: 502, borderBottomWidth: 9, borderBottomColor: "#fff"}}>
         <View style={styles.doctorInfoWrapper}>

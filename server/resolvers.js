@@ -54,26 +54,26 @@ const createReceptionist = (receptionist) => {
 const resolvers = {
     Query: {
         getDoctorRooms: ({id}) => {
-                return rooms.filter(room => room.assignedDoctorId == id);       
-            },
-            getAllDoctors: () => {
-                return doctors
-            },
-            getDoctor: ({id}) => {
-                return doctors.find(doctor => doctor.id == id)
-            },
-            getAllReceptionists: () => {
-                return receptionists
-            },
-            getReceptionist: ({id}) => {
-                return receptionists.find(receptionist => receptionist.id == id)
-            },
-            getAllAssistants: () => {
-                return assistants
-            },
-            getAssistant: ({id}) => {
-                return assistants.find(assistant => assistant.id == id)
-            },
+            return rooms.filter(room => room.assignedDoctorId == id);       
+        },
+        getAllDoctors: () => {
+            return doctors
+        },
+        getDoctor: ({id}) => {
+            return doctors.find(doctor => doctor.id == id)
+        },
+        getAllReceptionists: () => {
+            return receptionists
+        },
+        getReceptionist: ({id}) => {
+            return receptionists.find(receptionist => receptionist.id == id)
+        },
+        getAllAssistants: () => {
+            return assistants
+        },
+        getAssistant: ({id}) => {
+            return assistants.find(assistant => assistant.id == id)
+        },
     },
 
     Mutation: {
