@@ -1,14 +1,26 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {useQuery, useMutation} from '@apollo/client';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import Room from '../Room/Room';
+import { GET_ALL_DOCTORS } from '../../https/query/Doctor';
 
 export default function CurrentDoctor() {
+  const {data, loading, error} = useQuery(GET_ALL_DOCTORS);
+  const [doctors, setDoctors] = useState([]);
+
+  useEffect(()=>{
+    if(!loading) {
+      setDoctors(data.getAllDoctors);
+    };
+  },[data, loading]);
+
   return (
-    <View
-      style={{height: 502, borderBottomWidth: 9, borderBottomColor: '#fff'}}>
-      <View style={styles.doctorInfoWrapper}>
-        <Text style={styles.doctorName}>Benedict Cumberbatch</Text>
-        <Text style={styles.doctorProf}>Therapist</Text>
+    <> 
+    {doctors.map(doctor =>
+        <View style={{height: 502, borderBottomWidth: 9, borderBottomColor: '#fff'}}>      
+        <View style={styles.doctorInfoWrapper}>
+        <Text style={styles.doctorName}>{doctor.name}</Text>
+        <Text style={styles.doctorProf}>{doctor.specialization}</Text>
         <TouchableOpacity style={styles.resetBtn}>
           <Text
             style={{
@@ -79,10 +91,14 @@ export default function CurrentDoctor() {
           </TouchableOpacity>
         </View>
       </View>
-      <View>
-        <Room />
+      <View style={{flexDirection: 'row', marginBottom: 16}}>
+        {doctor.rooms.map(room=>
+          <Room key={room.id} room={room} />  
+        )}
       </View>
-    </View>
+      </View>
+    )}
+    </>
   );
 }
 

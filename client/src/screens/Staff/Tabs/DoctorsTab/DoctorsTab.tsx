@@ -22,7 +22,6 @@ export default function DoctorsTab() {
       />
       <View>
         <Doctors />
-        <Doctors />
       </View>
     </View>
   );

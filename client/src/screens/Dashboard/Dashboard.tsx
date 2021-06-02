@@ -17,8 +17,6 @@ export default function Dashboard({navigation}: HeaderProps) {
         <Header navigation = {navigation}/>
         <ScrollView style={styles.container}>
             <Doctor />
-            <Doctor />
-            <Doctor />
         </ScrollView>
         </>
     );

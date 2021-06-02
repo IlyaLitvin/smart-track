@@ -20,7 +20,6 @@ export default function ReceptionistTab() {
       />
       <View>
         <Receptionist />
-        <Receptionist />
       </View>
     </View>
   );

@@ -2,7 +2,7 @@ import {gql} from '@apollo/client';
 
 
 export const GET_ALL_ASSISTANTS = gql`
-    query getAllAssistants() {
+    query {
         getAllAssistants {
             id, name, email, phone
         }

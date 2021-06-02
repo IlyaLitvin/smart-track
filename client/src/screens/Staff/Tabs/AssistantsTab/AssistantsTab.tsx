@@ -21,7 +21,6 @@ export default function AssistantsTab() {
       />
       <View>
         <Assistant />
-        <Assistant />
       </View>
     </View>
   );
