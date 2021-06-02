@@ -91,7 +91,7 @@ export default function CurrentDoctor() {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={{flexDirection: 'row', marginBottom: 16}}>
+      <View style={styles.rooms}>
         {doctor.rooms.map(room=>
           <Room key={room.id} room={room} />  
         )}
@@ -147,5 +147,11 @@ const styles = StyleSheet.create({
     paddingLeft: 13,
     paddingTop: 3,
     paddingBottom: 3,
+  },
+  rooms: {
+    flexDirection: 'row', 
+    flexWrap: "wrap", 
+    width: "100%", 
+    justifyContent: "center"
   },
 });

@@ -18,7 +18,7 @@ export default function Doctors() {
   return (
     <>
     {receptionists.map(receptionist =>
-      <View style={styles.recepWrapper}>
+      <View key={receptionist.id} style={styles.recepWrapper}>
       <View style={{width: 36, height: "100%", backgroundColor: "#6AC7BE", opacity: 0.3, borderTopLeftRadius: 20 }}></View>          
       <Text style={styles.postNumber}>1</Text>
       <View style={styles.mainBox}>
