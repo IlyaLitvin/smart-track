@@ -17,35 +17,37 @@ export default function Doctors() {
 
   return (
     <>
-    <View style={styles.docWrapper}>
-        <View style={{width: 36, height: "100%", backgroundColor: "#6AC7BE", opacity: 0.3, borderTopLeftRadius: 20 }}></View>          
-        <Text style={styles.postNumber}>1</Text>
-        <View style={styles.mainBox}>
-        <Text style={styles.name}>Alex Sample</Text>
-        <Text style={styles.mail}>frontdesk@gmail.com</Text>
-        <Text style={styles.phone}>0959423146</Text>
-        <View style={{flexDirection: "row"}}>
-            <Text style={styles.rooms}>Rooms</Text>
-            <Text style={styles.roomsName}>1a, 1b, 3f</Text>
-        </View>
-        <View style={{flexDirection: "row"}}>
-            <View style={{width: 15, height: 15, borderRadius: 7.5, backgroundColor: "#63BFF2", marginRight: 10}}></View>
-            <View style={{width: 15, height: 15, borderRadius: 7.5, backgroundColor: "#939DFF", marginRight: 10}}></View>
-            <View style={{width: 15, height: 15, borderRadius: 7.5, backgroundColor: "#F2D775", marginRight: 10}}></View>
-            <View style={{width: 15, height: 15, borderRadius: 7.5, backgroundColor: "#74C386", marginRight: 10}}></View>
-            <View style={{width: 15, height: 15, borderRadius: 7.5, backgroundColor: "#FC6666", marginRight: 10}}></View>
-            <View style={{width: 15, height: 15, borderRadius: 7.5, backgroundColor: "#FFF", borderWidth: 2, borderColor: "#DDDDDD"}}></View>
-        </View>
-        </View>
-        <View style={{flexDirection: "row", position: "absolute", right: 12, top: 12}}>
-        <TouchableOpacity>
-            <EditSvg style={{width: 15, height: 15, marginRight: 29}} />
-        </TouchableOpacity>  
-        <TouchableOpacity>
-            <TrashSvg style={{width: 20, height: 20}}/>
-        </TouchableOpacity>  
-        </View>
-    </View>
+    {doctors.map(doctor=>
+      <View style={styles.docWrapper}>
+      <View style={{width: 36, height: "100%", backgroundColor: "#6AC7BE", opacity: 0.3, borderTopLeftRadius: 20 }}></View>          
+      <Text style={styles.postNumber}>1</Text>
+      <View style={styles.mainBox}>
+      <Text style={styles.name}>{doctor.name}</Text>
+      <Text style={styles.mail}>{doctor.email}</Text>
+      <Text style={styles.phone}>{doctor.phone}</Text>
+      <View style={{flexDirection: "row"}}>
+          <Text style={styles.rooms}>Rooms</Text>
+          <Text style={styles.roomsName}>{doctor.rooms.map(room=> room.name + " ")}</Text>
+      </View>
+      <View style={{flexDirection: "row"}}>
+          <View style={{width: 15, height: 15, borderRadius: 7.5, backgroundColor: "#63BFF2", marginRight: 10}}></View>
+          <View style={{width: 15, height: 15, borderRadius: 7.5, backgroundColor: "#939DFF", marginRight: 10}}></View>
+          <View style={{width: 15, height: 15, borderRadius: 7.5, backgroundColor: "#F2D775", marginRight: 10}}></View>
+          <View style={{width: 15, height: 15, borderRadius: 7.5, backgroundColor: "#74C386", marginRight: 10}}></View>
+          <View style={{width: 15, height: 15, borderRadius: 7.5, backgroundColor: "#FC6666", marginRight: 10}}></View>
+          <View style={{width: 15, height: 15, borderRadius: 7.5, backgroundColor: "#FFF", borderWidth: 2, borderColor: "#DDDDDD"}}></View>
+      </View>
+      </View>
+      <View style={{flexDirection: "row", position: "absolute", right: 12, top: 12}}>
+      <TouchableOpacity>
+          <EditSvg style={{width: 15, height: 15, marginRight: 29}} />
+      </TouchableOpacity>  
+      <TouchableOpacity>
+          <TrashSvg style={{width: 20, height: 20}}/>
+      </TouchableOpacity>  
+      </View>
+      </View>
+      )}
     </>
   );
 };

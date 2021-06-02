@@ -1,32 +1,45 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {useQuery, useMutation} from '@apollo/client';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import EditSvg from '../../assets/images/Edit.svg';
 import TrashSvg from '../../assets/images/trash-2 2.svg';
 import Stethoscope from '../../assets/images/stethoscope 4.svg';
+import { GET_ALL_ASSISTANTS } from '../../https/query/Assistant';
 
 export default function Doctors() {
+  const {data, loading, error} = useQuery(GET_ALL_ASSISTANTS);
+  const [assistants, setAssistants] = useState([]);
+
+  useEffect(()=>{
+    if(!loading) {
+      setAssistants(data.getAllAssistants);
+    };
+  },[data,loading]);
+
   return (
     <>
-    <View style={styles.assistWrapper}>
-        <View style={{width: 36, height: "100%", backgroundColor: "#6AC7BE", opacity: 0.3, borderTopLeftRadius: 20 }}></View>          
-        <Text style={styles.postNumber}>1</Text>
-        <View style={styles.mainBox}>
-        <Text style={styles.name}>Alex Sample</Text>
-        <Text style={styles.mail}>frontdesk@gmail.com</Text>
-        <Text style={styles.phone}>0959423146</Text>
-        </View>
-        <View style={{flexDirection: "row", position: "absolute", right: 12, top: 12}}>
-        <TouchableOpacity>
-            <Stethoscope style={{width: 15, height: 15, marginRight: 29}} />
-        </TouchableOpacity>
-        <TouchableOpacity>
-            <EditSvg style={{width: 15, height: 15, marginRight: 29}} />
-        </TouchableOpacity>  
-        <TouchableOpacity>
-            <TrashSvg style={{width: 20, height: 20}}/>
-        </TouchableOpacity>  
-        </View>
-    </View>
+    {assistants.map(assistant=> 
+      <View style={styles.assistWrapper}>
+      <View style={{width: 36, height: "100%", backgroundColor: "#6AC7BE", opacity: 0.3, borderTopLeftRadius: 20 }}></View>          
+      <Text style={styles.postNumber}>1</Text>
+      <View style={styles.mainBox}>
+      <Text style={styles.name}>{assistant.name}</Text>
+      <Text style={styles.mail}>{assistant.email}</Text>
+      <Text style={styles.phone}>{assistant.phone}</Text>
+      </View>
+      <View style={{flexDirection: "row", position: "absolute", right: 12, top: 12}}>
+      <TouchableOpacity>
+          <Stethoscope style={{width: 15, height: 15, marginRight: 29}} />
+      </TouchableOpacity>
+      <TouchableOpacity>
+          <EditSvg style={{width: 15, height: 15, marginRight: 29}} />
+      </TouchableOpacity>  
+      <TouchableOpacity>
+          <TrashSvg style={{width: 20, height: 20}}/>
+      </TouchableOpacity>  
+      </View>
+      </View>
+      )}
     </>
   );
 };
