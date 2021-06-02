@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
 import Header from '../../components/Header/Header';
-import Doctor from '../../components/Doctor/Doctor';
+import Doctor from '../../components/CurrentDoctor/CurrentDoctor';
 
 type HeaderProps = {
   navigation: DrawerNavigationProp<any, any>;

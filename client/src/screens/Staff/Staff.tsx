@@ -2,9 +2,12 @@ import React from 'react';
 import {StyleSheet, ScrollView} from 'react-native';
 import Header from '../../components/Header/Header';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
-import Doctors from '../../components/Doctors/Doctors';
-import Assistants from '../../components/Assistants/Assistants';
-import Receptionist from '../../components/Receptionist/Receptionist';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import Assistants from './Tabs/AssistantsTab/AssistantsTab';
+import Doctors from './Tabs/DoctorsTab/DoctorsTab';
+import Receptionist from './Tabs/ReceptionistTab/ReceptionistTab';
+
+const Tab = createMaterialTopTabNavigator();
 
 type HeaderProps = {
   navigation: DrawerNavigationProp<any, any>;
@@ -15,9 +18,25 @@ export default function Staff({navigation}: HeaderProps) {
     <>
       <Header navigation={navigation} />
       <ScrollView style={styles.container}>
-        <Doctors />
-        <Assistants />
-        <Receptionist />
+      <Tab.Navigator
+        tabBarOptions={{
+          indicatorStyle: {
+            width: 22,
+            left: '14.333%',
+            height: 1,
+          },
+          indicatorContainerStyle: {
+            flexDirection: 'row',
+            justifyContent: 'center',
+          },
+          style: {
+            elevation: 0,
+          },
+        }}>
+        <Tab.Screen name="Doctors" component={Doctors} />
+        <Tab.Screen name="Assistants" component={Assistants} />
+        <Tab.Screen name="Receptionist" component={Receptionist} />
+      </Tab.Navigator>
       </ScrollView>
     </>
   );
@@ -27,8 +46,6 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: "#F6F6FF",
-      paddingLeft: 16,
-      paddingRight: 16,
       fontFamily: "Poppins",      
       fontStyle: "normal",   
     },

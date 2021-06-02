@@ -1,9 +1,12 @@
 import {gql} from '@apollo/client';
 
 export const GET_ALL_DOCTORS = gql`
-    query getAllDoctors() {
+    query GetAllDoctors {
         getAllDoctors {
-            id, name, specialization, email, phone, rooms
+            id, name, specialization, email, phone,
+             rooms {
+                name
+            }
         }
     }    
 `
