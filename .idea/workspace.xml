@@ -20,13 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e75b697-f742-4d1e-973f-0af1b2451ef5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/client/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Doctors/Doctors.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Doctors/Doctors.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/https/query/Doctor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/https/query/Doctor.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/screens/Sequence/DragAndDrop/DragAndDrop.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/screens/Sequence/DragAndDrop/DragAndDrop.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/resolvers.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/graphql/resolvers.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/graphql/schema.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +73,7 @@
       <updated>1622636605537</updated>
       <workItem from="1622636606761" duration="3002000" />
       <workItem from="1622645229212" duration="1001000" />
-      <workItem from="1622709081377" duration="1651000" />
+      <workItem from="1622709081377" duration="2032000" />
     </task>
     <servers />
   </component>
