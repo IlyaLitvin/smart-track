@@ -19,9 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e75b697-f742-4d1e-973f-0af1b2451ef5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/client/src/components/Doctors/Doctors.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Doctors/Doctors.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="9e75b697-f742-4d1e-973f-0af1b2451ef5" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -73,7 +71,7 @@
       <updated>1622636605537</updated>
       <workItem from="1622636606761" duration="3002000" />
       <workItem from="1622645229212" duration="1001000" />
-      <workItem from="1622709081377" duration="2032000" />
+      <workItem from="1622709081377" duration="2343000" />
     </task>
     <servers />
   </component>

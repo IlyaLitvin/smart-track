@@ -4,8 +4,8 @@ const app = express();
 const cors = require("cors");
 const { graphqlHTTP } = require('express-graphql')
 const logger = require("morgan");
-const schema = require('./graphql/schema');
-const graphQlResolvers = require('./graphql/resolvers');
+const schema = require('./schema');
+const graphQlResolvers = require('./resolvers');
 
 app.use(cors());
 app.use(express.json());
