@@ -11,15 +11,17 @@ const styles = StyleSheet.create({
   },
   fieldWrapper: {
     width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 141,
+    minHeight: 141,
     borderColor: 'rgba(106, 199, 190, 1)',
     borderStyle: 'dashed',
     borderWidth: 2,
     borderRadius: 0.1,
     marginBottom: 34,
     marginTop: 21,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    position: 'relative',
+    justifyContent: 'space-between',
   },
   fieldText: {
     fontFamily: 'Poppins',
@@ -34,7 +36,8 @@ const styles = StyleSheet.create({
     top: 0,
     width: '100%',
     height: '100%',
-    backgroundColor: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
     fontFamily: 'Poppins',
@@ -57,14 +60,16 @@ interface DragAndDropProps {
   onSelect: (room: Room) => void;
   onDelete: (id: Number) => void;
   onEdit: (room: Room) => void;
+  onDrop: (id: Number) => void;
 }
 
 export default function DragAndDrop({
-  rooms,
+  rooms = [],
   assignedRooms,
   onSelect,
   onDelete,
   onEdit,
+  onDrop,
 }: DragAndDropProps) {
   const ref: React.RefObject<View> = useRef(null);
   const [fieldProps, setFieldProps] = useState({
@@ -73,30 +78,32 @@ export default function DragAndDrop({
     width: 0,
     height: 0,
   });
+  console.log(rooms);
   return (
     <View>
-      <View
-        ref={ref}
-        onLayout={() => {
-          ref.current?.measure((x, y, width, height, pageX, pageY) => {
-            setFieldProps({x: pageX, y: pageY, width, height});
-          });
-        }}
-        style={styles.fieldWrapper}>
-        <Text style={styles.fieldText}>Drag and Drop rooms to the box</Text>
-        <View>
-          {assignedRooms.map(room => {
-            return (
-              <Card
-                key={room.id}
-                fieldProps={fieldProps}
-                room={room}
-                onSelect={onSelect}
-                onDelete={onDelete}
-                onEdit={onEdit}
-              />
-            );
-          })}
+      <View style={styles.fieldWrapper}>
+        {assignedRooms.map(room => {
+          return (
+            <Card
+              key={room.id}
+              fieldProps={fieldProps}
+              room={room}
+              onSelect={onSelect}
+              onDelete={onDrop}
+              onEdit={onEdit}
+            />
+          );
+        })}
+
+        <View
+          style={styles.field}
+          ref={ref}
+          onLayout={() => {
+            ref.current?.measure((x, y, width, height, pageX, pageY) => {
+              setFieldProps({x: pageX, y: pageY, width, height});
+            });
+          }}>
+          <Text style={styles.fieldText}>Drag and Drop rooms to the box</Text>
         </View>
       </View>
       <Text style={styles.title}>Drag and Drop rooms to the box</Text>
