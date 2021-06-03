@@ -86,28 +86,32 @@ export default function DragAndDrop({
         <Text style={styles.fieldText}>Drag and Drop rooms to the box</Text>
         <View>
           {assignedRooms.map(room => {
-            <Card
-              key={room.id}
-              fieldProps={fieldProps}
-              room={room}
-              onSelect={onSelect}
-              onDelete={onDelete}
-              onEdit={onEdit}
-            />;
+            return (
+              <Card
+                key={room.id}
+                fieldProps={fieldProps}
+                room={room}
+                onSelect={onSelect}
+                onDelete={onDelete}
+                onEdit={onEdit}
+              />
+            );
           })}
         </View>
       </View>
       <Text style={styles.title}>Drag and Drop rooms to the box</Text>
       <View style={styles.wrapperCards}>
         {rooms.map(room => {
-          <Card
-            onSelect={onSelect}
-            onDelete={onDelete}
-            onEdit={onEdit}
-            key={room.id}
-            fieldProps={fieldProps}
-            room={room}
-          />;
+          return (
+            <Card
+              onSelect={onSelect}
+              onDelete={onDelete}
+              onEdit={onEdit}
+              key={room.id}
+              fieldProps={fieldProps}
+              room={room}
+            />
+          );
         })}
       </View>
     </View>
