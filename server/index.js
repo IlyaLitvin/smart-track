@@ -9,7 +9,7 @@ const graphQlResolvers = require('./resolvers');
 
 app.use(cors());
 app.use(express.json());
-// app.use(logger("dev"));
+app.use(logger("dev"));
 
 app.use('/graphql', graphqlHTTP({
   graphiql: true,
@@ -18,16 +18,6 @@ app.use('/graphql', graphqlHTTP({
 }));
 
 const start = () => {
-<<<<<<< HEAD
-    try {
-      app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  start();
-=======
   try {
     app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
   } catch (e) {
@@ -36,4 +26,3 @@ const start = () => {
 };
 
 start();
->>>>>>> origin/main

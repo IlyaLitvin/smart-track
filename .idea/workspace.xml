@@ -19,7 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e75b697-f742-4d1e-973f-0af1b2451ef5" name="Default Changelist" comment="" />
+    <list default="true" id="9e75b697-f742-4d1e-973f-0af1b2451ef5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -58,6 +62,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\User\WebstormProjects\smart-track\server" />
       <recent name="C:\Users\User\WebstormProjects\smart-track\server\graphql" />
     </key>
   </component>
@@ -71,7 +76,7 @@
       <updated>1622636605537</updated>
       <workItem from="1622636606761" duration="3002000" />
       <workItem from="1622645229212" duration="1001000" />
-      <workItem from="1622709081377" duration="2343000" />
+      <workItem from="1622709081377" duration="3027000" />
     </task>
     <servers />
   </component>
