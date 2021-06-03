@@ -4,12 +4,12 @@ const app = express();
 const cors = require("cors");
 const {graphqlHTTP} = require('express-graphql')
 const logger = require("morgan");
-const schema = require('./schema');
-const graphQlResolvers = require('./resolvers');
+const schema = require('./graphql/schema');
+const graphQlResolvers = require('./graphql/resolvers');
 
 app.use(cors());
 app.use(express.json());
-app.use(logger("dev"));
+// app.use(logger("dev"));
 
 app.use('/graphql', graphqlHTTP({
     graphiql: true,
@@ -24,5 +24,5 @@ const start = () => {
       console.log(e);
     }
   };
-  
+
   start();
