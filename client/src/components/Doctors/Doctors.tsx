@@ -4,6 +4,7 @@ import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {GET_ALL_DOCTORS} from '../../https/query/Doctor';
 import EditSvg from '../../assets/images/Edit.svg';
 import TrashSvg from '../../assets/images/trash-2 2.svg';
+import DoctorAlerts from '../DoctorAlerts/DoctorAlerts';
 
 export default function Doctors() {
   const {data, loading, error} = useQuery(GET_ALL_DOCTORS);
@@ -18,7 +19,7 @@ export default function Doctors() {
   return (
     <>
     {doctors.map(doctor=>
-      <View style={styles.docWrapper}>
+      <View key={doctor.id} style={styles.docWrapper}>
       <View style={{width: 36, height: "100%", backgroundColor: "#6AC7BE", opacity: 0.3, borderTopLeftRadius: 20 }}></View>          
       <Text style={styles.postNumber}>1</Text>
       <View style={styles.mainBox}>
@@ -30,12 +31,7 @@ export default function Doctors() {
           <Text style={styles.roomsName}>{doctor.rooms.map(room=> room.name + " ")}</Text>
       </View>
       <View style={{flexDirection: "row"}}>
-          <View style={{width: 15, height: 15, borderRadius: 7.5, backgroundColor: "#63BFF2", marginRight: 10}}></View>
-          <View style={{width: 15, height: 15, borderRadius: 7.5, backgroundColor: "#939DFF", marginRight: 10}}></View>
-          <View style={{width: 15, height: 15, borderRadius: 7.5, backgroundColor: "#F2D775", marginRight: 10}}></View>
-          <View style={{width: 15, height: 15, borderRadius: 7.5, backgroundColor: "#74C386", marginRight: 10}}></View>
-          <View style={{width: 15, height: 15, borderRadius: 7.5, backgroundColor: "#FC6666", marginRight: 10}}></View>
-          <View style={{width: 15, height: 15, borderRadius: 7.5, backgroundColor: "#FFF", borderWidth: 2, borderColor: "#DDDDDD"}}></View>
+          <DoctorAlerts />
       </View>
       </View>
       <View style={{flexDirection: "row", position: "absolute", right: 12, top: 12}}>

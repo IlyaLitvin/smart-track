@@ -6,7 +6,7 @@ import ModalDropdown from 'react-native-modal-dropdown';
 export default function Room({room}) {
   return (
     <>
-    <View style={styles.roomContainer}>
+    <View key={room.id} style={styles.roomContainer}>
       <View
         style={{
           height: 31,
@@ -86,6 +86,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomLeftRadius: 20,
+    marginHorizontal: 4,
+    marginBottom: 15
   },
   roomR: {
     color: '#6AC7BE',
@@ -99,6 +101,7 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
     paddingTop: 2,
     paddingBottom: 1,
+    marginRight: 16
   },
   roomStatus: {
     width: 50,
