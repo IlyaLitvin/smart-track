@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
 export interface Room {
   id: number;
   assignedDoctor: string;
-  name: string;
+  name: string;git pul
 }
 
 interface DragAndDropProps {

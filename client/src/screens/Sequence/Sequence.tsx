@@ -1,8 +1,10 @@
+import {useQuery} from '@apollo/client';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Picker from '../../common/inputs/Picker';
 import Header from '../../components/Header/Header';
+import {GET_ALL_DOCTORS} from '../../https/query/Doctor';
 import DragAndDrop from './DragAndDrop/DragAndDrop';
 
 const styles = StyleSheet.create({
@@ -24,13 +26,20 @@ type HeaderProps = {
   navigation: DrawerNavigationProp<any, any>;
 };
 export default function Sequence({navigation}: HeaderProps) {
+  const {data, loading} = useQuery(GET_ALL_DOCTORS);
+  console.log(data.getAllDoctors);
+  const [selectedDoctor, setSelectedDoctor] = useState({});
+  console.log(selectedDoctor);
   return (
     <>
       <Header navigation={navigation} />
       <View style={styles.wrapper}>
         <View>
           <Text style={styles.title}>Choose a Doctor</Text>
-          <Picker options={[]} onSelect={e => console.log(e)} />
+          <Picker
+            options={data?.getAllDoctors || []}
+            onSelect={setSelectedDoctor}
+          />
         </View>
         <DragAndDrop
           rooms={[]}
