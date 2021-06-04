@@ -15,7 +15,7 @@ export default function Doctors() {
       setDoctors(data.getAllDoctors);
     }
   }, [data, loading]);
-  console.log(doctors);
+  
   return (
     <>
       {doctors.map(doctor => (

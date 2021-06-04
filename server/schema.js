@@ -1,5 +1,6 @@
 const { makeExecutableSchema } = require('graphql-tools');
 const { resolvers } = require('./resolvers');
+
 const schema = makeExecutableSchema({
     typeDefs: `    
     type Doctor {
@@ -40,7 +41,7 @@ const schema = makeExecutableSchema({
     input DoctorInput {
         id: ID
         name: String!
-        profession: String!
+        specialization: String!
         email: String!
         phone: String!
     }
@@ -82,7 +83,7 @@ const schema = makeExecutableSchema({
         getAllRooms:[Room]
     }
     type Mutation {
-        createDoctor(doctor: DoctorInput!): Doctor
+        createDoctor(doctor: DoctorInput): Doctor
         deleteDoctor(doctorId: ID!): ID
         updateDoctor(doctorId: ID!, doctorInput: DoctorInput!): Doctor        
         createAssistant(assistant: AssistantInput!): Assistant

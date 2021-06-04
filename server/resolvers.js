@@ -26,11 +26,10 @@ const rooms = [
     { id: 10, name: "3b", timeStatus: "", status: "", assignedDoctorId: 3 },
     { id: 11, name: "3c", timeStatus: "", status: "", assignedDoctorId: 3 },
     { id: 12, name: "3d", timeStatus: "", status: "", assignedDoctorId: 3 },
-]
+];
 const alerts = [
     { id: 1, name: "Doctor in", color: "", Role: "" }
 ];
-
 
 const createDoctor = (doctor) => {
     const id = doctors.length + 1;
@@ -39,13 +38,13 @@ const createDoctor = (doctor) => {
     };
 };
 const createAssistant = (assistant) => {
-    const id = assistant.length + 1;
+    const id = assistants.length + 1;
     return {
         id, ...assistant
     };
 };
 const createReceptionist = (receptionist) => {
-    const id = receptionist.length + 1;
+    const id = receptionists.length + 1;
     return {
         id, ...receptionist
     };
@@ -80,25 +79,23 @@ const resolvers = {
     },
 
     Mutation: {
-        createDoctor: ({ doctor }) => {
+        createDoctor: (_, {doctor}) => {        
             const doc = createDoctor(doctor)
             doctors.push(doc)
             return doc
         },
         deleteDoctor: ({ id }) => {
             return doctors.find(doctor => doctor.id !== id)
-        },
-
-        createAssistant: ({ assistant }) => {
+        },        
+        createAssistant: (_, {assistant}) => {
             const assist = createAssistant(assistant)
             assistants.push(assist)
             return assist
         },
         deleteAssistant: ({ id }) => {
             return assistants.find(assistant => assistant.id !== id)
-        },
-
-        createDoctor: ({ receptionist }) => {
+        },        
+        createReceptionist: (_, {receptionist}) => {
             const recept = createReceptionist(receptionist)
             receptionists.push(recept)
             return recept
@@ -116,6 +113,7 @@ const resolvers = {
             return rooms.filter(room => room.assignedDoctorId === +id);
         },
     },
+};
     Room: {
         assignedDoctor: (data) => {
             return doctors.find(el => el.id === data.assignedDoctorId)
