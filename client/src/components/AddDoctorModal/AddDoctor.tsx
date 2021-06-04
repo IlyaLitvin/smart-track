@@ -4,13 +4,8 @@ import {Input} from '../../common/inputs/Input';
 import {useQuery, useMutation} from '@apollo/client';
 import Plus from '../../assets/images/plus.svg';
 import {Button} from '../../common/button/Button';
-import { CREATE_DOCTOR } from '../../https/mutations/Doctor';
 
 export default function AddDoctor({show, onHide}) {
-    const [createDoctor, {loading, error}] = useMutation(CREATE_DOCTOR);
-
-    const doc = createDoctor({});
-
     return (
         <View style={styles.centeredView}>
           <Modal

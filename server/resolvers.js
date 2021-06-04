@@ -113,12 +113,13 @@ const resolvers = {
             return rooms.filter(room => room.assignedDoctorId === +id);
         },
     },
-};
     Room: {
         assignedDoctor: (data) => {
             return doctors.find(el => el.id === data.assignedDoctorId)
         }
     }
-}
+};
+
+
 
 module.exports = { resolvers }
