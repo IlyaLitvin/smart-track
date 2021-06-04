@@ -71,7 +71,7 @@ export default function Card({
 
   const panResponder = PanResponder.create({
     onMoveShouldSetPanResponder: (evt, gestureState) => {
-      return !(gestureState.dx < 2 && gestureState.dy < 2);
+      return !(gestureState.dx === 0 && gestureState.dy === 0);
     },
     onPanResponderMove: Animated.event(
       [
@@ -124,7 +124,7 @@ export default function Card({
       <View style={styles.ellipse}>
         <Text>{room.name}</Text>
       </View>
-      <Text style={styles.name}>{room.assignedDoctor}</Text>
+      <Text style={styles.name}>{room.assignedDoctor.name}</Text>
     </Animated.View>
   );
 }

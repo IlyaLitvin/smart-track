@@ -1,7 +1,7 @@
-const {makeExecutableSchema} = require('graphql-tools');
+const { makeExecutableSchema } = require('graphql-tools');
 const { resolvers } = require('./resolvers');
 const schema = makeExecutableSchema({
-    typeDefs:`    
+    typeDefs: `    
     type Doctor {
         id: ID
         name: String!
@@ -16,6 +16,7 @@ const schema = makeExecutableSchema({
         timeStatus: String!
         status: String!
         assignedDoctorId: Int!
+        assignedDoctor:Doctor
     }
     type Assistant {
         id: ID
@@ -77,7 +78,8 @@ const schema = makeExecutableSchema({
         getAllReceptionists: [Receptionist]
         getReceptionist(id: ID!): Receptionist
         getAllAlerts: [Alert]
-        getDoctorRooms(id: ID!): [Room]         
+        getDoctorRooms(id: ID!): [Room]
+        getAllRooms:[Room]
     }
     type Mutation {
         createDoctor(doctor: DoctorInput!): Doctor
@@ -87,14 +89,15 @@ const schema = makeExecutableSchema({
         deleteAssistant(assistantId: ID!): ID
         updateAssistant(assistantId: ID!, assistantInput: AssistantInput!): Assistant
         createReceptionist(receptionist: ReceptionistInput!): Receptionist
-        deleteReceptionist(receptionistId: ID!): ID
+        deleteReceptionist(receptionistId: ID!): Receptionist
         updateReceptionist(receptionistId: ID!, receptionistInput: ReceptionistInput!): Receptionist
         createAlert(alert: AlertInput!): Alert
         deleteAlert(alertId: ID!): ID
         updateAlert(alertId: ID!, alertInput: AlertInput!): Alert
+        assignRoom(room:RoomInput!):Room
     }
 `,
-resolvers
+    resolvers
 })
 
 module.exports = schema
