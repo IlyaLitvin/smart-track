@@ -5,7 +5,7 @@ export const GET_ALL_DOCTORS = gql`
         getAllDoctors {
             id, name, specialization, email, phone,
              rooms {
-                name
+                id, name
             }
         }
     }    

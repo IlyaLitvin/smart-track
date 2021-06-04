@@ -21,7 +21,7 @@ export default function Doctors() {
     {doctors.map(doctor=>
       <View key={doctor.id} style={styles.docWrapper}>
       <View style={{width: 36, height: "100%", backgroundColor: "#6AC7BE", opacity: 0.3, borderTopLeftRadius: 20 }}></View>          
-      <Text style={styles.postNumber}>1</Text>
+      <Text style={styles.postNumber}>{doctor.id}</Text>
       <View style={styles.mainBox}>
       <Text style={styles.name}>{doctor.name}</Text>
       <Text style={styles.mail}>{doctor.email}</Text>

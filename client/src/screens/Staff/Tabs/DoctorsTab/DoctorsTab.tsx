@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native';
 import {Button} from '../../../../common/button/Button';
-import Doctors from '../../../../components/Doctors/Doctors'
+import Doctors from '../../../../components/Doctors/Doctors';
+import DocModal from '../../../../components/AddDoctorModal/AddDoctor';
 
 export default function DoctorsTab() {
+  const [modalVisible, setModalVisible] = useState(false)
+
   return (
     <View
       style={{
@@ -16,10 +19,11 @@ export default function DoctorsTab() {
       }}>
       <Button
         onPress={() => {
-          console.log('s');
+          setModalVisible(true);
         }}
         text="Add new"
       />
+      <DocModal show={modalVisible} onHide={()=> setModalVisible(false)} />
       <View>
         <Doctors />
       </View>
