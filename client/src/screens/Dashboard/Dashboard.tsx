@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-    StyleSheet,
-    ScrollView
-} from 'react-native';
+import {StyleSheet, ScrollView} from 'react-native';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
 import Header from '../../components/Header/Header';
 import Doctor from '../../components/CurrentDoctor/CurrentDoctor';
@@ -12,23 +9,21 @@ type HeaderProps = {
 };
 
 export default function Dashboard({navigation}: HeaderProps) {
-    return (
-        <>
-        <Header navigation = {navigation}/>
-        <ScrollView style={styles.container}>
-            <Doctor />
-        </ScrollView>
-        </>
-    );
-};
+  return (
+    <>
+      <Header navigation={navigation} />
+      <ScrollView style={styles.container}>
+        <Doctor />
+      </ScrollView>
+    </>
+  );
+}
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#f6f6ff',      
-      paddingLeft: 16,
-      paddingRight: 16,
-    },
+  container: {
+    flex: 1,
+    backgroundColor: '#f6f6ff',
+    paddingLeft: 16,
+    paddingRight: 16,
+  },
 });
-
-
