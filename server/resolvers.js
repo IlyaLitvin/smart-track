@@ -74,6 +74,9 @@ const resolvers = {
         getAssistant: ({ id }) => {
             return assistants.find(assistant => assistant.id == id)
         },
+        getAllRooms: () => {
+            return rooms;
+        }
     },
 
     Mutation: {
@@ -100,15 +103,24 @@ const resolvers = {
             receptionists.push(recept)
             return recept
         },
-        deleteReceptionist: ({ id }) => {
-            return receptionists.find(receptionist => receptionist.id !== id)
+        deleteReceptionist: (_, { receptionistId }) => {
+            console.log(receptionistId)
+            return receptionists.filter(receptionist => receptionist.id !== +receptionistId);
         },
+        assignRoom: (room) => {
+            console.log(room, "This")
+        }
     },
     Doctor: {
-        rooms: ({ id }, args, context) => {
+        rooms: ({ id, ...props }, args, context) => {
             return rooms.filter(room => room.assignedDoctorId === +id);
         },
     },
+    Room: {
+        assignedDoctor: (data) => {
+            return doctors.find(el => el.id === data.assignedDoctorId)
+        }
+    }
 }
 
 module.exports = { resolvers }
