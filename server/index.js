@@ -11,7 +11,9 @@ app.use(cors());
 app.use(express.json());
 app.use(logger("dev"));
 
-app.use('/graphql', graphqlHTTP({
+app.use('/graphql', (res,req,next)=>{
+  next()
+},graphqlHTTP({
   graphiql: true,
   schema,
   rootValue: graphQlResolvers.resolvers

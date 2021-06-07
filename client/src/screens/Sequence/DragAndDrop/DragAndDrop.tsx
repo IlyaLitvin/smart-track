@@ -78,7 +78,7 @@ export default function DragAndDrop({
     width: 0,
     height: 0,
   });
-  console.log(rooms);
+  
   return (
     <View>
       <View style={styles.fieldWrapper}>

@@ -44,7 +44,7 @@ export interface InputProps extends TextInputProps {
 export const Input: React.FC<InputProps> = ({
   style,
   focusStyle,
-  label,
+  label='',
   ...props
 }) => {
   const [isFocus, setIsFocus] = useState(false);
@@ -73,6 +73,7 @@ export const Input: React.FC<InputProps> = ({
         }
         onFocus={toggleFocusStyle}
         onBlur={toggleDefaultStyle}
+        name={label}
         {...props}
       />
     </View>

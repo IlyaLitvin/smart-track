@@ -84,8 +84,10 @@ const resolvers = {
             doctors.push(doc)
             return doc
         },
-        deleteDoctor: ({ id }) => {
-            return doctors.find(doctor => doctor.id !== id)
+        deleteDoctor: (_, { doctorId }) => {
+            const doc = doctors.findIndex(doctor => +doctor.id === +doctorId);
+            doctors.splice(doc, 1)
+            return doctorId
         },        
         createAssistant: (_, {assistant}) => {
             const assist = createAssistant(assistant)
@@ -101,7 +103,6 @@ const resolvers = {
             return recept
         },
         deleteReceptionist: (_, { receptionistId }) => {
-            console.log(receptionistId)
             return receptionists.filter(receptionist => receptionist.id !== +receptionistId);
         },
         assignRoom: (room) => {

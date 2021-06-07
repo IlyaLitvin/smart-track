@@ -16,7 +16,7 @@ export default function CurrentDoctor() {
 
   return (
     <>
-      {doctors.map(doctor => (
+      {doctors.length ? doctors.map(doctor => (
         <View
           key={doctor.id}
           style={{
@@ -98,12 +98,12 @@ export default function CurrentDoctor() {
             </View>
           </View>
           <View style={styles.rooms}>
-            {doctor.rooms.map(room => (
+            {doctor.rooms.length ? doctor.rooms.map(room => (
               <Room key={room.id} room={room} />
-            ))}
+            )): <View><Text>No available rooms for this doctor yet</Text></View>}
           </View>
         </View>
-      ))}
+      )) : <View><Text>No doctors available yet</Text></View>}
     </>
   );
 }

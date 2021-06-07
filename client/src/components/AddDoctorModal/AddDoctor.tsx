@@ -1,67 +1,55 @@
-import React, {useState} from 'react';
-import { View, Text, Modal, TouchableOpacity, StyleSheet} from 'react-native';
-import {Input} from '../../common/inputs/Input';
-import {useQuery, useMutation} from '@apollo/client';
+import React, { useState } from 'react';
+import { View, Text, Modal, TouchableOpacity, StyleSheet } from 'react-native';
+import { Input } from '../../common/inputs/Input';
 import Plus from '../../assets/images/plus.svg';
-import {Button} from '../../common/button/Button';
-import { CREATE_DOCTOR } from '../../https/mutations/docAdd';
+import { Button } from '../../common/button/Button';
 
-export default function AddDoctor({show, onHide}) {
-  const [newDoctor] = useMutation(CREATE_DOCTOR);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [specialization, setSpecialization] = useState('');
+export default function AddDoctor({show, onHide, saveDoctor}) {
+  const [name, setName] = useState("");  
+  const [email, setEmail] = useState("");  
+  const [phone, setPhone] = useState("");  
+  const [specialization, setSpecialization] = useState("");  
 
   const addDoctor = () => {
-    newDoctor({
-      variables: {
-        doctor: {
-          name, email, phone, specialization
-        }
-      },
-    }).then(({data})=> {
-      console.log(data)
-      setName('')
-      setEmail('')
-      setPhone('')
-      setSpecialization('')
-    });
+    saveDoctor({name,email,phone,specialization})
     onHide();
+    setName('');
+    setPhone('');
+    setEmail('');
+    setSpecialization('');
   };
 
-    return (
-        <View style={styles.centeredView}>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={show}
-          >
-            <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                    <TouchableOpacity
-                    style={[styles.button, styles.buttonClose]}
-                    onPress={onHide}
-                    >
-                    <Text style={styles.textStyle}>X</Text>
-                    </TouchableOpacity> 
-                    <Text style={styles.addTitle}>Add new doctor</Text>
-                    <Input value={name} onChange={e=> setName(e.target.value)} style={{width: 300, marginBottom: 15}} label="Name"/>
-                    <Input value={email} onChange={e=> setEmail(e.target.value)} style={{width: 300, marginBottom: 15}} label="Email"/>
-                    <Input value={email} onChange={e=> setSpecialization(e.target.value)} style={{width: 300, marginBottom: 15}} label="Specialization"/>
-                    <Input value={phone} onChange={e=> setPhone(e.target.value)} style={{width: 300, marginBottom: 25}} label="Phone number"/>
-                    <Text style={styles.alerts}>Alerts</Text>
-                    <TouchableOpacity style={styles.addAlertBtn}>
-                        <Plus style={{width: 2, height: 2}} />
-                    </TouchableOpacity>
-                    <Button onPress={()=> addDoctor()} text="Save" />
-                </View>
-            </View>
-         </Modal>
-        </View>
-        
-    )
-}
+  return (
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={show}
+        >
+          <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                  <TouchableOpacity
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={onHide}
+                  >
+                  <Text style={styles.textStyle}>X</Text>
+                  </TouchableOpacity> 
+                  <Text style={styles.addTitle}>Add new doctor</Text>
+                  <Input value={name} onChangeText={setName} style={{width: 300, marginBottom: 15}} label="Name"/>
+                  <Input value={email} onChangeText={setEmail}  style={{width: 300, marginBottom: 15}} label="Email"/>
+                  <Input value={specialization} onChangeText={setSpecialization}  style={{width: 300, marginBottom: 15}} label="Specialization"/>
+                  <Input value={phone} onChangeText={setPhone}  style={{width: 300, marginBottom: 25}} label="Phone number"/>
+                  <Text style={styles.alerts}>Alerts</Text>
+                  <TouchableOpacity style={styles.addAlertBtn}>
+                      <Plus style={{width: 2, height: 2}} />
+                  </TouchableOpacity>
+                  <Button onPress={()=> addDoctor()} text="Save" />
+              </View>
+          </View>
+        </Modal>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
     centeredView: {

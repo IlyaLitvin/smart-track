@@ -6,7 +6,7 @@ export const CREATE_RECEPTIONIST = gql`
             id, name, email, phone
         }
     }
-`
+`;
 
 export const UPDATE_RECEPTIONIST = gql`
     mutation updateAssistant($receptionistId: ID!, $receptionistInput: ReceptionistInput!) {
@@ -14,11 +14,11 @@ export const UPDATE_RECEPTIONIST = gql`
             id, name, email, phone
         }
     }
-`
+`;
 
 export const DELETE_RECEPTIONIST = gql`
     mutation deleteReceptionist($receptionistId: ID!) {
         deleteReceptionist(receptionistId: $receptionistId) {
         }
     }
-`
+`;

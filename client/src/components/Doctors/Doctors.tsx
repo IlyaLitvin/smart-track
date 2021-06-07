@@ -5,16 +5,29 @@ import {GET_ALL_DOCTORS} from '../../https/query/Doctor';
 import EditSvg from '../../assets/images/Edit.svg';
 import TrashSvg from '../../assets/images/trash-2 2.svg';
 import DoctorAlerts from '../DoctorAlerts/DoctorAlerts';
+import { DELETE_DOCTOR } from '../../https/mutations/docRemove';
 
 export default function Doctors() {
-  const {data, loading, error} = useQuery(GET_ALL_DOCTORS);
+  const {data, loading, error, refetch} = useQuery(GET_ALL_DOCTORS);
   const [doctors, setDoctors] = useState([]);
+  const [ deleteDoctor ] = useMutation(DELETE_DOCTOR);
 
   useEffect(() => {
-    if (!loading) {
-      setDoctors(data.getAllDoctors);
-    }
-  }, [data, loading]);
+    if(!error) {
+      if (!loading) {
+        setDoctors(data.getAllDoctors);
+      }
+    } else {
+      console.log(error.message)
+    }    
+  }, [data, loading, error]);
+
+  const docDelete = (id) => {
+    deleteDoctor({
+      variables:{doctorId: id},
+      refetchQueries: [{query: GET_ALL_DOCTORS}]
+    });
+  };
   
   return (
     <>
@@ -28,7 +41,7 @@ export default function Doctors() {
               opacity: 0.3,
               borderTopLeftRadius: 20,
             }}></View>
-          <Text style={styles.postNumber}>1</Text>
+          <Text style={styles.postNumber}>{doctor.id}</Text>
           <View style={styles.mainBox}>
             <Text style={styles.name}>{doctor.name}</Text>
             <Text style={styles.mail}>{doctor.email}</Text>
@@ -53,7 +66,7 @@ export default function Doctors() {
             <TouchableOpacity>
               <EditSvg style={{width: 15, height: 15, marginRight: 29}} />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=> docDelete(doctor.id)}>
               <TrashSvg style={{width: 20, height: 20}} />
             </TouchableOpacity>
           </View>
