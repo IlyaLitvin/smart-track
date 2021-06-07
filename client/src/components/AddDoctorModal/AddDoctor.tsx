@@ -4,8 +4,32 @@ import {Input} from '../../common/inputs/Input';
 import {useQuery, useMutation} from '@apollo/client';
 import Plus from '../../assets/images/plus.svg';
 import {Button} from '../../common/button/Button';
+import { CREATE_DOCTOR } from '../../https/mutations/docAdd';
 
 export default function AddDoctor({show, onHide}) {
+  const [newDoctor] = useMutation(CREATE_DOCTOR);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [specialization, setSpecialization] = useState('');
+
+  const addDoctor = () => {
+    newDoctor({
+      variables: {
+        doctor: {
+          name, email, phone, specialization
+        }
+      },
+    }).then(({data})=> {
+      console.log(data)
+      setName('')
+      setEmail('')
+      setPhone('')
+      setSpecialization('')
+    });
+    onHide();
+  };
+
     return (
         <View style={styles.centeredView}>
           <Modal
@@ -22,14 +46,15 @@ export default function AddDoctor({show, onHide}) {
                     <Text style={styles.textStyle}>X</Text>
                     </TouchableOpacity> 
                     <Text style={styles.addTitle}>Add new doctor</Text>
-                    <Input style={{width: 300, marginBottom: 15}} label="Name"/>
-                    <Input style={{width: 300, marginBottom: 15}} label="Email"/>
-                    <Input style={{width: 300, marginBottom: 25}} label="Phone number"/>
+                    <Input value={name} onChange={e=> setName(e.target.value)} style={{width: 300, marginBottom: 15}} label="Name"/>
+                    <Input value={email} onChange={e=> setEmail(e.target.value)} style={{width: 300, marginBottom: 15}} label="Email"/>
+                    <Input value={email} onChange={e=> setSpecialization(e.target.value)} style={{width: 300, marginBottom: 15}} label="Specialization"/>
+                    <Input value={phone} onChange={e=> setPhone(e.target.value)} style={{width: 300, marginBottom: 25}} label="Phone number"/>
                     <Text style={styles.alerts}>Alerts</Text>
                     <TouchableOpacity style={styles.addAlertBtn}>
                         <Plus style={{width: 2, height: 2}} />
                     </TouchableOpacity>
-                    <Button onPress={onHide} text="Save" />
+                    <Button onPress={()=> addDoctor()} text="Save" />
                 </View>
             </View>
          </Modal>

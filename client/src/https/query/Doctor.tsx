@@ -9,6 +9,7 @@ export const GET_ALL_DOCTORS = gql`
       email
       phone
       rooms {
+        id
         name
         assignedDoctor {
           name
@@ -19,7 +20,7 @@ export const GET_ALL_DOCTORS = gql`
 `;
 
 export const GET_ALL_ROOMS = gql`
-  {
+ query GetAllRooms {
     getAllRooms {
       id
       name
@@ -31,7 +32,7 @@ export const GET_ALL_ROOMS = gql`
 `;
 
 export const GET_CURRENT_DOCTOR = gql`
-  query getDoctor($id: ID!) {
+  query getDoctor($id: ID) {
     getDoctor(id: $id) {
       id
       name
