@@ -6,7 +6,7 @@ export const GET_ALL_RECEPTIONISTS = gql`
             id, name, email, phone
         }
     }    
-`
+`;
 
 export const GET_CURRENT_RECEPTIONISTS = gql`
     query getReceptionist($id: ID!) {
@@ -14,4 +14,4 @@ export const GET_CURRENT_RECEPTIONISTS = gql`
             id, name, email, phone
         }
     }    
-`
+`;

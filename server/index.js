@@ -16,7 +16,11 @@ app.use('/graphql', (res,req,next)=>{
 },graphqlHTTP({
   graphiql: true,
   schema,
-  rootValue: graphQlResolvers.resolvers
+  rootValue: graphQlResolvers.resolvers,
+  customFormatErrorFn: (err) => {
+    console.log(err)
+    return err
+  }
 }));
 
 const start = () => {

@@ -8,4 +8,4 @@ query getAllAlerts() {
         id, name, color, role
     }
 }    
-`
+`;

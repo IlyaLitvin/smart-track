@@ -3,14 +3,14 @@ import {View} from 'react-native';
 import {Button} from '../../../../common/button/Button';
 import Doctors from '../../../../components/Doctors/Doctors';
 import DocModal from '../../../../components/AddDoctorModal/AddDoctor';
-import { CREATE_DOCTOR } from '../../../../https/mutations/docAdd';
+import { CREATE_DOCTOR } from '../../../../https/mutations/Doctor';
 import { useMutation } from '@apollo/client';
 import { GET_ALL_DOCTORS } from '../../../../https/query/Doctor';
 
 export default function DoctorsTab() {
   const [modalVisible, setModalVisible] = useState(false);
   const [newDoctor] = useMutation(CREATE_DOCTOR, {refetchQueries: [{ query: GET_ALL_DOCTORS }]});
-
+ 
   const saveDoctor=(item)=>{
     newDoctor({
       variables: {

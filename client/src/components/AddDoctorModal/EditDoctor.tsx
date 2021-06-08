@@ -11,18 +11,16 @@ const docData = {
   specialization: "",
 };
 
-export default function AddDoctor({show, onHide, doctorUpdate, saveDoctor, doctor = null}) {
-  const [data, setData] = useState(doctor || docData);
+export default function AddDoctor({show, onHide, saveDoctor, doctorUpdate}) {
+  const [data, setData] = useState(docData);
 
   const addDoctor = () => {
-    if(doctor) {
-      doctorUpdate(data.id, data)
-    } else {
-      saveDoctor(data);
-      setData(docData);
-    };
-    onHide();    
+    saveDoctor(data);
+    onHide();
+    setData(docData);
   };
+  
+
 
   const newDoc = (val, key) => {
     setData({
@@ -122,31 +120,3 @@ const styles = StyleSheet.create({
         marginBottom: 31
     },
   });
-
-{/* <View style={styles.modalContainer}>
-            <Modal
-                style={styles.modalContainer}
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-            >
-                <TouchableOpacity
-                    onPress={()=>history.goBack()}
-                >
-                    <Text>Назад</Text> 
-                </TouchableOpacity>  
-                <Text>Add new doctor</Text>
-                <Input label="Name"/>
-                <Input label="Email"/>
-                <Input label="Phone number"/>
-            </Modal>
-        </View> */}
-
-// const styles = StyleSheet.create({
-//     modalContainer: {
-//         flex: 1,
-//         backgroundColor: "#fff",
-//         justifyContent: "center",
-//         alignItems: "center"
-//     },
-// });
