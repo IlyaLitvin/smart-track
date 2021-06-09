@@ -13,7 +13,7 @@ export default function Doctors() {
         setDoctors(data.getAllDoctors);
       }
     } else {
-      console.log(error.message)
+      console.log(error.message);
     }    
   }, [data, loading, error]);
   
