@@ -90,7 +90,7 @@ const schema = makeExecutableSchema({
         deleteAssistant(assistantId: ID): ID
         updateAssistant(assistantId: ID, assistantInput: AssistantInput): Assistant
         createReceptionist(receptionist: ReceptionistInput): Receptionist
-        deleteReceptionist(receptionistId: ID): Receptionist
+        deleteReceptionist(receptionistId: ID): ID
         updateReceptionist(receptionistId: ID, receptionistInput: ReceptionistInput): Receptionist
         createAlert(alert: AlertInput): Alert
         deleteAlert(alertId: ID): ID

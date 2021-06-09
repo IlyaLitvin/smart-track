@@ -103,17 +103,27 @@ const resolvers = {
             const assist =  assistants.findIndex(assistant => +assistant.id === +assistantId);
             assistants.splice(assist, 1);
             return assistantId
-        },        
+        },
+        updateAssistant: (_, {assistantId, assistantInput})=>{
+            const newAssist = assistants.findIndex(assist=> +assist.id === +assistantId);
+            assistants.splice(newAssist, 1, {id:assistantId, ...assistantInput});
+            return { id:assistantId, ...assistantInput };
+        },                
         createReceptionist: (_, {receptionist}) => {
             const recept = createReceptionist(receptionist)
             receptionists.push(recept)
             return recept
         },
-        deleteReceptionist: (_, { receptionistId }) => {
+        deleteReceptionist: ({ receptionistId }) => {
             const recept = receptionists.findIndex(receptionist => +receptionist.id === +receptionistId);
             receptionists.splice(recept, 1);
             return recept
         },
+        updateReceptionist: (_, {receptionistId, receptionistInput})=>{
+            const newRecept = receptionists.findIndex(recept=> +recept.id === +receptionistId);
+            receptionists.splice(newRecept, 1, {id:receptionistId, ...receptionistInput});
+            return { id:receptionistId, ...receptionistInput };
+        }, 
         assignRoom: (room) => {
             console.log(room, "This")
         }
