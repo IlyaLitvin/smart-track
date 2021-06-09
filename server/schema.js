@@ -85,14 +85,6 @@ const schema = makeExecutableSchema({
 
         getAllAlerts: [Alert]
 
-        getDoctor(id: ID): Doctor
-        getAllAssistants: [Assistant]
-        getAssistant(id: ID): Assistant
-        getAllReceptionists: [Receptionist]
-        getReceptionist(id: ID): Receptionist
-        getAllAlerts: [Alert]
-        getDoctorRooms(id: ID): [Room]
-
         getAllRooms:[Room]
     }
     type Mutation {
