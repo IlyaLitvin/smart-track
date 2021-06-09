@@ -12,16 +12,15 @@ export const CREATE_RECEPTIONIST = gql`
 `;
 
 export const UPDATE_RECEPTIONIST = gql`
-    mutation updateAssistant($receptionistId: ID!, $receptionistInput: ReceptionistInput!) {
-        updateAssistant(receptionistId: $receptionistId, receptionistInput: $receptionistInput!) {
+    mutation UpdateAssistant($receptionistId: ID, $receptionistInput: ReceptionistInput) {
+        updateAssistant(receptionistId: $receptionistId, receptionistInput: $receptionistInput) {
             id, name, email, phone
         }
     }
 `;
 
 export const DELETE_RECEPTIONIST = gql`
-    mutation deleteReceptionist($receptionistId: ID!) {
-        deleteReceptionist(receptionistId: $receptionistId) {
-        }
+    mutation DeleteReceptionist($receptionistId: ID) {
+        deleteReceptionist(receptionistId: $receptionistId)
     }
 `;

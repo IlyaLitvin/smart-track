@@ -14,16 +14,16 @@ export const CREATE_DOCTOR = gql`
 `;
 
 export const UPDATE_DOCTOR = gql`
-    mutation updateDoctor($doctorId: ID!, $doctorInput: DoctorInput!) {
-        updateDoctor(doctorId: $doctorId, doctorInput: $doctorInput!) {
-            id, name, specialization, email, phone, rooms
-        }
+  mutation updateDoc($doctorId:ID!, $doctorInput: DoctorInput) {
+     updateDoctor(doctorId: $doctorId, doctorInput: $doctorInput) {
+       name, specialization,email,phone,id
     }
+  }
 `;
 
 export const DELETE_DOCTOR = gql`
-    mutation createDoctor($doctorId: ID!) {
-        createDoctor(doctorId: $doctorId) {
-        }
+    mutation DeleteDoctor($doctorId: ID) {
+        deleteDoctor(doctorId: $doctorId)
     }
 `;
+

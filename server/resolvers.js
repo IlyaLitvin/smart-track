@@ -86,24 +86,35 @@ const resolvers = {
             doctors.push(doc)
             return doc
         },
-        deleteDoctor: ({ id }) => {
-            return doctors.find(doctor => doctor.id !== id)
+        deleteDoctor: (_, { doctorId }) => {
+            const doc = doctors.findIndex(doctor => +doctor.id === +doctorId);
+            doctors.splice(doc, 1)
+            return doctorId
         },
-        createAssistant: (_, { assistant }) => {
+        updateDoctor: (_, {doctorId, doctorInput})=>{
+            const newDoc = doctors.findIndex(doctor=> +doctor.id === +doctorId);
+            doctors.splice(newDoc, 1, {id:doctorId, ...doctorInput});
+            return { id:doctorId, ...doctorInput };
+        },        
+        createAssistant: (_, {assistant}) => {
             const assist = createAssistant(assistant)
             assistants.push(assist)
             return assist
         },
-        deleteAssistant: ({ id }) => {
-            return assistants.find(assistant => assistant.id !== id)
-        },
-        createReceptionist: (_, { receptionist }) => {
+        deleteAssistant: ({ assistantId }) => {
+            const assist =  assistants.findIndex(assistant => +assistant.id === +assistantId);
+            assistants.splice(assist, 1);
+            return assistantId
+        },        
+        createReceptionist: (_, {receptionist}) => {
             const recept = createReceptionist(receptionist)
             receptionists.push(recept)
             return recept
         },
         deleteReceptionist: (_, { receptionistId }) => {
-            return receptionists.filter(receptionist => receptionist.id !== +receptionistId);
+            const recept = receptionists.findIndex(receptionist => +receptionist.id === +receptionistId);
+            receptionists.splice(recept, 1);
+            return recept
         },
 
         assignRoomToDoctor: (_, { room }) => {

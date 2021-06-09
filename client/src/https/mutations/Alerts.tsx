@@ -12,16 +12,16 @@ export const CREATE_ALERT = gql`
 `;
 
 export const UPDATE_ALERT = gql`
-    mutation alertId($alertId: ID!, $alertInput: AlertInput!) {
-        alertId(alertId: $alertId, alertInput: $alertInput!) {
+    mutation alertId($alertId: ID, $alertInput: AlertInput) {
+        alertId(alertId: $alertId, alertInput: $alertInput) {
             id, name, color, role
         }
     }
 `;
 
 export const DELETE_ALERT = gql`
-    mutation deleteAlert($alertId: ID!) {
-        deleteAlert(alertId: $alertId) {
-        }
+    mutation deleteAlert($alertId: ID) {
+        deleteAlert(alertId: $alertId) 
     }
 `;
+

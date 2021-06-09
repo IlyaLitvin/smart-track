@@ -80,6 +80,7 @@ export default function DragAndDrop({
     width: 0,
     height: 0,
   });
+
   return (
     <View>
       <View style={styles.fieldWrapper}>

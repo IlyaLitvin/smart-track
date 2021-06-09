@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {View} from 'react-native';
 import {Button} from '../../../../common/button/Button';
-import Receptionist from '../../../../components/Receptionist/Receptionist'
+import Receptionists from '../../../../components/Receptionist/Receptionists';
+import ReceptionistsModal from '../../../../components/Modals/ReceptionistsModal';
+import { useMutation } from '@apollo/client';
+import { CREATE_RECEPTIONIST } from '../../../../https/mutations/Receptionist';
+import { GET_ALL_RECEPTIONISTS } from '../../../../https/query/Receptionist';
 
 export default function ReceptionistTab() {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [newReceptionist] = useMutation(CREATE_RECEPTIONIST, {refetchQueries: [{query: GET_ALL_RECEPTIONISTS}]});
+
+  const saveReceptionist = (item) => {
+    newReceptionist({
+      variables: {
+        receptionist: item
+      },
+    });
+  };
+
   return (
     <View
       style={{
@@ -19,8 +34,9 @@ export default function ReceptionistTab() {
         text="Add new"
       />
       <View>
-        <Receptionist />
+        <Receptionists />
       </View>
+      <ReceptionistsModal receptUpdate show={modalVisible} saveReceptionist={saveReceptionist} onHide={()=>setModalVisible(false)} />
     </View>
   );
 }

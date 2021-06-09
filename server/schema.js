@@ -73,6 +73,7 @@ const schema = makeExecutableSchema({
 
     type Query {
         getAllDoctors: [Doctor]
+
         getDoctor(id: ID!): Doctor
         getDoctorRooms(id: ID!): [Room]
 
@@ -83,6 +84,14 @@ const schema = makeExecutableSchema({
         getReceptionist(id: ID!): Receptionist
 
         getAllAlerts: [Alert]
+
+        getDoctor(id: ID): Doctor
+        getAllAssistants: [Assistant]
+        getAssistant(id: ID): Assistant
+        getAllReceptionists: [Receptionist]
+        getReceptionist(id: ID): Receptionist
+        getAllAlerts: [Alert]
+        getDoctorRooms(id: ID): [Room]
 
         getAllRooms:[Room]
     }
@@ -96,7 +105,7 @@ const schema = makeExecutableSchema({
         updateAssistant(assistantId: ID!, assistantInput: AssistantInput!): Assistant
 
         createReceptionist(receptionist: ReceptionistInput!): Receptionist
-        deleteReceptionist(receptionistId: ID!): Receptionist
+        deleteReceptionist(receptionistId: ID!): ID
         updateReceptionist(receptionistId: ID!, receptionistInput: ReceptionistInput!): Receptionist
 
         createAlert(alert: AlertInput!): Alert
