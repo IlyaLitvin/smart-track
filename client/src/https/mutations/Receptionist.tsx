@@ -1,11 +1,14 @@
-import {gql} from '@apollo/client'
+import {gql} from '@apollo/client';
 
 export const CREATE_RECEPTIONIST = gql`
-    mutation CreateReceptionist($receptionist: ReceptionistInput) {
-        createReceptionist(receptionist: $receptionist) {
-            id, name, email, phone
-        }
+  mutation createReceptionist($receptionist: ReceptionistInput!) {
+    createReceptionist(receptionist: $receptionist) {
+      id
+      name
+      email
+      phone
     }
+  }
 `;
 
 export const UPDATE_RECEPTIONIST = gql`

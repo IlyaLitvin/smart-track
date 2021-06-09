@@ -1,11 +1,14 @@
-import {gql} from '@apollo/client'
+import {gql} from '@apollo/client';
 
 export const CREATE_ASSISTANT = gql`
-    mutation CreateAssistant($assistant: AssistantInput) {
-        createAssistant(assistant: $assistant) {
-            id, name, email, phone
-        }
+  mutation createAssistant($assistant: AssistantInput!) {
+    createAssistant(assistant: $assistant) {
+      id
+      name
+      email
+      phone
     }
+  }
 `;
 
 export const UPDATE_ASSISTANT= gql`
@@ -21,3 +24,4 @@ export const DELETE_ASSISTANT = gql`
         deleteAssistant(assistantId: $assistantId)
     }
 `;
+
