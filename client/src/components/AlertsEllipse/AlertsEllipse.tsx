@@ -12,6 +12,19 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function AlertsEllipse({color}) {
-  return <View style={styles.ellipse} />;
+type AlertsEllipseProps = {
+  color: string;
+};
+
+export default function AlertsEllipse({color, style}: AlertsEllipseProps) {
+  return (
+    <View
+      style={{
+        ...styles.ellipse,
+        borderColor: color.replace('0.19', '1'),
+        backgroundColor: color,
+        ...style,
+      }}
+    />
+  );
 }

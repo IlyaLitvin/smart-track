@@ -32,9 +32,12 @@ let rooms = [
     { id: 11, name: "3c", timeStatus: "", status: "", assignedDoctorId: 3 },
     { id: 12, name: "3d", timeStatus: "", status: "", assignedDoctorId: 3 },
 ];
-const alerts = [
-    { id: 1, name: "Doctor in", color: "", Role: "" }
-];
+
+const colors = ["rgba(238, 88, 151, 0.19)", "rgba(134, 232, 238, 0.19)", "rgba(250, 112, 12, 0.19)", "rgba(228, 133, 243, 0.19)", "rgba(196, 230, 233, 0.19)", "rgba(120, 242, 117, 0.19)"]
+
+const alerts = Array.apply(null, { length: 35 }).map(() => ({ id: Math.floor(Math.random() * 5000), name: "Doctor in", color: colors[Math.floor(Math.random() * 6)], textColor: "" }))
+
+
 
 const createDoctor = (doctor) => {
     const id = Math.floor(Math.random()*5000);
@@ -80,7 +83,14 @@ const resolvers = {
         },
         getAllRooms: () => {
             return rooms;
-        }
+        },
+        getAllAlerts: () => {
+            return alerts;
+        },
+        getAllColorsAlerts: () => {
+            return colors.map((color, index) => ({ id: index, value: color }))
+        },
+
     },
 
     Mutation: {
@@ -94,27 +104,27 @@ const resolvers = {
             doctors.splice(doc, 1)
             return doctorId
         },
-        updateDoctor: (_, {doctorId, doctorInput})=>{
-            const newDoc = doctors.findIndex(doctor=> +doctor.id === +doctorId);
-            doctors.splice(newDoc, 1, {id:doctorId, ...doctorInput});
-            return { id:doctorId, ...doctorInput };
-        },        
-        createAssistant: (_, {assistant}) => {
+        updateDoctor: (_, { doctorId, doctorInput }) => {
+            const newDoc = doctors.findIndex(doctor => +doctor.id === +doctorId);
+            doctors.splice(newDoc, 1, { id: doctorId, ...doctorInput });
+            return { id: doctorId, ...doctorInput };
+        },
+        createAssistant: (_, { assistant }) => {
             const assist = createAssistant(assistant)
             assistants.push(assist)
             return assist
         },
         deleteAssistant: ({ assistantId }) => {
-            const assist =  assistants.findIndex(assistant => +assistant.id === +assistantId);
+            const assist = assistants.findIndex(assistant => +assistant.id === +assistantId);
             assistants.splice(assist, 1);
             return assistantId
         },
-        updateAssistant: (_, {assistantId, assistantInput})=>{
-            const newAssist = assistants.findIndex(assist=> +assist.id === +assistantId);
-            assistants.splice(newAssist, 1, {id:assistantId, ...assistantInput});
-            return { id:assistantId, ...assistantInput };
-        },                
-        createReceptionist: (_, {receptionist}) => {
+        updateAssistant: (_, { assistantId, assistantInput }) => {
+            const newAssist = assistants.findIndex(assist => +assist.id === +assistantId);
+            assistants.splice(newAssist, 1, { id: assistantId, ...assistantInput });
+            return { id: assistantId, ...assistantInput };
+        },
+        createReceptionist: (_, { receptionist }) => {
             const recept = createReceptionist(receptionist)
             receptionists.push(recept)
             return recept
@@ -124,10 +134,10 @@ const resolvers = {
             receptionists.splice(recept, 1);
             return recept
         },
-        updateReceptionist: (_, {receptionistId, receptionistInput})=>{
-            const newRecept = receptionists.findIndex(recept=> +recept.id === +receptionistId);
-            receptionists.splice(newRecept, 1, {id:receptionistId, ...receptionistInput});
-            return { id:receptionistId, ...receptionistInput };
+        updateReceptionist: (_, { receptionistId, receptionistInput }) => {
+            const newRecept = receptionists.findIndex(recept => +recept.id === +receptionistId);
+            receptionists.splice(newRecept, 1, { id: receptionistId, ...receptionistInput });
+            return { id: receptionistId, ...receptionistInput };
         },
         assignRoomToDoctor: (_, { room }) => {
             rooms = rooms.map(el => +el.id === +room.id ? { ...el, ...room } : el)
@@ -137,6 +147,20 @@ const resolvers = {
             rooms = rooms.filter(room => +room.id !== +id);
             return id
         },
+        createAlert: (_, { alert }) => {
+            const item = { ...alert };
+            alerts.forEach(alert => {
+                if (alert.name[0] === item.name && alert.color === item.color) {
+                    item.textColor = colors[Math.floor(Math.random() * 6)]
+                } else {
+                    item.textColor = item.color;
+                }
+            })
+            item.id = Math.floor(Math.random() * 5000)
+            alerts.push(item)
+            return item;
+
+        }
     },
     Doctor: {
         rooms: ({ id, ...props }, args, context) => {

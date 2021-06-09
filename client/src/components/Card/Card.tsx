@@ -4,9 +4,10 @@ import EditSvg from '../../assets/images/Edit.svg';
 import AlertsEllipse from '../AlertsEllipse/AlertsEllipse';
 interface CardProps {
   item: {
-    id: Number;
+    id: number;
     name: String;
     color: String;
+    index: number;
   };
 }
 
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderTopLeftRadius: 20,
     borderBottomRightRadius: 20,
-    marginTop: 15,
+    marginBottom: 15,
   },
   key: {
     width: '10%',
@@ -53,17 +54,17 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Card({item}: CardProps) {
+export default function Card({item, index}: CardProps) {
   return (
     <View style={styles.wrapper}>
       <View style={styles.key}>
-        <Text style={styles.text}>{item.id}</Text>
+        <Text style={styles.text}>{index}</Text>
       </View>
       <View style={styles.wrapperBody}>
         <Text style={styles.text}>{item.name}</Text>
         <View>
           <View style={styles.wrapperOptins}>
-            <AlertsEllipse />
+            <AlertsEllipse color={item.color} />
             <EditSvg style={styles.svg} />
           </View>
         </View>
