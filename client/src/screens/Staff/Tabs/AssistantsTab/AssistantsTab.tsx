@@ -1,10 +1,25 @@
-import React from 'react';
-import {View} from 'react-native';
-import {Button} from '../../../../common/button/Button';
-import Assistant from '../../../../components/Assistant/Assistant'
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import { Button } from '../../../../common/button/Button';
+import { useMutation } from '@apollo/client';
+import { CREATE_ASSISTANT } from '../../../../https/mutations/Assistant';
+import { GET_ALL_ASSISTANTS } from '../../../../https/query/Assistant';
+import Assistants from '../../../../components/Assistant/Assistants';
+import AssistantsModal from '../../../../components/Modals/AssistantsModal';
 
 
 export default function AssistantsTab() {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [newAssistant] = useMutation(CREATE_ASSISTANT, {refetchQueries: [{query: GET_ALL_ASSISTANTS}]});
+
+  const saveAssistant = (item) => {
+    newAssistant({
+      variables: {
+        assistant: item
+      },
+    });
+  };
+
   return (
     <View
       style={{
@@ -15,13 +30,14 @@ export default function AssistantsTab() {
       }}>
       <Button
         onPress={() => {
-          console.log('s');
+          setModalVisible(true)
         }}
         text="Add new"
       />
       <View>
-        <Assistant />
+        <Assistants />
       </View>
+      <AssistantsModal assistantUpdate show={modalVisible} saveAssistant={saveAssistant} onHide={()=>setModalVisible(false)} />
     </View>
   );
 }

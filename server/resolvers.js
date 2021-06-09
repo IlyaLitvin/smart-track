@@ -1,3 +1,5 @@
+const { getResponseKeyFromInfo } = require("@graphql-tools/utils");
+
 const doctors = [
     { id: 1, name: "Benedict Cumberbatch", specialization: "Therapist", email: "Benedict@gmail.com", phone: "0959423146" },
     { id: 2, name: "Harry Styles", specialization: "Therapist", email: "Harry@gmail.com", phone: "0959423146" },
@@ -13,7 +15,7 @@ const receptionists = [
     { id: 2, name: "Mango Sample", email: "Mango@gmail.com", phone: "0959423146" },
     { id: 3, name: "Josh Sample", email: "Josh@gmail.com", phone: "0959423146" },
 ];
-const rooms = [
+let rooms = [
     { id: 1, name: "1a", timeStatus: "", status: "", assignedDoctorId: 1 },
     { id: 2, name: "1b", timeStatus: "", status: "", assignedDoctorId: 1 },
     { id: 3, name: "1c", timeStatus: "", status: "", assignedDoctorId: 1 },
@@ -79,7 +81,7 @@ const resolvers = {
     },
 
     Mutation: {
-        createDoctor: (_, {doctor}) => {        
+        createDoctor: (_, { doctor }) => {
             const doc = createDoctor(doctor)
             doctors.push(doc)
             return doc
@@ -123,14 +125,19 @@ const resolvers = {
             const newRecept = receptionists.findIndex(recept=> +recept.id === +receptionistId);
             receptionists.splice(newRecept, 1, {id:receptionistId, ...receptionistInput});
             return { id:receptionistId, ...receptionistInput };
-        }, 
-        assignRoom: (room) => {
-            console.log(room, "This")
-        }
+        },
+        assignRoomToDoctor: (_, { room }) => {
+            rooms = rooms.map(el => +el.id === +room.id ? { ...el, ...room } : el)
+            return rooms.find(el => el.id === room.id)
+        },
+        deleteRoom: (_, { id }) => {
+            rooms = rooms.filter(room => +room.id !== +id);
+            return id
+        },
     },
     Doctor: {
         rooms: ({ id, ...props }, args, context) => {
-            return rooms.filter(room => room.assignedDoctorId === +id);
+            return rooms.filter(room => +room.assignedDoctorId === +id);
         },
     },
     Room: {
@@ -139,7 +146,5 @@ const resolvers = {
         }
     }
 };
-
-
 
 module.exports = { resolvers }

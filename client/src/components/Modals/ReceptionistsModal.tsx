@@ -4,27 +4,26 @@ import { Input } from '../../common/inputs/Input';
 import Plus from '../../assets/images/plus.svg';
 import { Button } from '../../common/button/Button';
 
-const docData = {
+const receptData = {
   name: "",
   email: "",
   phone: "",
-  specialization: "",
 };
 
-export default function AddDoctor({show, onHide, doctorUpdate, saveDoctor, doctor = null}) {
-  const [data, setData] = useState(doctor || docData);
+export default function ReceptionistsModal({show, onHide, saveReceptionist, receptUpdate, receptionist = null}) {
+  const [data, setData] = useState(receptionist || receptData);
 
-  const addDoctor = () => {
-    if(doctor) {
-      doctorUpdate(data.id, data)
+  const addReceptionist = () => {
+    if(receptionist) {
+        receptUpdate(data.id, data)
     } else {
-      saveDoctor(data);
-      setData(docData);
+        saveReceptionist(data);
+        setData(receptData);
     };
     onHide();    
   };
 
-  const newDoc = (val, key) => {
+  const newReceptionist = (val, key) => {
     setData({
       ...data,
       [key]: val,
@@ -47,15 +46,14 @@ export default function AddDoctor({show, onHide, doctorUpdate, saveDoctor, docto
                   <Text style={styles.textStyle}>X</Text>
                   </TouchableOpacity> 
                   <Text style={styles.addTitle}>Add new doctor</Text>
-                  <Input value={data.name} handleChange={(text) => newDoc(text, 'name')} style={{width: 300, marginBottom: 15}} label="Name"/>
-                  <Input value={data.email} handleChange={(text) => newDoc(text, 'email')} style={{width: 300, marginBottom: 15}} label="Email"/>
-                  <Input value={data.specialization} handleChange={(text) => newDoc(text, 'specialization')} style={{width: 300, marginBottom: 15}} label="Specialization"/>
-                  <Input value={data.phone} handleChange={(text) => newDoc(text, 'phone')} style={{width: 300, marginBottom: 25}} label="Phone number"/>
+                  <Input value={data.name} handleChange={(text) => newReceptionist(text, 'name')} style={{width: 300, marginBottom: 15}} label="Name"/>
+                  <Input value={data.email} handleChange={(text) => newReceptionist(text, 'email')} style={{width: 300, marginBottom: 15}} label="Email"/>
+                  <Input value={data.phone} handleChange={(text) => newReceptionist(text, 'phone')} style={{width: 300, marginBottom: 25}} label="Phone number"/>
                   <Text style={styles.alerts}>Alerts</Text>
                   <TouchableOpacity style={styles.addAlertBtn}>
                       <Plus style={{width: 2, height: 2}} />
                   </TouchableOpacity>
-                  <Button onPress={addDoctor} text="Save" />
+                  <Button onPress={addReceptionist} text="Save" />
               </View>
           </View>
         </Modal>
@@ -122,31 +120,3 @@ const styles = StyleSheet.create({
         marginBottom: 31
     },
   });
-
-{/* <View style={styles.modalContainer}>
-            <Modal
-                style={styles.modalContainer}
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-            >
-                <TouchableOpacity
-                    onPress={()=>history.goBack()}
-                >
-                    <Text>Назад</Text> 
-                </TouchableOpacity>  
-                <Text>Add new doctor</Text>
-                <Input label="Name"/>
-                <Input label="Email"/>
-                <Input label="Phone number"/>
-            </Modal>
-        </View> */}
-
-// const styles = StyleSheet.create({
-//     modalContainer: {
-//         flex: 1,
-//         backgroundColor: "#fff",
-//         justifyContent: "center",
-//         alignItems: "center"
-//     },
-// });

@@ -4,25 +4,26 @@ import { Input } from '../../common/inputs/Input';
 import Plus from '../../assets/images/plus.svg';
 import { Button } from '../../common/button/Button';
 
-const docData = {
+const assistantData = {
   name: "",
   email: "",
   phone: "",
-  specialization: "",
 };
 
-export default function AddDoctor({show, onHide, saveDoctor, doctorUpdate}) {
-  const [data, setData] = useState(docData);
+export default function AssisantsModal({show, onHide, assistantUpdate, saveAssistant, assistant = null}) {
+  const [data, setData] = useState(assistant || assistantData);
 
-  const addDoctor = () => {
-    saveDoctor(data);
-    onHide();
-    setData(docData);
+  const addAssistant = () => {
+    if(assistant) {
+        assistantUpdate(data.id, data)
+    } else {
+        saveAssistant(data);
+        setData(assistantData);
+    };
+    onHide();    
   };
-  
 
-
-  const newDoc = (val, key) => {
+  const newAssistant = (val, key) => {
     setData({
       ...data,
       [key]: val,
@@ -45,15 +46,14 @@ export default function AddDoctor({show, onHide, saveDoctor, doctorUpdate}) {
                   <Text style={styles.textStyle}>X</Text>
                   </TouchableOpacity> 
                   <Text style={styles.addTitle}>Add new doctor</Text>
-                  <Input value={data.name} handleChange={(text) => newDoc(text, 'name')} style={{width: 300, marginBottom: 15}} label="Name"/>
-                  <Input value={data.email} handleChange={(text) => newDoc(text, 'email')} style={{width: 300, marginBottom: 15}} label="Email"/>
-                  <Input value={data.specialization} handleChange={(text) => newDoc(text, 'specialization')} style={{width: 300, marginBottom: 15}} label="Specialization"/>
-                  <Input value={data.phone} handleChange={(text) => newDoc(text, 'phone')} style={{width: 300, marginBottom: 25}} label="Phone number"/>
+                  <Input value={data.name} handleChange={(text) => newAssistant(text, 'name')} style={{width: 300, marginBottom: 15}} label="Name"/>
+                  <Input value={data.email} handleChange={(text) => newAssistant(text, 'email')} style={{width: 300, marginBottom: 15}} label="Email"/>
+                  <Input value={data.phone} handleChange={(text) => newAssistant(text, 'phone')} style={{width: 300, marginBottom: 25}} label="Phone number"/>
                   <Text style={styles.alerts}>Alerts</Text>
                   <TouchableOpacity style={styles.addAlertBtn}>
                       <Plus style={{width: 2, height: 2}} />
                   </TouchableOpacity>
-                  <Button onPress={addDoctor} text="Save" />
+                  <Button onPress={addAssistant} text="Save" />
               </View>
           </View>
         </Modal>

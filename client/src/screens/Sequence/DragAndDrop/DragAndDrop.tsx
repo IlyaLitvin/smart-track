@@ -1,5 +1,6 @@
 import React, {useRef, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {max} from 'react-native-reanimated';
 import Card from './Cards/Card';
 
 const styles = StyleSheet.create({
@@ -50,7 +51,8 @@ const styles = StyleSheet.create({
 
 export interface Room {
   id: number;
-  assignedDoctor: string;
+  assignedDoctor: {name: string};
+  assignedDoctorId: number;
   name: 'string';
 }
 
@@ -58,9 +60,9 @@ interface DragAndDropProps {
   rooms: Array<Room>;
   assignedRooms: Array<Room>;
   onSelect: (room: Room) => void;
-  onDelete: (id: Number) => void;
+  onDelete: (id: number) => void;
   onEdit: (room: Room) => void;
-  onDrop: (id: Number) => void;
+  onDrop?: (id: number) => void;
 }
 
 export default function DragAndDrop({
@@ -78,7 +80,7 @@ export default function DragAndDrop({
     width: 0,
     height: 0,
   });
-  
+
   return (
     <View>
       <View style={styles.fieldWrapper}>

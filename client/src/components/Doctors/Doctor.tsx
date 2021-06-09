@@ -6,7 +6,7 @@ import EditSvg from '../../assets/images/Edit.svg';
 import TrashSvg from '../../assets/images/trash-2 2.svg';
 import DoctorAlerts from '../DoctorAlerts/DoctorAlerts';
 import { DELETE_DOCTOR, UPDATE_DOCTOR } from '../../https/mutations/Doctor';
-import DocModal from '../../components/AddDoctorModal/AddDoctor';
+import DocModal from '../Modals/DoctorsModal';
 
 export default function Doctors({doctor}) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -72,7 +72,7 @@ export default function Doctors({doctor}) {
               <TrashSvg style={{width: 20, height: 20}} />
             </TouchableOpacity>
           </View>          
-            <DocModal show={modalVisible} doctorUpdate={doctorUpdate} doctor={doctor} onHide={()=> setModalVisible(false)} />
+            <DocModal saveDoctor show={modalVisible} doctorUpdate={doctorUpdate} doctor={doctor} onHide={()=> setModalVisible(false)} />
         </View>
   );
 }

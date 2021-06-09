@@ -11,6 +11,7 @@ export const GET_ALL_DOCTORS = gql`
       rooms {
         id
         name
+        id
         assignedDoctor {
           name
         }
