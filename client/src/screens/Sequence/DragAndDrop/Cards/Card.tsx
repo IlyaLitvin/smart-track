@@ -55,7 +55,7 @@ interface CardProps {
   fieldProps: {x: number; y: number; width: number; height: number};
   room: Room;
   onSelect: (room: Room) => void;
-  onDelete: (id: Number) => void;
+  onDelete?: (id: number) => void;
   onEdit: (room: Room) => void;
 }
 

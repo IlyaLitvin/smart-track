@@ -10,21 +10,10 @@ export const GET_ALL_DOCTORS = gql`
       phone
       rooms {
         name
+        id
         assignedDoctor {
           name
         }
-      }
-    }
-  }
-`;
-
-export const GET_ALL_ROOMS = gql`
-  {
-    getAllRooms {
-      id
-      name
-      assignedDoctor {
-        name
       }
     }
   }

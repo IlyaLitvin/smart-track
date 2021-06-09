@@ -1,12 +1,17 @@
-import {gql} from '@apollo/client'
+import {gql} from '@apollo/client';
 
 export const CREATE_DOCTOR = gql`
-    mutation createDoctor($doctor: DoctorInput!) {
-        createDoctor(doctor: $doctor) {
-            id, name, specialization, email, phone, rooms
-        }
+  mutation createDoctor($doctor: DoctorInput!) {
+    createDoctor(doctor: $doctor) {
+      id
+      name
+      specialization
+      email
+      phone
+      rooms
     }
-`
+  }
+`;
 
 export const UPDATE_DOCTOR = gql`
     mutation updateDoctor($doctorId: ID!, $doctorInput: DoctorInput!) {
@@ -14,11 +19,11 @@ export const UPDATE_DOCTOR = gql`
             id, name, specialization, email, phone, rooms
         }
     }
-`
+`;
 
 export const DELETE_DOCTOR = gql`
     mutation createDoctor($doctorId: ID!) {
         createDoctor(doctorId: $doctorId) {
         }
     }
-`
+`;
