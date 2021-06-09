@@ -11,7 +11,23 @@ const docData = {
   specialization: "",
 };
 
-export default function DoctorsModal({show, onHide, doctorUpdate, saveDoctor, doctor = null}) {
+interface IProps {
+  show: ()=> void,
+  onHide: ()=> void,
+  doctorUpdate: (data: {
+    name: string,
+    email: string,
+    phone: string,
+  }) => void,
+  saveDoctor: (data: {
+    name: string,
+    email: string,
+    phone: string,
+  })=> void,
+  doctor: null,
+};
+
+export default function DoctorsModal({show, onHide, doctorUpdate, saveDoctor, doctor = null}: IProps) {
   const [data, setData] = useState(doctor || docData);
 
   const addDoctor = () => {
@@ -24,7 +40,7 @@ export default function DoctorsModal({show, onHide, doctorUpdate, saveDoctor, do
     onHide();    
   };
 
-  const newDoc = (val, key) => {
+  const newDoc = (val: string, key: number) => {
     setData({
       ...data,
       [key]: val,

@@ -10,12 +10,28 @@ const assistantData = {
   phone: "",
 };
 
-export default function AssisantsModal({show, onHide, assistantUpdate, saveAssistant, assistant = null}) {
+interface IProps {
+  show: ()=> void,
+  onHide: ()=> void,
+  assistantUpdate: (data: {
+    name: string,
+    email: string,
+    phone: string,
+  }) => void,
+  saveAssistant: (data: {
+    name: string,
+    email: string,
+    phone: string,
+  })=> void,
+  assistant: null,
+};
+
+export default function AssisantsModal({show, onHide, assistantUpdate, saveAssistant, assistant = null}: IProps) {
   const [data, setData] = useState(assistant || assistantData);
 
   const addAssistant = () => {
     if(assistant) {
-        assistantUpdate(data.id, data)
+        assistantUpdate(data.id, data);
     } else {
         saveAssistant(data);
         setData(assistantData);
@@ -23,7 +39,7 @@ export default function AssisantsModal({show, onHide, assistantUpdate, saveAssis
     onHide();    
   };
 
-  const newAssistant = (val, key) => {
+  const newAssistant = (val: string, key: number) => {
     setData({
       ...data,
       [key]: val,

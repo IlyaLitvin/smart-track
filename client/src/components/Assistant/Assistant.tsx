@@ -8,19 +8,30 @@ import { DELETE_ASSISTANT, UPDATE_ASSISTANT } from '../../https/mutations/Assist
 import { useMutation } from '@apollo/client';
 import { GET_ALL_ASSISTANTS } from '../../https/query/Assistant';
 
-export default function Assistant({assistant}) {
+interface Assistant {
+  id: number,
+  name: string,
+  email: string,
+  phone: string
+};
+interface Props {
+  assistant: Assistant[],
+  assistantDelete: (assistantId: number) => void,
+}
+
+export default function Assistant({assistant}: Props) {
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteAssistant] = useMutation(DELETE_ASSISTANT);
   const [updateAssistant] = useMutation(UPDATE_ASSISTANT);
 
-  const assistantDelete = (id) => {
+  const assistantDelete = (id:number) => {
     deleteAssistant({
       variables:{doctorId: id},
       refetchQueries: [{query: GET_ALL_ASSISTANTS}]
     });
   };
 
-  const assistantUpdate = (id, assistant) => {   
+  const assistantUpdate = (id: number, assistant: Assistant) => {   
     const updatedAssistant = {
         name: assistant.name,
         email: assistant.email,

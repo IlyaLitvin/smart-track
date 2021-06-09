@@ -10,7 +10,23 @@ const receptData = {
   phone: "",
 };
 
-export default function ReceptionistsModal({show, onHide, saveReceptionist, receptUpdate, receptionist = null}) {
+interface IProps {
+  show: ()=> void,
+  onHide: ()=> void,
+  receptUpdate: (data: {
+    name: string,
+    email: string,
+    phone: string,
+  }) => void,
+  saveReceptionist: (data: {
+    name: string,
+    email: string,
+    phone: string,
+  })=> void,
+  receptionist: null,
+};
+
+export default function ReceptionistsModal({show, onHide, saveReceptionist, receptUpdate, receptionist = null}: IProps) {
   const [data, setData] = useState(receptionist || receptData);
 
   const addReceptionist = () => {
@@ -23,7 +39,7 @@ export default function ReceptionistsModal({show, onHide, saveReceptionist, rece
     onHide();    
   };
 
-  const newReceptionist = (val, key) => {
+  const newReceptionist = (val: string, key: number) => {
     setData({
       ...data,
       [key]: val,

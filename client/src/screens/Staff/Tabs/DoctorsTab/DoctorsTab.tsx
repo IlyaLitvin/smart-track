@@ -11,7 +11,7 @@ export default function DoctorsTab() {
   const [modalVisible, setModalVisible] = useState(false);
   const [newDoctor] = useMutation(CREATE_DOCTOR, {refetchQueries: [{ query: GET_ALL_DOCTORS }]});
  
-  const saveDoctor=(item)=>{
+  const saveDoctor=(item: string)=>{
     newDoctor({
       variables: {
         doctor: item

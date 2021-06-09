@@ -12,7 +12,7 @@ export default function AssistantsTab() {
   const [modalVisible, setModalVisible] = useState(false);
   const [newAssistant] = useMutation(CREATE_ASSISTANT, {refetchQueries: [{query: GET_ALL_ASSISTANTS}]});
 
-  const saveAssistant = (item) => {
+  const saveAssistant = (item: string) => {
     newAssistant({
       variables: {
         assistant: item

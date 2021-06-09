@@ -11,7 +11,7 @@ export default function ReceptionistTab() {
   const [modalVisible, setModalVisible] = useState(false);
   const [newReceptionist] = useMutation(CREATE_RECEPTIONIST, {refetchQueries: [{query: GET_ALL_RECEPTIONISTS}]});
 
-  const saveReceptionist = (item) => {
+  const saveReceptionist = (item: string) => {
     newReceptionist({
       variables: {
         receptionist: item
