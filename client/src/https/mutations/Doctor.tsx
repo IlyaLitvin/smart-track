@@ -8,7 +8,6 @@ export const CREATE_DOCTOR = gql`
       specialization
       email
       phone
-      rooms
     }
   }
 `;

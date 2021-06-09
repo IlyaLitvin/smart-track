@@ -19,8 +19,8 @@ export default function Doctors() {
   
   return (
     <>
-      {doctors.map(doctor => ( 
-        <Doctor key={doctor.id} doctor={doctor} />       
+      {doctors.map((doctor,index) => ( 
+        <Doctor key={doctor.id} index={index+1} doctor={doctor} />       
       ))}
     </>
   );

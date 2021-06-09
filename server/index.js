@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 app.use(logger("dev"));
 
-app.use('/graphql', (res,req,next)=>{
+app.use('/graphql', (req,res,next)=>{
   next()
 },graphqlHTTP({
   graphiql: true,

@@ -8,7 +8,7 @@ import DoctorAlerts from '../DoctorAlerts/DoctorAlerts';
 import { DELETE_DOCTOR, UPDATE_DOCTOR } from '../../https/mutations/Doctor';
 import DocModal from '../Modals/DoctorsModal';
 
-export default function Doctors({doctor}) {
+export default function Doctors({doctor,index}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteDoctor] = useMutation(DELETE_DOCTOR);
   const [updateDoctor] = useMutation(UPDATE_DOCTOR);
@@ -43,7 +43,7 @@ export default function Doctors({doctor}) {
               opacity: 0.3,
               borderTopLeftRadius: 20,
             }}></View>
-          <Text style={styles.postNumber}>{doctor.id}</Text>
+          <Text style={styles.postNumber}>{index}</Text>
           <View style={styles.mainBox}>
             <Text style={styles.name}>{doctor.name}</Text>
             <Text style={styles.mail}>{doctor.email}</Text>
