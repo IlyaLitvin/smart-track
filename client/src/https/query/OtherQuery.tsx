@@ -23,3 +23,12 @@ export const GET_ALL_ROOMS_AND_DOCTORS = gql`
     }
   }
 `;
+
+export const GET_ALL_COLORS_ALERTS = gql`
+  {
+    getAllColorsAlerts {
+      id
+      value
+    }
+  }
+`;
