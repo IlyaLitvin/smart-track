@@ -23,7 +23,19 @@ export default function Alerts({navigation}) {
 
   const onSave = newAlert => {
     setIsView(false);
-    addAlerts({variables: {alert: newAlert}});
+    addAlerts({
+      variables: {alert: newAlert},
+      update: (state, {data}) => {
+        const value = state.readQuery({query: GET_ALL_ALERTS});
+        console.log(value);
+        state.writeQuery({
+          query: GET_ALL_ALERTS,
+          data: {
+            getAllAlerts: [...value.getAllAlerts, data.createAlert],
+          },
+        });
+      },
+    });
   };
   return (
     <>
