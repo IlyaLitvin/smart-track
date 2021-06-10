@@ -7,19 +7,33 @@ import { DELETE_RECEPTIONIST, UPDATE_RECEPTIONIST } from '../../https/mutations/
 import { GET_ALL_RECEPTIONISTS } from '../../https/query/Receptionist';
 import ReceptionistsModal from '../Modals/ReceptionistsModal';
 
-export default function Receptionists({receptionist}) {
+export interface IReceptionist {
+  id: number,
+  name: string,
+  email: string,
+  phone: string
+};
+
+interface IProps {
+  receptionist: IReceptionist,
+  index: number,
+  receptDelete?: (receptionistId: number) => void,
+  receptUpdate?: (receptionistId: number, receptionist: IReceptionist) => void,
+}
+
+export default function Receptionists({receptionist, index}: IProps) {
     const [modalVisible, setModalVisible] = useState(false);
     const [deleteReceptionist] = useMutation(DELETE_RECEPTIONIST);
     const [updateReceptionist] = useMutation(UPDATE_RECEPTIONIST);
 
-    const receptDelete = (id) => {
+    const receptDelete = (id: number) => {
       deleteReceptionist({
         variables: {receptionistId: id},
         refetchQueries: [{query: GET_ALL_RECEPTIONISTS}]
       });
     };
 
-    const receptUpdate = (id, receptionist) => {
+    const receptUpdate = (id: number, receptionist: IReceptionist) => {
         const updatedReceptionist = {
             name: receptionist.name,
             email: receptionist.email,
@@ -34,7 +48,7 @@ export default function Receptionists({receptionist}) {
   return ( 
       <View key={receptionist.id} style={styles.recepWrapper}>
         <View style={{width: 36, height: "100%", backgroundColor: "#6AC7BE", opacity: 0.3, borderTopLeftRadius: 20 }}></View>          
-        <Text style={styles.postNumber}>{receptionist.id}</Text>
+        <Text style={styles.postNumber}>{index}</Text>
         <View style={styles.mainBox}>
         <Text style={styles.name}>{receptionist.name}</Text>
         <Text style={styles.mail}>{receptionist.email}</Text>
@@ -48,7 +62,7 @@ export default function Receptionists({receptionist}) {
             <TrashSvg style={{width: 20, height: 20}}/>
         </TouchableOpacity>  
         </View>
-        <ReceptionistsModal saveReceptionist show={modalVisible} receptUpdate={receptUpdate} receptionist={receptionist} onHide={()=> setModalVisible(false)} />
+        <ReceptionistsModal show={modalVisible} receptUpdate={receptUpdate} receptionist={receptionist} onHide={()=> setModalVisible(false)} />
       </View>
   );
 };

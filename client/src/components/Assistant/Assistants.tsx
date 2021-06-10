@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useQuery} from '@apollo/client';
 import { GET_ALL_ASSISTANTS } from '../../https/query/Assistant';
-import Assistant from './Assistant';
+import Assistant, { IAssistant } from './Assistant';
 
 export default function Assistants() {
   const {data, loading, error} = useQuery(GET_ALL_ASSISTANTS);
@@ -18,10 +18,12 @@ export default function Assistants() {
     
   },[data, loading, error]);
 
+  console.log(assistants)
+
   return (
     <>
-    {assistants.map(assistant=> 
-      <Assistant assistant={assistant} key={assistant.id} />
+    {assistants.map((assistant: IAssistant, index:number)=> 
+      <Assistant assistant={assistant} index={index+1} key={assistant.id} />
       )}
     </>
   );

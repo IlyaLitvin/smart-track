@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useQuery, useMutation} from '@apollo/client';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
-import Room from '../Room/Room';
+import Room, { IRoom } from '../Room/Room';
 import {GET_ALL_DOCTORS} from '../../https/query/Doctor';
+import { IDoctor } from '../Doctors/Doctor';
 
 export default function CurrentDoctor() {
   const {data, loading, error} = useQuery(GET_ALL_DOCTORS);
@@ -16,7 +17,7 @@ export default function CurrentDoctor() {
 
   return (
     <>
-      {doctors.length ? doctors.map(doctor => (
+      {doctors.length ? doctors.map((doctor: IDoctor) => (
         <View
           key={doctor.id}
           style={{
@@ -98,9 +99,9 @@ export default function CurrentDoctor() {
             </View>
           </View>
           <View style={styles.rooms}>
-            {doctor.rooms.length ? doctor.rooms.map(room => (
+            {doctor.rooms && doctor.rooms.map((room: IRoom) => (
               <Room key={room.id} room={room} />
-            )): <View><Text>No available rooms for this doctor yet</Text></View>}
+            ))}
           </View>
         </View>
       )) : <View><Text>No doctors available yet</Text></View>}
