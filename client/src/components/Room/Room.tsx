@@ -3,6 +3,7 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
+import AlertsEllipse from '../AlertsEllipse/AlertsEllipse';
 
 export interface IRoom {
   id: number;
@@ -60,7 +61,12 @@ export default function Room({room}: IProps) {
             {room.timeStatus}
           </Text>
         </View>
-        <Text style={styles.roomStatus}>{room.status}</Text>
+        <AlertsEllipse
+          text="D"
+          textColor="red"
+          color="rgba(228, 133, 243, 0.19)"
+          style={styles.roomStatus}
+        />
         <View style={{width: '100%', alignItems: 'center', marginTop: 17}}>
           <ModalDropdown
             defaultValue={'Empty'}
@@ -117,17 +123,7 @@ const styles = StyleSheet.create({
   roomStatus: {
     width: 50,
     height: 50,
-    color: '#FC7E55',
-    fontWeight: '500',
-    fontSize: 30,
-    lineHeight: 45,
-    textAlign: 'center',
-    alignItems: 'center',
     marginTop: 16,
     marginLeft: 53,
-    borderWidth: 2,
-    borderColor: '#F2D775',
-    borderRadius: 25,
-    backgroundColor: 'rgba(242, 215, 117, 0.19)',
   },
 });

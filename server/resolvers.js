@@ -35,7 +35,7 @@ let rooms = [
 
 const colors = ["rgba(238, 88, 151, 0.19)", "rgba(134, 232, 238, 0.19)", "rgba(250, 112, 12, 0.19)", "rgba(228, 133, 243, 0.19)", "rgba(196, 230, 233, 0.19)", "rgba(120, 242, 117, 0.19)"]
 
-const alerts = Array.apply(null, { length: 35 }).map(() => ({ id: Math.floor(Math.random() * 5000), name: "Doctor in", color: colors[Math.floor(Math.random() * 6)], textColor: "" }))
+const alerts = Array.apply(null, { length: 35 }).map((_,index) => ({ id: Math.floor(Math.random() * 5000), name: `Doctor in ${index+1}`, color: colors[Math.floor(Math.random() * 6)], textColor: "" }))
 
 
 
