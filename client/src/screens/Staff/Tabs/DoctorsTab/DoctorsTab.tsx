@@ -6,7 +6,10 @@ import DocModal from '../../../../components/Modals/DoctorsModal';
 import {CREATE_DOCTOR} from '../../../../https/mutations/Doctor';
 import {useMutation} from '@apollo/client';
 import {GET_ALL_DOCTORS} from '../../../../https/query/Doctor';
+<<<<<<< HEAD
 import {IDoctor} from '../../../../components/Doctors/Doctor';
+=======
+>>>>>>> 8abb1d7c01bc0fad8886e50f3904bcb84e9b2e4a
 
 export default function DoctorsTab() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -14,7 +17,11 @@ export default function DoctorsTab() {
     refetchQueries: [{query: GET_ALL_DOCTORS}],
   });
 
+<<<<<<< HEAD
   const saveDoctor = (item: IDoctor) => {
+=======
+  const saveDoctor = item => {
+>>>>>>> 8abb1d7c01bc0fad8886e50f3904bcb84e9b2e4a
     newDoctor({
       variables: {
         doctor: item,
@@ -42,6 +49,10 @@ export default function DoctorsTab() {
         <Doctors />
       </View>
       <DocModal
+<<<<<<< HEAD
+=======
+        doctorUpdate
+>>>>>>> 8abb1d7c01bc0fad8886e50f3904bcb84e9b2e4a
         show={modalVisible}
         saveDoctor={saveDoctor}
         onHide={() => setModalVisible(false)}

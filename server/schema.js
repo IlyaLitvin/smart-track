@@ -35,7 +35,11 @@ const schema = makeExecutableSchema({
         id: ID
         name: String
         color: String
-        role: String
+        textColor: String
+    }
+    type Color {
+        id: ID
+        value: String
     }
 
     input DoctorInput {
@@ -68,7 +72,6 @@ const schema = makeExecutableSchema({
         id: ID
         name: String
         color: String
-        role: String
     }
 
     type Query {
@@ -84,6 +87,7 @@ const schema = makeExecutableSchema({
         getReceptionist(id: ID!): Receptionist
 
         getAllAlerts: [Alert]
+        getAllColorsAlerts: [Color]
 
         getAllRooms:[Room]
     }
