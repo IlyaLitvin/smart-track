@@ -1,30 +1,29 @@
 import React, {useEffect, useState} from 'react';
 import {useQuery} from '@apollo/client';
-import { GET_ALL_ASSISTANTS } from '../../https/query/Assistant';
-import Assistant, { IAssistant } from './Assistant';
+import {GET_ALL_ASSISTANTS} from '../../https/query/Assistant';
+import Assistant, {IAssistant} from './Assistant';
 
 export default function Assistants() {
   const {data, loading, error} = useQuery(GET_ALL_ASSISTANTS);
   const [assistants, setAssistants] = useState([]);
 
-  useEffect(()=>{
-    if(!error) {
-      if(!loading) {
+  useEffect(() => {
+    if (!error) {
+      if (!loading) {
         setAssistants(data.getAllAssistants);
-      };
+      }
     } else {
-      console.log(error)
+      console.log(error);
     }
-    
-  },[data, loading, error]);
+  }, [data, loading, error]);
 
-  console.log(assistants)
+  console.log(assistants);
 
   return (
     <>
-    {assistants.map((assistant: IAssistant, index:number)=> 
-      <Assistant assistant={assistant} index={index+1} key={assistant.id} />
-      )}
+      {assistants.map((assistant: IAssistant, index: number) => (
+        <Assistant assistant={assistant} index={index + 1} key={assistant.id} />
+      ))}
     </>
   );
-};
+}

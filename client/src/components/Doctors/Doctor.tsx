@@ -1,3 +1,6 @@
+/* eslint-disable no-shadow */
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react/self-closing-comp */
 import React, {useState} from 'react';
 import {useMutation} from '@apollo/client';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';

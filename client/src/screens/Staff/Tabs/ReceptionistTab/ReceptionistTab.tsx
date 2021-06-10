@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {Button} from '../../../../common/button/Button';
 import Receptionists from '../../../../components/Receptionist/Receptionists';
 import ReceptionistsModal from '../../../../components/Modals/ReceptionistsModal';
@@ -23,13 +23,7 @@ export default function ReceptionistTab() {
   };
 
   return (
-    <View
-      style={{
-        backgroundColor: '#E5E5E5',
-        minHeight: '100%',
-        paddingTop: 24,
-        paddingHorizontal: 16,
-      }}>
+    <View style={styles.wrapper}>
       <Button
         onPress={() => {
           console.log('s');
@@ -47,3 +41,12 @@ export default function ReceptionistTab() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  wrapper: {
+    backgroundColor: '#E5E5E5',
+    minHeight: '100%',
+    paddingTop: 24,
+    paddingHorizontal: 16,
+  },
+});

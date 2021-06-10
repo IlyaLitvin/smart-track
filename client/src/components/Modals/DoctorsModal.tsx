@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {View, Text, Modal, TouchableOpacity, StyleSheet} from 'react-native';
 import {Input} from '../../common/inputs/Input';
