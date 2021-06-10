@@ -6,12 +6,13 @@ import DocModal from '../../../../components/Modals/DoctorsModal';
 import { CREATE_DOCTOR } from '../../../../https/mutations/Doctor';
 import { useMutation } from '@apollo/client';
 import { GET_ALL_DOCTORS } from '../../../../https/query/Doctor';
+import { IDoctor } from '../../../../components/Doctors/Doctor';
 
 export default function DoctorsTab() {
   const [modalVisible, setModalVisible] = useState(false);
   const [newDoctor] = useMutation(CREATE_DOCTOR, {refetchQueries: [{ query: GET_ALL_DOCTORS }]});
  
-  const saveDoctor=(item: string)=>{
+  const saveDoctor=(item: IDoctor)=>{
     newDoctor({
       variables: {
         doctor: item
@@ -38,7 +39,7 @@ export default function DoctorsTab() {
       <View>
         <Doctors />
       </View>
-      <DocModal doctorUpdate show={modalVisible} saveDoctor={saveDoctor} onHide={()=> setModalVisible(false)} />
+      <DocModal show={modalVisible} saveDoctor={saveDoctor} onHide={()=> setModalVisible(false)} />
     </View>
   );
 }

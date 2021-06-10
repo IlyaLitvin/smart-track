@@ -2,8 +2,18 @@ import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 
+export interface IRoom {
+  id: number,
+  name: string,
+  timeStatus: string,
+  status: string,
+}
+interface IProps {
+  room: IRoom,
+}
 
-export default function Room({room}) {
+
+export default function Room({room}: IProps) {
   return (
     <>
     <View key={room.id} style={styles.roomContainer}>

@@ -7,20 +7,37 @@ import TrashSvg from '../../assets/images/trash-2 2.svg';
 import DoctorAlerts from '../DoctorAlerts/DoctorAlerts';
 import { DELETE_DOCTOR, UPDATE_DOCTOR } from '../../https/mutations/Doctor';
 import DocModal from '../Modals/DoctorsModal';
+import { IRoom } from '../Room/Room';
 
-export default function Doctors({doctor,index}) {
+export interface IDoctor {
+  id: number,
+  name: string,
+  email: string,
+  phone: string,
+  specialization: string,
+  rooms?: [],
+}
+
+interface IProps {
+  doctor: IDoctor,
+  index: number,
+  docDelete?: (doctorId: number) => void,
+  doctorUpdate?: (doctorId: number, doctor: IDoctor) => void,
+}
+
+export default function Doctors({doctor,index}: IProps) {
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteDoctor] = useMutation(DELETE_DOCTOR);
   const [updateDoctor] = useMutation(UPDATE_DOCTOR);
 
-  const docDelete = (id) => {
+  const docDelete = (id: number) => {
     deleteDoctor({
       variables:{doctorId: id},
       refetchQueries: [{query: GET_ALL_DOCTORS}]
     });
   };
 
-  const doctorUpdate = (id, doctor) => {   
+  const doctorUpdate = (id: number, doctor: IDoctor) => {   
     const updatedDoctor = {
         name: doctor.name,
         email: doctor.email,
@@ -51,7 +68,7 @@ export default function Doctors({doctor,index}) {
             <View style={{flexDirection: 'row'}}>
               <Text style={styles.rooms}>Rooms</Text>
               <Text style={styles.roomsName}>
-                {doctor.rooms.map(room => room.name + ' ')}
+                {doctor.rooms && doctor.rooms.map((room: IRoom) => room.name + ' ')}
               </Text>
             </View>
             <View style={{flexDirection: 'row'}}>
@@ -72,7 +89,7 @@ export default function Doctors({doctor,index}) {
               <TrashSvg style={{width: 20, height: 20}} />
             </TouchableOpacity>
           </View>          
-            <DocModal saveDoctor show={modalVisible} doctorUpdate={doctorUpdate} doctor={doctor} onHide={()=> setModalVisible(false)} />
+            <DocModal show={modalVisible} doctorUpdate={doctorUpdate} doctor={doctor} onHide={()=> setModalVisible(false)} />
         </View>
   );
 }

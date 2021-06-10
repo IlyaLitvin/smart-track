@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useQuery} from '@apollo/client';
 import { GET_ALL_RECEPTIONISTS } from '../../https/query/Receptionist';
-import Receptionist from './Receptionist';
+import Receptionist, { IReceptionist } from './Receptionist';
 
 export default function Receptionists() {
   const {data, loading, error} = useQuery(GET_ALL_RECEPTIONISTS);
@@ -19,8 +19,8 @@ export default function Receptionists() {
 
   return (
     <>
-    {receptionists.map(receptionist =>
-      <Receptionist receptionist={receptionist} key={receptionist.id} />
+    {receptionists.map((receptionist: IReceptionist, index: number) =>
+      <Receptionist receptionist={receptionist} index={index+1} key={receptionist.id} />
     )}
     </>
   );

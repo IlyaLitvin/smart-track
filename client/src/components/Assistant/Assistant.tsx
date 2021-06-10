@@ -8,18 +8,20 @@ import { DELETE_ASSISTANT, UPDATE_ASSISTANT } from '../../https/mutations/Assist
 import { useMutation } from '@apollo/client';
 import { GET_ALL_ASSISTANTS } from '../../https/query/Assistant';
 
-interface Assistant {
+export interface IAssistant {
   id: number,
   name: string,
   email: string,
   phone: string
 };
-interface Props {
-  assistant: Assistant[],
-  assistantDelete: (assistantId: number) => void,
+interface IProps {
+  assistant: IAssistant,
+  index: number,
+  assistantDelete?: (assistantId: number) => void,
+  assistantUpdate?: (assistantId: number, assistant: IAssistant) => void,
 }
 
-export default function Assistant({assistant}: Props) {
+export default function Assistant({assistant, index}: IProps) {
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteAssistant] = useMutation(DELETE_ASSISTANT);
   const [updateAssistant] = useMutation(UPDATE_ASSISTANT);
@@ -31,7 +33,7 @@ export default function Assistant({assistant}: Props) {
     });
   };
 
-  const assistantUpdate = (id: number, assistant: Assistant) => {   
+  const assistantUpdate = (id: number, assistant: IAssistant) => {   
     const updatedAssistant = {
         name: assistant.name,
         email: assistant.email,
@@ -46,7 +48,7 @@ export default function Assistant({assistant}: Props) {
   return (
       <View key={assistant.id} style={styles.assistWrapper}>
         <View style={{width: 36, height: "100%", backgroundColor: "#6AC7BE", opacity: 0.3, borderTopLeftRadius: 20 }}></View>          
-        <Text style={styles.postNumber}>{assistant.id}</Text>
+        <Text style={styles.postNumber}>{index}</Text>
         <View style={styles.mainBox}>
         <Text style={styles.name}>{assistant.name}</Text>
         <Text style={styles.mail}>{assistant.email}</Text>
@@ -61,7 +63,7 @@ export default function Assistant({assistant}: Props) {
             <TrashSvg style={{width: 20, height: 20}}/>
         </TouchableOpacity>  
         </View>
-        <AssistantsModal saveAssistant assistantUpdate={assistantUpdate} assistant={assistant} show={modalVisible}  onHide={()=>setModalVisible(false)} />
+        <AssistantsModal assistantUpdate={assistantUpdate} assistant={assistant} show={modalVisible}  onHide={()=>setModalVisible(false)} />
       </View>
   );
 };

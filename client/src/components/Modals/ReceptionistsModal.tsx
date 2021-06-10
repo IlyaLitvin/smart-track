@@ -3,43 +3,37 @@ import { View, Text, Modal, TouchableOpacity, StyleSheet } from 'react-native';
 import { Input } from '../../common/inputs/Input';
 import Plus from '../../assets/images/plus.svg';
 import { Button } from '../../common/button/Button';
+import { IReceptionist } from '../Receptionist/Receptionist';
 
 const receptData = {
+  id: 0,
   name: "",
   email: "",
   phone: "",
 };
 
 interface IProps {
-  show: ()=> void,
+  show: boolean,
   onHide: ()=> void,
-  receptUpdate: (data: {
-    name: string,
-    email: string,
-    phone: string,
-  }) => void,
-  saveReceptionist: (data: {
-    name: string,
-    email: string,
-    phone: string,
-  })=> void,
-  receptionist: null,
+  receptUpdate?: (dataId: number, data: IReceptionist) => void,
+  saveReceptionist?: (data: IReceptionist)=> void,
+  receptionist?: IReceptionist,
 };
 
-export default function ReceptionistsModal({show, onHide, saveReceptionist, receptUpdate, receptionist = null}: IProps) {
+export default function ReceptionistsModal({show, onHide, saveReceptionist, receptUpdate, receptionist}: IProps) {
   const [data, setData] = useState(receptionist || receptData);
 
   const addReceptionist = () => {
     if(receptionist) {
-        receptUpdate(data.id, data)
+      receptUpdate && receptUpdate(data.id, data)
     } else {
-        saveReceptionist(data);
+      saveReceptionist && saveReceptionist(data);
         setData(receptData);
     };
     onHide();    
   };
 
-  const newReceptionist = (val: string, key: number) => {
+  const newReceptionist = (val: string, key: string) => {
     setData({
       ...data,
       [key]: val,

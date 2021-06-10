@@ -3,8 +3,10 @@ import { View, Text, Modal, TouchableOpacity, StyleSheet } from 'react-native';
 import { Input } from '../../common/inputs/Input';
 import Plus from '../../assets/images/plus.svg';
 import { Button } from '../../common/button/Button';
+import { IDoctor } from '../Doctors/Doctor';
 
 const docData = {
+  id: 0,
   name: "",
   email: "",
   phone: "",
@@ -12,35 +14,27 @@ const docData = {
 };
 
 interface IProps {
-  show: ()=> void,
+  show: boolean,
   onHide: ()=> void,
-  doctorUpdate: (data: {
-    name: string,
-    email: string,
-    phone: string,
-  }) => void,
-  saveDoctor: (data: {
-    name: string,
-    email: string,
-    phone: string,
-  })=> void,
-  doctor: null,
+  doctorUpdate?: (dataId: number, data: IDoctor) => void,
+  saveDoctor?: (data: IDoctor)=> void,
+  doctor?: IDoctor,
 };
 
-export default function DoctorsModal({show, onHide, doctorUpdate, saveDoctor, doctor = null}: IProps) {
+export default function DoctorsModal({show, onHide, doctorUpdate, saveDoctor, doctor}: IProps) {
   const [data, setData] = useState(doctor || docData);
 
   const addDoctor = () => {
     if(doctor) {
-      doctorUpdate(data.id, data)
+      doctorUpdate && doctorUpdate(data.id, data)
     } else {
-      saveDoctor(data);
+      saveDoctor && saveDoctor(data);
       setData(docData);
     };
     onHide();    
   };
 
-  const newDoc = (val: string, key: number) => {
+  const newDoc = (val: string, key: string) => {
     setData({
       ...data,
       [key]: val,

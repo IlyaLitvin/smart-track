@@ -3,43 +3,37 @@ import { View, Text, Modal, TouchableOpacity, StyleSheet } from 'react-native';
 import { Input } from '../../common/inputs/Input';
 import Plus from '../../assets/images/plus.svg';
 import { Button } from '../../common/button/Button';
+import {IAssistant} from '../Assistant/Assistant';
 
 const assistantData = {
+  id: 0,
   name: "",
   email: "",
   phone: "",
 };
 
 interface IProps {
-  show: ()=> void,
+  show: boolean,
   onHide: ()=> void,
-  assistantUpdate: (data: {
-    name: string,
-    email: string,
-    phone: string,
-  }) => void,
-  saveAssistant: (data: {
-    name: string,
-    email: string,
-    phone: string,
-  })=> void,
-  assistant: null,
+  assistantUpdate?: (dataId:  number, data: IAssistant ) => void,
+  saveAssistant?: (data: IAssistant)=> void,
+  assistant?: IAssistant,
 };
 
-export default function AssisantsModal({show, onHide, assistantUpdate, saveAssistant, assistant = null}: IProps) {
+export default function AssisantsModal({show, onHide, assistantUpdate, saveAssistant, assistant}: IProps) {
   const [data, setData] = useState(assistant || assistantData);
 
   const addAssistant = () => {
     if(assistant) {
-        assistantUpdate(data.id, data);
+      assistantUpdate && assistantUpdate(data.id, data);
     } else {
-        saveAssistant(data);
-        setData(assistantData);
+      saveAssistant && saveAssistant(data);      
+      setData(assistantData);
     };
     onHide();    
   };
 
-  const newAssistant = (val: string, key: number) => {
+  const newAssistant = (val: string, key: string): void => {
     setData({
       ...data,
       [key]: val,
