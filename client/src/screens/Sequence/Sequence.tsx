@@ -1,11 +1,8 @@
-import {useMutation, useQuery} from '@apollo/client';
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import Picker from '../../common/inputs/Picker';
 
 import Header from '../../components/Header/Header';
-import {GET_ALL_ROOMS_AND_DOCTORS} from '../../https/query/OtherQuery';
-import {ASSIGNED_ROOM_TO_DOCTOR, DELETE_ROOM} from '../../https/mutations/Room';
 import DragAndDrop, {Room} from './DragAndDrop/DragAndDrop';
 
 import {HeaderProps} from '../../types/OtherTypes';
@@ -27,11 +24,6 @@ const styles = StyleSheet.create({
     minHeight: '100%',
   },
 });
-
-interface QueryDoctorsAndRoomsTypes {
-  getAllRooms: Room[];
-  getAllDoctors: [];
-}
 
 export default function Sequence({navigation}: HeaderProps) {
   const {rooms, doctors, updateAssignedRooms, deleteRooms} =

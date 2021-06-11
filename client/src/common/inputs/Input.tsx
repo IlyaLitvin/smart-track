@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 export interface InputProps extends TextInputProps {
   style?: StyleProp<ViewStyle> | StyleProp<TextStyle>;
   focusStyle?: StyleProp<ViewStyle> | StyleProp<TextStyle>;
-  handleChange(item: string): void;
+  handleChange(text: string): void;
   label?: string;
 }
 
@@ -77,7 +77,6 @@ export const Input: React.FC<InputProps> = ({
         onFocus={toggleFocusStyle}
         onBlur={toggleDefaultStyle}
         onChangeText={handleChange}
-        name={label}
         {...props}
       />
     </View>

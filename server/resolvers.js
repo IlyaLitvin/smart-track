@@ -4,6 +4,9 @@ const doctors = [
     { id: 2, name: "Harry Styles", specialization: "Therapist", email: "Harry@gmail.com", phone: "0959423146" },
     { id: 3, name: "John Dorian", specialization: "Therapist", email: "John@gmail.com", phone: "0959423146" },
 ];
+
+
+
 const assistants = [
     { id: 1, name: "Alex Sample", email: "Alex@gmail.com", phone: "0959423146" },
     { id: 2, name: "Mango Sample", email: "Mango@gmail.com", phone: "0959423146" },
@@ -36,19 +39,19 @@ let alerts = Array.apply(null, { length: 35 }).map((_, index) => ({ id: index, n
 
 
 const createDoctor = (doctor) => {
-    const id = doctors.length + 1;
+    const id = Math.floor(Math.random()*5000);
     return {
         id, ...doctor
     };
 };
 const createAssistant = (assistant) => {
-    const id = assistants.length + 1;
+    const id = Math.floor(Math.random()*5000);
     return {
         id, ...assistant
     };
 };
 const createReceptionist = (receptionist) => {
-    const id = receptionists.length + 1;
+    const id = Math.floor(Math.random()*5000);
     return {
         id, ...receptionist
     };

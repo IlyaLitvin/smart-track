@@ -93,16 +93,16 @@ const schema = makeExecutableSchema({
     }
     type Mutation {
         createDoctor(doctor: DoctorInput): Doctor
-        deleteDoctor(doctorId: ID!): ID
-        updateDoctor(doctorId: ID!, doctorInput: DoctorInput!): Doctor
+        deleteDoctor(doctorId: ID): ID
+        updateDoctor(doctorId: ID, doctorInput: DoctorInput): Doctor
               
-        createAssistant(assistant: AssistantInput!): Assistant
-        deleteAssistant(assistantId: ID!): ID
-        updateAssistant(assistantId: ID!, assistantInput: AssistantInput!): Assistant
+        createAssistant(assistant: AssistantInput): Assistant
+        deleteAssistant(assistantId: ID): ID
+        updateAssistant(assistantId: ID, assistantInput: AssistantInput): Assistant
 
-        createReceptionist(receptionist: ReceptionistInput!): Receptionist
-        deleteReceptionist(receptionistId: ID!): ID
-        updateReceptionist(receptionistId: ID!, receptionistInput: ReceptionistInput!): Receptionist
+        createReceptionist(receptionist: ReceptionistInput): Receptionist
+        deleteReceptionist(receptionistId: ID): ID
+        updateReceptionist(receptionistId: ID, receptionistInput: ReceptionistInput): Receptionist
 
         createAlert(alert: AlertInput!): Alert
         deleteAlert(alertId: ID!): ID
