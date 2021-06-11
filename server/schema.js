@@ -15,9 +15,10 @@ const schema = makeExecutableSchema({
         id: ID
         name: String!
         timeStatus: String!
-        status: String!
+        statusId: Int!
+        status: Alert
         assignedDoctorId: Int!
-        assignedDoctor:Doctor
+        assignedDoctor: Doctor
     }
     type Assistant {
         id: ID

@@ -1,20 +1,29 @@
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
+import AlertsEllipse from '../AlertsEllipse/AlertsEllipse';
+import ModalDropDownMenu from '../Modals/ModalDropDownMenu';
 
 export interface IRoom {
   id: number;
   name: string;
   timeStatus: string;
-  status: string;
+  status: {
+    id: number;
+    color: string;
+    textColor: string;
+    text: string;
+  };
 }
 interface IProps {
   room: IRoom;
 }
 
 export default function Room({room}: IProps) {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <>
       <View key={room.id} style={styles.roomContainer}>
@@ -60,9 +69,14 @@ export default function Room({room}: IProps) {
             {room.timeStatus}
           </Text>
         </View>
-        <Text style={styles.roomStatus}>{room.status}</Text>
         <View style={{width: '100%', alignItems: 'center', marginTop: 17}}>
-          <ModalDropdown
+          <TouchableOpacity onPress={() => setModalVisible(true)}>
+            <AlertsEllipse
+              {...(room?.status ? room.status : {color: 'transparant'})}
+            />
+            <Text style={{fontSize: 15, marginTop: 10}}>Empty</Text>
+          </TouchableOpacity>
+          {/* <ModalDropdown
             defaultValue={'Empty'}
             options={[
               'Empty',
@@ -75,8 +89,12 @@ export default function Room({room}: IProps) {
               'Financial Required',
               'Emergency',
             ]}
-          />
+          /> */}
         </View>
+        <ModalDropDownMenu
+          show={modalVisible}
+          onHide={() => setModalVisible(false)}
+        />
       </View>
     </>
   );
@@ -117,17 +135,7 @@ const styles = StyleSheet.create({
   roomStatus: {
     width: 50,
     height: 50,
-    color: '#FC7E55',
-    fontWeight: '500',
-    fontSize: 30,
-    lineHeight: 45,
-    textAlign: 'center',
-    alignItems: 'center',
     marginTop: 16,
     marginLeft: 53,
-    borderWidth: 2,
-    borderColor: '#F2D775',
-    borderRadius: 25,
-    backgroundColor: 'rgba(242, 215, 117, 0.19)',
   },
 });

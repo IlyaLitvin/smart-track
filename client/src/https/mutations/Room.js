@@ -3,8 +3,8 @@ import { gql } from '@apollo/client';
 export const ASSIGNED_ROOM_TO_DOCTOR = gql`
   mutation ($room: RoomInput!) {
     assignRoomToDoctor(room: $room) {
-      name
       id
+      name
       assignedDoctorId
       assignedDoctor {
         name
