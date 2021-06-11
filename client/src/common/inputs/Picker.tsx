@@ -49,16 +49,16 @@ interface OptionTypes {
   name: string;
 }
 
-interface PickerTypes {
-  options: Array<OptionTypes>;
-  onSelect: (option: OptionTypes) => void;
+interface PickerTypes<T> {
+  options: Array<T & OptionTypes>;
+  onSelect: (option: T) => void;
 }
 
-export default function Picker({options, onSelect}: PickerTypes) {
+export default function Picker<T>({options, onSelect}: PickerTypes<T>) {
   const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState('Unselected');
   const toggleSelect = () => setIsOpen(!isOpen);
-  const onPress = (option: OptionTypes) => {
+  const onPress = (option: T & OptionTypes) => {
     setValue(option.name);
     toggleSelect();
     onSelect(option);

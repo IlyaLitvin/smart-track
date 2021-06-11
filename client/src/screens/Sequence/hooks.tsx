@@ -1,18 +1,22 @@
 import {
   MutationFunctionOptions,
-  MutationResult,
   MutationUpdaterFn,
   useMutation,
   useQuery,
 } from '@apollo/client';
-import {ViewPagerAndroid} from 'react-native';
-import {ASSIGNED_ROOM_TO_DOCTOR, DELETE_ROOM} from '../../https/mutations/Room';
+import {
+  ADD_ROOM,
+  ASSIGNED_ROOM_TO_DOCTOR,
+  DELETE_ROOM,
+  EDIT_NAME_ROOM,
+} from '../../https/mutations/Room';
 import {GET_ALL_ROOMS_AND_DOCTORS} from '../../https/query/OtherQuery';
+import {Doctor} from '../../types/OtherTypes';
 import {Room} from './DragAndDrop/DragAndDrop';
 
 interface QueryDoctorsAndRoomsTypes {
   getAllRooms: Room[];
-  getAllDoctors: [];
+  getAllDoctors: Doctor[];
 }
 
 const updateCache: MutationUpdaterFn = (store, {data: resp}) => {
@@ -28,7 +32,9 @@ const updateCache: MutationUpdaterFn = (store, {data: resp}) => {
       getAllDoctors: data?.getAllDoctors.map(doctor => ({
         ...doctor,
         rooms: [
-          ...doctor.rooms.filter(r => +room.id !== +r.id),
+          ...(doctor?.rooms
+            ? doctor.rooms.filter(r => +room.id !== +r.id)
+            : []),
           ...(+doctor.id === +room.assignedDoctorId ? [room] : []),
         ],
       })),
@@ -47,7 +53,7 @@ const updateCacheAfterDelete: MutationUpdaterFn = (store, {data: resp}) => {
       getAllRooms: data?.getAllRooms.filter(room => +room.id !== +id),
       getAllDoctors: data?.getAllDoctors.map(doctor => ({
         ...doctor,
-        rooms: doctor.rooms.filter(room => +id !== +room.id),
+        rooms: doctor.rooms?.filter(room => +id !== +room.id),
       })),
     },
   });
@@ -58,8 +64,11 @@ export function useSequanceFeetch(): {
   doctors: Array<any> | undefined;
   updateAssignedRooms(item: MutationFunctionOptions): void;
   deleteRooms(item: MutationFunctionOptions): void;
+  addRoom(item: MutationFunctionOptions): void;
+  updateRoom(item: MutationFunctionOptions): void;
 } {
   const {data} = useQuery<QueryDoctorsAndRoomsTypes>(GET_ALL_ROOMS_AND_DOCTORS);
+
   const [updateAssignedRooms] = useMutation(ASSIGNED_ROOM_TO_DOCTOR, {
     update: updateCache,
   });
@@ -67,10 +76,15 @@ export function useSequanceFeetch(): {
     update: updateCacheAfterDelete,
   });
 
+  const [updateRoom] = useMutation(EDIT_NAME_ROOM);
+  const [addRoom] = useMutation(ADD_ROOM);
+
   return {
     rooms: data?.getAllRooms,
     doctors: data?.getAllDoctors,
     updateAssignedRooms,
     deleteRooms,
+    updateRoom,
+    addRoom,
   };
 }

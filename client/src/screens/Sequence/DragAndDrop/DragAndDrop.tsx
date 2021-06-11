@@ -1,5 +1,7 @@
 import React, {useRef, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import AddCard from './Cards/AddCard';
 import Card from './Cards/Card';
 
 const styles = StyleSheet.create({
@@ -60,10 +62,11 @@ export interface Room {
 interface DragAndDropProps {
   rooms: Array<Room>;
   assignedRooms: Array<Room>;
-  onSelect: (room: Room) => void;
-  onDelete: (room: Room) => void;
-  onEdit: (room: Room) => void;
-  onDrop: (room: Room) => void;
+  onSelect(room: Room): void;
+  onDelete(room: Room): void;
+  onEdit(room: Room): void;
+  onDrop(room: Room): void;
+  onAdd(): void;
 }
 
 export default function DragAndDrop({
@@ -73,6 +76,7 @@ export default function DragAndDrop({
   onDelete,
   onEdit,
   onDrop,
+  onAdd,
 }: DragAndDropProps) {
   const ref: React.RefObject<View> = useRef(null);
   const [fieldProps, setFieldProps] = useState({
@@ -110,6 +114,11 @@ export default function DragAndDrop({
       </View>
       <Text style={styles.title}>Drag and Drop rooms to the box</Text>
       <View style={styles.wrapperCards}>
+        <View style={styles.card}>
+          <TouchableOpacity style={{width: '100%'}} onPress={onAdd}>
+            <AddCard />
+          </TouchableOpacity>
+        </View>
         {rooms.map(room => {
           return (
             <Card

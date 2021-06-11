@@ -39,19 +39,19 @@ let alerts = Array.apply(null, { length: 35 }).map((_, index) => ({ id: index, n
 
 
 const createDoctor = (doctor) => {
-    const id = Math.floor(Math.random()*5000);
+    const id = Math.floor(Math.random() * 5000);
     return {
         id, ...doctor
     };
 };
 const createAssistant = (assistant) => {
-    const id = Math.floor(Math.random()*5000);
+    const id = Math.floor(Math.random() * 5000);
     return {
         id, ...assistant
     };
 };
 const createReceptionist = (receptionist) => {
-    const id = Math.floor(Math.random()*5000);
+    const id = Math.floor(Math.random() * 5000);
     return {
         id, ...receptionist
     };
@@ -94,8 +94,6 @@ const resolvers = {
         getAllColorsAlerts: () => {
             return colors.map((color, index) => ({ id: index, value: color }))
         },
-
-
     },
 
     Mutation: {
@@ -148,6 +146,14 @@ const resolvers = {
             return { id: receptionistId, ...receptionistInput };
         },
         /*Rooms*/
+        addRoom: (_, { room }) => {
+            room.id = Date.now();
+            room.assignedDoctorId = -1;
+            room.statusId = -1;
+            room.timeStatus = "";
+            rooms.push(room);
+            return room;
+        },
         assignRoomToDoctor: (_, { room }) => {
             rooms = rooms.map(el => +el.id === +room.id ? { ...el, ...room } : el)
             return rooms.find(el => el.id === room.id)
@@ -156,7 +162,6 @@ const resolvers = {
             rooms = rooms.filter(room => +room.id !== +id);
             return id
         },
-
         /*Alerts*/
         createAlert: (_, { alert }) => {
             const item = { ...alert };

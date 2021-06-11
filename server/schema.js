@@ -54,6 +54,7 @@ const schema = makeExecutableSchema({
         name: String
         timeStatus: String
         status: String
+        statusId: Int
         assignedDoctorId: Int
     }
     input AssistantInput {
@@ -108,6 +109,7 @@ const schema = makeExecutableSchema({
         deleteAlert(alertId: ID!): ID
         updateAlert(alertId: ID!, alert: AlertInput!): Alert
 
+        addRoom(room:RoomInput!):Room
         assignRoomToDoctor(room:RoomInput!):Room
         deleteRoom(id:ID!):ID
     }

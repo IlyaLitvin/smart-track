@@ -65,7 +65,7 @@ const useRoute = (isAuth: RouteProps) => {
       <Drawer.Screen name="Dashboard" component={Dashboard} />
       <Drawer.Screen name="Staff" component={Staff} />
       <Drawer.Screen name="Alerts" component={Alerts} />
-      <Drawer.Screen name="Sequence" component={Sequence} />
+      {/* <Drawer.Screen name="Sequence" component={Sequence} /> */}
     </Drawer.Navigator>
   );
 };
