@@ -6,6 +6,8 @@ import {
   Animated,
   PanResponder,
   TouchableWithoutFeedback,
+  StyleProp,
+  ViewStyle,
 } from 'react-native';
 import Close from '../../../../assets/images/Close.svg';
 import Edit from '../../../../assets/images/Edit.svg';
@@ -55,8 +57,10 @@ interface CardProps {
   fieldProps: {x: number; y: number; width: number; height: number};
   room: Room;
   onSelect: (room: Room) => void;
-  onDelete?: (id: number) => void;
+  onDelete(room: Room): void;
   onEdit: (room: Room) => void;
+  style?: StyleProp<ViewStyle>;
+  isDrag?: boolean;
 }
 
 export default function Card({
@@ -65,6 +69,8 @@ export default function Card({
   onSelect,
   onDelete,
   onEdit,
+  style,
+  isDrag,
   ...props
 }: CardProps) {
   const move = useRef(new Animated.ValueXY()).current;
@@ -90,28 +96,29 @@ export default function Card({
         nativeEvent.pageY > fieldProps.y &&
         nativeEvent.pageY < fieldProps.y + fieldProps.height;
 
-      if (!flag) {
-        return Animated.spring(move, {
-          toValue: {x: 0, y: 0},
-          useNativeDriver: true,
-        }).start();
+      if (flag) {
+        onSelect(room);
       }
-      onSelect(room);
+      return Animated.spring(move, {
+        toValue: {x: 0, y: 0},
+        useNativeDriver: true,
+      }).start();
     },
   });
 
-  const onPressDelete = () => onDelete(room.id);
+  const onPressDelete = () => onDelete(room);
   const onPressEdit = () => onEdit(room);
 
   return (
     <Animated.View
-      {...panResponder.panHandlers}
+      {...(isDrag ? panResponder.panHandlers : null)}
       {...props}
       style={[
         styles.wrapper,
         {
           transform: [{translateX: move.x}, {translateY: move.y}],
         },
+        style,
       ]}>
       <View style={styles.header}>
         <TouchableWithoutFeedback onPress={onPressDelete}>
@@ -124,7 +131,7 @@ export default function Card({
       <View style={styles.ellipse}>
         <Text>{room.name}</Text>
       </View>
-      <Text style={styles.name}>{room.assignedDoctor.name}</Text>
+      <Text style={styles.name}>{room.assignedDoctor?.name || 'Empty'}</Text>
     </Animated.View>
   );
 }

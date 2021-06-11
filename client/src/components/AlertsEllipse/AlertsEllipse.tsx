@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleProp, StyleSheet, TextStyle, View, Text} from 'react-native';
 
+
 const styles = StyleSheet.create({
   ellipse: {
     borderWidth: 2,
@@ -20,12 +21,14 @@ const styles = StyleSheet.create({
   },
 });
 
-type AlertsEllipseProps = {
+interface AlertsEllipseProps {
   color: string;
   style?: StyleProp<TextStyle>;
   text?: string;
   textColor?: string;
 };
+
+
 
 export default function AlertsEllipse({
   color,
@@ -44,5 +47,6 @@ export default function AlertsEllipse({
         <Text style={[styles.text, {color: textColor}]}>{text && text[0]}</Text>
       </View>
     </>
+
   );
 }

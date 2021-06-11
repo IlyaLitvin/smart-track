@@ -25,7 +25,7 @@ export const GET_ALL_DOCTORS = gql`
 `;
 
 export const GET_ALL_ROOMS = gql`
- query GetAllRooms {
+  query GetAllRooms {
     getAllRooms {
       id
       name

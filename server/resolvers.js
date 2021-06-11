@@ -1,4 +1,3 @@
-const { getResponseKeyFromInfo } = require("@graphql-tools/utils");
 
 const doctors = [
     { id: 1, name: "Benedict Cumberbatch", specialization: "Therapist", email: "Benedict@gmail.com", phone: "0959423146" },
@@ -6,18 +5,18 @@ const doctors = [
     { id: 3, name: "John Dorian", specialization: "Therapist", email: "John@gmail.com", phone: "0959423146" },
 ];
 
-
-
 const assistants = [
     { id: 1, name: "Alex Sample", email: "Alex@gmail.com", phone: "0959423146" },
     { id: 2, name: "Mango Sample", email: "Mango@gmail.com", phone: "0959423146" },
     { id: 3, name: "Josh Sample", email: "Josh@gmail.com", phone: "0959423146" },
 ];
+
 const receptionists = [
     { id: 1, name: "Alex Sample", email: "Alex@gmail.com", phone: "0959423146" },
     { id: 2, name: "Mango Sample", email: "Mango@gmail.com", phone: "0959423146" },
     { id: 3, name: "Josh Sample", email: "Josh@gmail.com", phone: "0959423146" },
 ];
+
 let rooms = [
     { id: 2, name: "1b", timeStatus: "", statusId:-1, assignedDoctorId: 1 },
     { id: 3, name: "1c", timeStatus: "", statusId:-1, assignedDoctorId: 1 },
@@ -39,20 +38,21 @@ const alerts = Array.apply(null, { length: 35 }).map((_,index) => ({ id: index, 
 
 
 
+
 const createDoctor = (doctor) => {
-    const id = Math.floor(Math.random()*5000);
+    const id = Math.floor(Math.random() * 5000);
     return {
         id, ...doctor
     };
 };
 const createAssistant = (assistant) => {
-    const id = Math.floor(Math.random()*5000);
+    const id = Math.floor(Math.random() * 5000);
     return {
         id, ...assistant
     };
 };
 const createReceptionist = (receptionist) => {
-    const id = Math.floor(Math.random()*5000);
+    const id = Math.floor(Math.random() * 5000);
     return {
         id, ...receptionist
     };
@@ -60,6 +60,7 @@ const createReceptionist = (receptionist) => {
 
 const resolvers = {
     Query: {
+        /*Doctors*/
         getDoctorRooms: ({ id }) => {
             return rooms.filter(room => room.assignedDoctorId == id);
         },
@@ -72,28 +73,32 @@ const resolvers = {
         getAllReceptionists: () => {
             return receptionists
         },
+        /*Receptionists*/
         getReceptionist: ({ id }) => {
             return receptionists.find(receptionist => receptionist.id == id)
         },
+        /*Assitants*/
         getAllAssistants: () => {
             return assistants
         },
         getAssistant: ({ id }) => {
             return assistants.find(assistant => assistant.id == id)
         },
+        /*Rooms*/
         getAllRooms: () => {
             return rooms;
         },
+        /*Alerts*/
         getAllAlerts: () => {
             return alerts;
         },
         getAllColorsAlerts: () => {
             return colors.map((color, index) => ({ id: index, value: color }))
         },
-
     },
 
     Mutation: {
+        /*Doctors*/
         createDoctor: (_, { doctor }) => {
             const doc = createDoctor(doctor)
             doctors.push(doc)
@@ -109,6 +114,7 @@ const resolvers = {
             doctors.splice(newDoc, 1, { id: doctorId, ...doctorInput });
             return { id: doctorId, ...doctorInput };
         },
+        /*Assistants*/
         createAssistant: (_, { assistant }) => {
             const assist = createAssistant(assistant)
             assistants.push(assist)
@@ -124,6 +130,7 @@ const resolvers = {
             assistants.splice(newAssist, 1, { id: assistantId, ...assistantInput });
             return { id: assistantId, ...assistantInput };
         },
+        /*Receptionists*/
         createReceptionist: (_, { receptionist }) => {
             const recept = createReceptionist(receptionist)
             receptionists.push(recept)
@@ -139,6 +146,15 @@ const resolvers = {
             receptionists.splice(newRecept, 1, { id: receptionistId, ...receptionistInput });
             return { id: receptionistId, ...receptionistInput };
         },
+        /*Rooms*/
+        addRoom: (_, { room }) => {
+            room.id = Date.now();
+            room.assignedDoctorId = -1;
+            room.statusId = -1;
+            room.timeStatus = "";
+            rooms.push(room);
+            return room;
+        },
         assignRoomToDoctor: (_, { room }) => {
             rooms = rooms.map(el => +el.id === +room.id ? { ...el, ...room } : el)
             return rooms.find(el => el.id === room.id)
@@ -147,6 +163,7 @@ const resolvers = {
             rooms = rooms.filter(room => +room.id !== +id);
             return id
         },
+        /*Alerts*/
         createAlert: (_, { alert }) => {
             const item = { ...alert };
             alerts.forEach(alert => {
@@ -156,14 +173,19 @@ const resolvers = {
                     item.textColor = item.color;
                 }
             })
-            item.id = Math.floor(Math.random() * 5000)
+            item.id = Date.now()
             alerts.push(item)
             return item;
 
+        },
+        updateAlert: (_, { alertId, alert }) => {
+            console.log(alert)
+            alerts = alerts.map((a => +a.id === +alertId ? { ...a, ...alert } : a))
+            return alert
         }
     },
     Doctor: {
-        rooms: ({ id, ...props }, args, context) => {
+        rooms: ({ id }) => {
             return rooms.filter(room => +room.assignedDoctorId === +id);
         },
     },

@@ -1,6 +1,7 @@
 import React, {useRef, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {max} from 'react-native-reanimated';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import AddCard from './Cards/AddCard';
 import Card from './Cards/Card';
 
 const styles = StyleSheet.create({
@@ -8,7 +9,9 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    overflow: 'visible',
+    paddingBottom: 30,
+    height: '100%',
   },
   fieldWrapper: {
     width: '100%',
@@ -22,7 +25,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     position: 'relative',
-    justifyContent: 'space-between',
   },
   fieldText: {
     fontFamily: 'Poppins',
@@ -47,6 +49,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     marginBottom: 14,
   },
+  card: {marginHorizontal: '3.055%', width: '27.1%'},
 });
 
 export interface Room {
@@ -59,10 +62,11 @@ export interface Room {
 interface DragAndDropProps {
   rooms: Array<Room>;
   assignedRooms: Array<Room>;
-  onSelect: (room: Room) => void;
-  onDelete: (id: number) => void;
-  onEdit: (room: Room) => void;
-  onDrop?: (id: number) => void;
+  onSelect(room: Room): void;
+  onDelete(room: Room): void;
+  onEdit(room: Room): void;
+  onDrop(room: Room): void;
+  onAdd(): void;
 }
 
 export default function DragAndDrop({
@@ -72,6 +76,7 @@ export default function DragAndDrop({
   onDelete,
   onEdit,
   onDrop,
+  onAdd,
 }: DragAndDropProps) {
   const ref: React.RefObject<View> = useRef(null);
   const [fieldProps, setFieldProps] = useState({
@@ -80,23 +85,9 @@ export default function DragAndDrop({
     width: 0,
     height: 0,
   });
-
   return (
     <View>
       <View style={styles.fieldWrapper}>
-        {assignedRooms.map(room => {
-          return (
-            <Card
-              key={room.id}
-              fieldProps={fieldProps}
-              room={room}
-              onSelect={onSelect}
-              onDelete={onDrop}
-              onEdit={onEdit}
-            />
-          );
-        })}
-
         <View
           style={styles.field}
           ref={ref}
@@ -107,9 +98,27 @@ export default function DragAndDrop({
           }}>
           <Text style={styles.fieldText}>Drag and Drop rooms to the box</Text>
         </View>
+        {assignedRooms.map(room => {
+          return (
+            <Card
+              key={room.id}
+              fieldProps={fieldProps}
+              room={room}
+              onSelect={onSelect}
+              onDelete={onDrop}
+              onEdit={onEdit}
+              style={styles.card}
+            />
+          );
+        })}
       </View>
       <Text style={styles.title}>Drag and Drop rooms to the box</Text>
       <View style={styles.wrapperCards}>
+        <View style={styles.card}>
+          <TouchableOpacity style={{width: '100%'}} onPress={onAdd}>
+            <AddCard />
+          </TouchableOpacity>
+        </View>
         {rooms.map(room => {
           return (
             <Card
@@ -119,6 +128,8 @@ export default function DragAndDrop({
               key={room.id}
               fieldProps={fieldProps}
               room={room}
+              style={styles.card}
+              isDrag
             />
           );
         })}

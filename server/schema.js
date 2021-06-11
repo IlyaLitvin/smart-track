@@ -54,6 +54,7 @@ const schema = makeExecutableSchema({
         id: ID
         name: String
         timeStatus: String
+        status: String
         statusId: Int
         assignedDoctorId: Int
     }
@@ -107,8 +108,9 @@ const schema = makeExecutableSchema({
 
         createAlert(alert: AlertInput!): Alert
         deleteAlert(alertId: ID!): ID
-        updateAlert(alertId: ID!, alertInput: AlertInput!): Alert
+        updateAlert(alertId: ID!, alert: AlertInput!): Alert
 
+        addRoom(room:RoomInput!):Room
         assignRoomToDoctor(room:RoomInput!):Room
         deleteRoom(id:ID!):ID
     }

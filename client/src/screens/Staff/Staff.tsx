@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, ScrollView} from 'react-native';
 import Header from '../../components/Header/Header';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
+
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import Assistants from './Tabs/AssistantsTab/AssistantsTab';
 import Doctors from './Tabs/DoctorsTab/DoctorsTab';

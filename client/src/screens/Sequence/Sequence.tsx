@@ -1,13 +1,14 @@
-import {useMutation, useQuery} from '@apollo/client';
-import {DrawerNavigationProp} from '@react-navigation/drawer';
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import Picker from '../../common/inputs/Picker';
-import Header from '../../components/Header/Header';
-import {GET_ALL_ROOMS_AND_DOCTORS} from '../../https/query/OtherQuery';
-import {ASSIGNED_ROOM_TO_DOCTOR, DELETE_ROOM} from '../../https/mutations/Room';
 
-import DragAndDrop from './DragAndDrop/DragAndDrop';
+import Header from '../../components/Header/Header';
+import DragAndDrop, {Room} from './DragAndDrop/DragAndDrop';
+import {Doctor} from '../../types/OtherTypes';
+
+import {HeaderProps} from '../../types/OtherTypes';
+import {useSequanceFeetch} from './hooks';
+import Modal from './Modal/Modal';
 
 const styles = StyleSheet.create({
   title: {
@@ -22,115 +23,118 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: 16,
     paddingVertical: 30,
+    minHeight: '100%',
   },
 });
 
-type HeaderProps = {
-  navigation: DrawerNavigationProp<any, any>;
+type StateDoctor = {
+  id: number;
+  rooms: Room[];
+  name: string;
 };
 
-const updateCache = (store, {data: resp}) => {
-  const data = store.readQuery({query: GET_ALL_ROOMS_AND_DOCTORS});
-  const room = resp.assignRoomToDoctor;
-
-  store.writeQuery({
-    query: GET_ALL_ROOMS_AND_DOCTORS,
-    data: {
-      getAllRooms: data.getAllRooms.map(r => (+r.id === +room.id ? room : r)),
-      getAllDoctors: data.getAllDoctors.map(doctor => ({
-        ...doctor,
-        rooms: [
-          ...doctor.rooms.filter(r => +room.id !== +r.id),
-          ...(+doctor.id === +room.assignedDoctorId ? [room] : []),
-        ],
-      })),
-    },
-  });
-};
-
-const updateCacheAfterDelete = (store, {data: resp}) => {
-  const data = store.readQuery({query: GET_ALL_ROOMS_AND_DOCTORS});
-  const id = resp.deleteRoom;
-  store.writeQuery({
-    query: GET_ALL_ROOMS_AND_DOCTORS,
-    data: {
-      getAllRooms: data.getAllRooms.filter(room => +room.id !== +id),
-      getAllDoctors: data.getAllDoctors.map(doctor => ({
-        ...doctor,
-        rooms: doctor.rooms.filter(room => +id !== +room.id),
-      })),
-    },
-  });
+type StateRooms = {
+  assignedRooms: Room[];
+  rooms: Room[];
 };
 
 export default function Sequence({navigation}: HeaderProps) {
-  const {data, loading} = useQuery(GET_ALL_ROOMS_AND_DOCTORS);
-  const [updateAssignedRooms] = useMutation(ASSIGNED_ROOM_TO_DOCTOR);
-  const [deleteRooms] = useMutation(DELETE_ROOM);
-  const [selectedDoctor, setSelectedDoctor] = useState({
+  const {rooms, doctors, updateAssignedRooms, deleteRooms} =
+    useSequanceFeetch();
+  const [selectedDoctor, setSelectedDoctor] = useState<Doctor | StateDoctor>({
     id: -1,
     rooms: [],
     name: '',
   });
-  console.log(data);
-  const [allRooms, setAllRooms] = useState({
+
+  const [allRooms, setAllRooms] = useState<StateRooms>({
     assignedRooms: [],
     rooms: [],
   });
 
+  const [isView, setIsView] = useState(false);
+  const [item, setItem] = useState<Room | null>(null);
+
   useEffect(() => {
-    if (loading) return;
+    if (!rooms && !doctors) {
+      return;
+    }
+
     setAllRooms({
       assignedRooms:
-        data.getAllDoctors.find(doctor => doctor.id === selectedDoctor.id)
-          ?.rooms || [],
-
-      rooms: data.getAllRooms.filter(
-        room => +room.assignedDoctorId !== +selectedDoctor.id,
-      ),
+        doctors?.find(doctor => +doctor.id === +selectedDoctor.id)?.rooms || [],
+      rooms:
+        rooms?.filter(
+          room =>
+            +room.assignedDoctorId !== +selectedDoctor.id ||
+            +selectedDoctor.id === -1,
+        ) || [],
     });
-  }, [data, selectedDoctor, loading]);
+  }, [doctors, rooms, selectedDoctor]);
 
-  const selectDocotor = doctor => {
+  const selectDocotor = (doctor: Doctor) => {
     setSelectedDoctor(doctor);
   };
 
-  const onSelect = value => {
+  const onSelect = (room: Room) => {
     updateAssignedRooms({
       variables: {
         room: {
-          id: value.id,
-          name: value.name,
+          id: room.id,
+          name: room.name,
           assignedDoctorId: +selectedDoctor.id,
         },
       },
-      update: updateCache,
     });
   };
 
-  const onDelete = (roomId: number) => {
-    deleteRooms({variables: {id: roomId}, update: updateCacheAfterDelete});
+  const onDelete = (room: Room) => {
+    deleteRooms({variables: {id: room.id}});
   };
 
+  const onDrop = (room: Room) =>
+    updateAssignedRooms({
+      variables: {
+        room: {
+          id: room.id,
+          name: room.name,
+          assignedDoctorId: -1,
+        },
+      },
+    });
+
+  const onEdit = (room: Room) => {
+    setIsView(true);
+    setItem(room);
+  };
+  const onAdd = () => setIsView(true);
+
+  const onSave = (room: Room) => {
+    setItem(null);
+    setIsView(false);
+    if (room.id) {
+      console.log(room);
+    }
+  };
   return (
     <>
       <Header navigation={navigation} />
       <ScrollView style={styles.wrapper}>
         <View>
           <Text style={styles.title}>Choose a Doctor</Text>
-          <Picker
-            options={data?.getAllDoctors || []}
-            onSelect={selectDocotor}
-          />
+          <Picker options={doctors || []} onSelect={selectDocotor} />
         </View>
         <DragAndDrop
           rooms={allRooms.rooms}
           assignedRooms={allRooms.assignedRooms}
           onDelete={onDelete}
-          onEdit={console.log}
+          onEdit={onEdit}
           onSelect={onSelect}
+          onDrop={onDrop}
+          onAdd={onAdd}
         />
       </ScrollView>
+      {isView ? <Modal onSave={onSave} room={item} /> : null}
     </>
   );
 }
