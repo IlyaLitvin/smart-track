@@ -5,8 +5,8 @@ const styles = StyleSheet.create({
   ellipse: {
     borderWidth: 2,
     borderRadius: 50,
-    width: 33,
-    height: 33,
+    width: 40,
+    height: 40,
     backgroundColor: 'rgba(116, 195, 134, 0.19)',
     borderColor: 'rgba(116, 195, 134, 1)',
     justifyContent: 'center',
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     lineHeight: 45,
   },
   text: {
-    fontSize: 33,
+    fontSize: 25,
   },
 });
 
@@ -34,13 +34,15 @@ export default function AlertsEllipse({
   style,
 }: AlertsEllipseProps) {
   return (
-    <View
-      style={[
-        styles.ellipse,
-        {borderColor: color.replace('0.19', '1'), backgroundColor: color},
-        style,
-      ]}>
-      <Text style={[styles.text, {color: textColor}]}>{text && text[0]}</Text>
-    </View>
+    <>
+      <View
+        style={[
+          styles.ellipse,
+          {borderColor: color?.replace('0.19', '1'), backgroundColor: color},
+          style,
+        ]}>
+        <Text style={[styles.text, {color: textColor}]}>{text && text[0]}</Text>
+      </View>
+    </>
   );
 }

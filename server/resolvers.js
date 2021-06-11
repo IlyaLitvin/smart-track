@@ -19,23 +19,23 @@ const receptionists = [
     { id: 3, name: "Josh Sample", email: "Josh@gmail.com", phone: "0959423146" },
 ];
 let rooms = [
-    { id: 1, name: "1a", timeStatus: "", status: "", assignedDoctorId: 1 },
-    { id: 2, name: "1b", timeStatus: "", status: "", assignedDoctorId: 1 },
-    { id: 3, name: "1c", timeStatus: "", status: "", assignedDoctorId: 1 },
-    { id: 4, name: "1d", timeStatus: "", status: "", assignedDoctorId: 1 },
-    { id: 5, name: "2a", timeStatus: "", status: "", assignedDoctorId: 2 },
-    { id: 6, name: "2b", timeStatus: "", status: "", assignedDoctorId: 2 },
-    { id: 7, name: "2c", timeStatus: "", status: "", assignedDoctorId: 2 },
-    { id: 8, name: "2d", timeStatus: "", status: "", assignedDoctorId: 2 },
-    { id: 9, name: "3a", timeStatus: "", status: "", assignedDoctorId: 3 },
-    { id: 10, name: "3b", timeStatus: "", status: "", assignedDoctorId: 3 },
-    { id: 11, name: "3c", timeStatus: "", status: "", assignedDoctorId: 3 },
-    { id: 12, name: "3d", timeStatus: "", status: "", assignedDoctorId: 3 },
+    { id: 2, name: "1b", timeStatus: "", statusId:-1, assignedDoctorId: 1 },
+    { id: 3, name: "1c", timeStatus: "", statusId:-1, assignedDoctorId: 1 },
+    { id: 4, name: "1d", timeStatus: "", statusId:-1, assignedDoctorId: 1 },
+    { id: 1, name: "1a", timeStatus: "", statusId:-1, assignedDoctorId: 1 },
+    { id: 5, name: "2a", timeStatus: "", statusId:-1, assignedDoctorId: 2 },
+    { id: 6, name: "2b", timeStatus: "", statusId:-1, assignedDoctorId: 2 },
+    { id: 7, name: "2c", timeStatus: "", statusId:-1, assignedDoctorId: 2 },
+    { id: 8, name: "2d", timeStatus: "", statusId:-1, assignedDoctorId: 2 },
+    { id: 9, name: "3a", timeStatus: "", statusId:-1, assignedDoctorId: 3 },
+    { id: 10, name: "3b", timeStatus: "",statusId:-1, assignedDoctorId: 3 },
+    { id: 11, name: "3c", timeStatus: "",statusId:-1, assignedDoctorId: 3 },
+    { id: 12, name: "3d", timeStatus: "",statusId:-1, assignedDoctorId: 3 },
 ];
 
 const colors = ["rgba(238, 88, 151, 0.19)", "rgba(134, 232, 238, 0.19)", "rgba(250, 112, 12, 0.19)", "rgba(228, 133, 243, 0.19)", "rgba(196, 230, 233, 0.19)", "rgba(120, 242, 117, 0.19)"]
 
-const alerts = Array.apply(null, { length: 35 }).map((_,index) => ({ id: Math.floor(Math.random() * 5000), name: `Doctor in ${index+1}`, color: colors[Math.floor(Math.random() * 6)], textColor: "" }))
+const alerts = Array.apply(null, { length: 35 }).map((_,index) => ({ id: index, name: `Doctor in ${index+1}`, color: colors[Math.floor(Math.random() * 6)], textColor: "" }))
 
 
 
@@ -169,9 +169,14 @@ const resolvers = {
     },
     Room: {
         assignedDoctor: (data) => {
+            console.log(data)
             return doctors.find(el => el.id === data.assignedDoctorId)
-        }
-    }
+        },  
+        status: (data) => {
+            return alerts.find(alert => +alert.id === +data.statusId)
+        },
+    },
+
 };
 
 module.exports = { resolvers }

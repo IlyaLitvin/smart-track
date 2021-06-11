@@ -1,21 +1,29 @@
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 import AlertsEllipse from '../AlertsEllipse/AlertsEllipse';
+import ModalDropDownMenu from '../Modals/ModalDropDownMenu';
 
 export interface IRoom {
   id: number;
   name: string;
   timeStatus: string;
-  status: string;
+  status: {
+    id: number;
+    color: string;
+    textColor: string;
+    text: string;
+  };
 }
 interface IProps {
   room: IRoom;
 }
 
 export default function Room({room}: IProps) {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <>
       <View key={room.id} style={styles.roomContainer}>
@@ -61,14 +69,14 @@ export default function Room({room}: IProps) {
             {room.timeStatus}
           </Text>
         </View>
-        <AlertsEllipse
-          text="D"
-          textColor="red"
-          color="rgba(228, 133, 243, 0.19)"
-          style={styles.roomStatus}
-        />
         <View style={{width: '100%', alignItems: 'center', marginTop: 17}}>
-          <ModalDropdown
+          <TouchableOpacity onPress={() => setModalVisible(true)}>
+            <AlertsEllipse
+              {...(room?.status ? room.status : {color: 'transparant'})}
+            />
+            <Text style={{fontSize: 15, marginTop: 10}}>Empty</Text>
+          </TouchableOpacity>
+          {/* <ModalDropdown
             defaultValue={'Empty'}
             options={[
               'Empty',
@@ -81,8 +89,12 @@ export default function Room({room}: IProps) {
               'Financial Required',
               'Emergency',
             ]}
-          />
+          /> */}
         </View>
+        <ModalDropDownMenu
+          show={modalVisible}
+          onHide={() => setModalVisible(false)}
+        />
       </View>
     </>
   );
