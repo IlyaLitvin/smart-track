@@ -8,20 +8,20 @@ export default function Doctors() {
   const [doctors, setDoctors] = useState([]);
 
   useEffect(() => {
-    if(!error) {
+    if (!error) {
       if (!loading) {
         setDoctors(data.getAllDoctors);
       }
     } else {
       console.log(error.message);
-    }    
+    }
   }, [data, loading, error]);
-  
+
   return (
     <>
-      {doctors.map(doctor => ( 
-        <Doctor key={doctor.id} doctor={doctor} />       
+      {doctors.map(doctor => (
+        <Doctor key={doctor.id} doctor={doctor} />
       ))}
     </>
   );
-};
+}

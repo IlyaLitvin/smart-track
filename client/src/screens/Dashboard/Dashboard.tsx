@@ -1,12 +1,8 @@
 import React from 'react';
 import {StyleSheet, ScrollView} from 'react-native';
-import {DrawerNavigationProp} from '@react-navigation/drawer';
 import Header from '../../components/Header/Header';
 import Doctor from '../../components/CurrentDoctor/CurrentDoctor';
-
-type HeaderProps = {
-  navigation: DrawerNavigationProp<any, any>;
-};
+import {HeaderProps} from '../../types/OtherTypes';
 
 export default function Dashboard({navigation}: HeaderProps) {
   return (

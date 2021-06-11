@@ -106,7 +106,7 @@ const schema = makeExecutableSchema({
 
         createAlert(alert: AlertInput!): Alert
         deleteAlert(alertId: ID!): ID
-        updateAlert(alertId: ID!, alertInput: AlertInput!): Alert
+        updateAlert(alertId: ID!, alert: AlertInput!): Alert
 
         assignRoomToDoctor(room:RoomInput!):Room
         deleteRoom(id:ID!):ID

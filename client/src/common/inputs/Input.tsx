@@ -38,14 +38,14 @@ const styles = StyleSheet.create({
 export interface InputProps extends TextInputProps {
   style?: StyleProp<ViewStyle> | StyleProp<TextStyle>;
   focusStyle?: StyleProp<ViewStyle> | StyleProp<TextStyle>;
-  handleChange: void;
+  handleChange(item: string): void;
   label?: string;
 }
 
 export const Input: React.FC<InputProps> = ({
   style,
   focusStyle,
-  label='',
+  label = '',
   handleChange,
   ...props
 }) => {

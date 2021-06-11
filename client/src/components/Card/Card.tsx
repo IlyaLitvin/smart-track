@@ -1,14 +1,14 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import EditSvg from '../../assets/images/Edit.svg';
+import {Alert} from '../../types/OtherTypes';
 import AlertsEllipse from '../AlertsEllipse/AlertsEllipse';
+
 interface CardProps {
-  item: {
-    id: number;
-    name: String;
-    color: String;
-    index: number;
-  };
+  item: Alert;
+  index: number;
+  onEdit: (item: Alert) => void;
 }
 
 const styles = StyleSheet.create({
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Card({item, index}: CardProps) {
+export default function Card({item, index, onEdit}: CardProps) {
   return (
     <View style={styles.wrapper}>
       <View style={styles.key}>
@@ -65,7 +65,9 @@ export default function Card({item, index}: CardProps) {
         <View>
           <View style={styles.wrapperOptins}>
             <AlertsEllipse color={item.color} />
-            <EditSvg style={styles.svg} />
+            <TouchableWithoutFeedback onPress={() => onEdit(item)}>
+              <EditSvg style={styles.svg} />
+            </TouchableWithoutFeedback>
           </View>
         </View>
       </View>
