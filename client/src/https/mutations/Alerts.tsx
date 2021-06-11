@@ -10,12 +10,11 @@ export const CREATE_ALERT = gql`
 `;
 
 export const UPDATE_ALERT = gql`
-  mutation alertId($alertId: ID, $alertInput: AlertInput) {
-    alertId(alertId: $alertId, alertInput: $alertInput) {
+  mutation updateAlert($alertId: ID!, $alert: AlertInput!) {
+    updateAlert(alertId: $alertId, alert: $alert) {
       id
       name
       color
-      role
     }
   }
 `;

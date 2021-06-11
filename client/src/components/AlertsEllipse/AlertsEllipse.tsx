@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 
 const styles = StyleSheet.create({
   ellipse: {
@@ -12,19 +12,19 @@ const styles = StyleSheet.create({
   },
 });
 
-type AlertsEllipseProps = {
+interface AlertsEllipseProps {
   color: string;
-};
+  style?: StyleProp<ViewStyle>;
+}
 
 export default function AlertsEllipse({color, style}: AlertsEllipseProps) {
   return (
     <View
-      style={{
-        ...styles.ellipse,
-        borderColor: color.replace('0.19', '1'),
-        backgroundColor: color,
-        ...style,
-      }}
+      style={[
+        styles.ellipse,
+        {borderColor: color.replace('0.19', '1'), backgroundColor: color},
+        style,
+      ]}
     />
   );
 }

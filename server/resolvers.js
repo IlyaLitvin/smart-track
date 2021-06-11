@@ -1,4 +1,3 @@
-const { getResponseKeyFromInfo } = require("@graphql-tools/utils");
 
 const doctors = [
     { id: 1, name: "Benedict Cumberbatch", specialization: "Therapist", email: "Benedict@gmail.com", phone: "0959423146" },
@@ -32,7 +31,7 @@ let rooms = [
 
 const colors = ["rgba(238, 88, 151, 0.19)", "rgba(134, 232, 238, 0.19)", "rgba(250, 112, 12, 0.19)", "rgba(228, 133, 243, 0.19)", "rgba(196, 230, 233, 0.19)", "rgba(120, 242, 117, 0.19)"]
 
-const alerts = Array.apply(null, { length: 35 }).map(() => ({ id: Math.floor(Math.random() * 5000), name: "Doctor in", color: colors[Math.floor(Math.random() * 6)], textColor: "" }))
+let alerts = Array.apply(null, { length: 35 }).map((_, index) => ({ id: index, name: "Doctor in", color: colors[Math.floor(Math.random() * 6)], textColor: "" }))
 
 
 
@@ -57,6 +56,7 @@ const createReceptionist = (receptionist) => {
 
 const resolvers = {
     Query: {
+        /*Doctors*/
         getDoctorRooms: ({ id }) => {
             return rooms.filter(room => room.assignedDoctorId == id);
         },
@@ -69,18 +69,22 @@ const resolvers = {
         getAllReceptionists: () => {
             return receptionists
         },
+        /*Receptionists*/
         getReceptionist: ({ id }) => {
             return receptionists.find(receptionist => receptionist.id == id)
         },
+        /*Assitants*/
         getAllAssistants: () => {
             return assistants
         },
         getAssistant: ({ id }) => {
             return assistants.find(assistant => assistant.id == id)
         },
+        /*Rooms*/
         getAllRooms: () => {
             return rooms;
         },
+        /*Alerts*/
         getAllAlerts: () => {
             return alerts;
         },
@@ -88,9 +92,11 @@ const resolvers = {
             return colors.map((color, index) => ({ id: index, value: color }))
         },
 
+
     },
 
     Mutation: {
+        /*Doctors*/
         createDoctor: (_, { doctor }) => {
             const doc = createDoctor(doctor)
             doctors.push(doc)
@@ -106,6 +112,7 @@ const resolvers = {
             doctors.splice(newDoc, 1, { id: doctorId, ...doctorInput });
             return { id: doctorId, ...doctorInput };
         },
+        /*Assistants*/
         createAssistant: (_, { assistant }) => {
             const assist = createAssistant(assistant)
             assistants.push(assist)
@@ -121,6 +128,7 @@ const resolvers = {
             assistants.splice(newAssist, 1, { id: assistantId, ...assistantInput });
             return { id: assistantId, ...assistantInput };
         },
+        /*Receptionists*/
         createReceptionist: (_, { receptionist }) => {
             const recept = createReceptionist(receptionist)
             receptionists.push(recept)
@@ -136,6 +144,7 @@ const resolvers = {
             receptionists.splice(newRecept, 1, { id: receptionistId, ...receptionistInput });
             return { id: receptionistId, ...receptionistInput };
         },
+        /*Rooms*/
         assignRoomToDoctor: (_, { room }) => {
             rooms = rooms.map(el => +el.id === +room.id ? { ...el, ...room } : el)
             return rooms.find(el => el.id === room.id)
@@ -144,6 +153,8 @@ const resolvers = {
             rooms = rooms.filter(room => +room.id !== +id);
             return id
         },
+
+        /*Alerts*/
         createAlert: (_, { alert }) => {
             const item = { ...alert };
             alerts.forEach(alert => {
@@ -153,14 +164,19 @@ const resolvers = {
                     item.textColor = item.color;
                 }
             })
-            item.id = Math.floor(Math.random() * 5000)
+            item.id = Date.now()
             alerts.push(item)
             return item;
 
+        },
+        updateAlert: (_, { alertId, alert }) => {
+            console.log(alert)
+            alerts = alerts.map((a => +a.id === +alertId ? { ...a, ...alert } : a))
+            return alert
         }
     },
     Doctor: {
-        rooms: ({ id, ...props }, args, context) => {
+        rooms: ({ id }) => {
             return rooms.filter(room => +room.assignedDoctorId === +id);
         },
     },

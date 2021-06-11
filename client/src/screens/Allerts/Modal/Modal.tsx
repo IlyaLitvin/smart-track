@@ -1,11 +1,19 @@
 import {useQuery} from '@apollo/client';
 import React, {useState} from 'react';
-import {Dimensions, StyleSheet, Text, View} from 'react-native';
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  View,
+  ViewStyle,
+  StyleProp,
+} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {Button} from '../../../common/button/Button';
 import {Input} from '../../../common/inputs/Input';
 import AlertsEllipse from '../../../components/AlertsEllipse/AlertsEllipse';
 import {GET_ALL_COLORS_ALERTS} from '../../../https/query/OtherQuery';
+import {Alert} from '../../../types/OtherTypes';
 
 const styles = StyleSheet.create({
   modal: {
@@ -23,6 +31,7 @@ const styles = StyleSheet.create({
     paddingTop: 55,
     paddingBottom: 35,
     display: 'flex',
+    borderRadius: 20,
     alignItems: 'center',
   },
   title: {
@@ -69,21 +78,29 @@ type Colors = {
   getAllColorsAlerts: [{id: number; value: string}];
 };
 
-export default function Modal({style, onSave}) {
+interface ModalProps {
+  style?: StyleProp<ViewStyle>;
+  onSave(item: Alert | {name: string; color: string}): void;
+  alert: Alert;
+}
+
+export default function Modal({style, onSave, alert}: ModalProps) {
   const {data: colors} = useQuery<Colors>(GET_ALL_COLORS_ALERTS);
-  const [selectedColor, setSelectedColor] = useState('');
-  const [name, setName] = useState('');
+  const [value, setValue] = useState(
+    alert.id < 0 ? alert : {name: '', color: ''},
+  );
 
   const onPress = () => {
-    onSave({name, color: selectedColor});
+    onSave(value);
   };
+  const onChange = (text: string) => setValue({...value, name: text});
   return (
     <View style={styles.modal}>
-      <View style={{...styles.wrapper, ...style}}>
+      <View style={[styles.wrapper, style]}>
         <Text>Add Allert</Text>
         <Input
-          value={name}
-          handleChange={setName}
+          value={value.name}
+          handleChange={onChange}
           label="Name"
           style={styles.input}
         />
@@ -95,13 +112,13 @@ export default function Modal({style, onSave}) {
                 <TouchableWithoutFeedback
                   key={color.id}
                   onPress={() => {
-                    setSelectedColor(color.value);
+                    setValue({...value, color: color.value});
                   }}>
                   <AlertsEllipse
                     color={color.value}
                     style={{
                       ...styles.ellipse,
-                      ...(selectedColor === color.value
+                      ...(value.color === color.value
                         ? styles.ellipseActive
                         : {}),
                     }}
