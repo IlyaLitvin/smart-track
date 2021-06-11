@@ -13,7 +13,7 @@ const {link, useApolloNetworkStatus} = createNetworkStatusNotifier();
 const globalAny: any = global;
 
 const client = new ApolloClient({
-  link: link.concat(createHttpLink({uri: 'http://localhost:8080/graphql'})),
+  link: link.concat(createHttpLink({uri: 'http://10.100.3.140:8080/graphql'})),
   cache: new InMemoryCache(),
 });
 

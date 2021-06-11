@@ -112,6 +112,7 @@ const schema = makeExecutableSchema({
 
         addRoom(room:RoomInput!):Room
         assignRoomToDoctor(room:RoomInput!):Room
+        updateRoom(roomId: ID, roomInput: RoomInput): Room
         deleteRoom(id:ID!):ID
     }
 `,

@@ -155,6 +155,11 @@ const resolvers = {
             rooms.push(room);
             return room;
         },
+        updateRoom: (_, { roomId, roomInput }) => {
+            const newRoom = rooms.findIndex(room => +room.id === +roomId);
+            rooms.splice(newRoom, 1, {id: roomId, ...roomInput});
+            return {id: roomId, ...roomInput};
+        },
         assignRoomToDoctor: (_, { room }) => {
             rooms = rooms.map(el => +el.id === +room.id ? { ...el, ...room } : el)
             return rooms.find(el => el.id === room.id)
@@ -179,7 +184,6 @@ const resolvers = {
 
         },
         updateAlert: (_, { alertId, alert }) => {
-            console.log(alert)
             alerts = alerts.map((a => +a.id === +alertId ? { ...a, ...alert } : a))
             return alert
         }
@@ -191,7 +195,6 @@ const resolvers = {
     },
     Room: {
         assignedDoctor: (data) => {
-            console.log(data)
             return doctors.find(el => el.id === data.assignedDoctorId)
         },  
         status: (data) => {
