@@ -94,6 +94,7 @@ export default function Modal({style, onSave, alert}: ModalProps) {
     onSave(value);
   };
   const onChange = (text: string) => setValue({...value, name: text});
+
   return (
     <View style={styles.modal}>
       <View style={[styles.wrapper, style]}>

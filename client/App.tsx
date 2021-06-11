@@ -10,6 +10,8 @@ import {createNetworkStatusNotifier} from 'react-apollo-network-status';
 import {ActivityIndicator, Dimensions, StyleSheet, View} from 'react-native';
 const {link, useApolloNetworkStatus} = createNetworkStatusNotifier();
 
+const globalAny: any = global;
+
 const client = new ApolloClient({
   link: link.concat(createHttpLink({uri: 'http://localhost:8080/graphql'})),
   cache: new InMemoryCache(),
@@ -42,15 +44,12 @@ export function GlobalLoadingIndicator() {
   }
 }
 
-global.XMLHttpRequest = global.originalXMLHttpRequest || global.XMLHttpRequest;
-global.FormData = global.originalFormData || global.FormData;
+globalAny.XMLHttpRequest =
+  globalAny.originalXMLHttpRequest || globalAny.XMLHttpRequest;
+globalAny.FormData = globalAny.originalFormData || globalAny.FormData;
 
-if (window.FETCH_SUPPORT) {
-  window.FETCH_SUPPORT.blob = false;
-} else {
-  global.Blob = global.originalBlob || global.Blob;
-  global.FileReader = global.originalFileReader || global.FileReader;
-}
+globalAny.Blob = globalAny.originalBlob || globalAny.Blob;
+globalAny.FileReader = globalAny.originalFileReader || globalAny.FileReader;
 
 export default function App() {
   return (

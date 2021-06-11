@@ -4,9 +4,11 @@ import Picker from '../../common/inputs/Picker';
 
 import Header from '../../components/Header/Header';
 import DragAndDrop, {Room} from './DragAndDrop/DragAndDrop';
+import {Doctor} from '../../types/OtherTypes';
 
 import {HeaderProps} from '../../types/OtherTypes';
 import {useSequanceFeetch} from './hooks';
+import Modal from './Modal/Modal';
 
 const styles = StyleSheet.create({
   title: {
@@ -25,21 +27,33 @@ const styles = StyleSheet.create({
   },
 });
 
+type StateDoctor = {
+  id: number;
+  rooms: Room[];
+  name: string;
+};
+
+type StateRooms = {
+  assignedRooms: Room[];
+  rooms: Room[];
+};
+
 export default function Sequence({navigation}: HeaderProps) {
   const {rooms, doctors, updateAssignedRooms, deleteRooms} =
     useSequanceFeetch();
-  const [selectedDoctor, setSelectedDoctor] = useState({
+  const [selectedDoctor, setSelectedDoctor] = useState<Doctor | StateDoctor>({
     id: -1,
     rooms: [],
     name: '',
   });
-  const [allRooms, setAllRooms] = useState<{
-    assignedRooms: Room[];
-    rooms: Room[];
-  }>({
+
+  const [allRooms, setAllRooms] = useState<StateRooms>({
     assignedRooms: [],
     rooms: [],
   });
+
+  const [isView, setIsView] = useState(false);
+  const [item, setItem] = useState<Room | null>(null);
 
   useEffect(() => {
     if (!rooms && !doctors) {
@@ -50,12 +64,15 @@ export default function Sequence({navigation}: HeaderProps) {
       assignedRooms:
         doctors?.find(doctor => +doctor.id === +selectedDoctor.id)?.rooms || [],
       rooms:
-        rooms?.filter(room => +room.assignedDoctorId !== +selectedDoctor.id) ||
-        [],
+        rooms?.filter(
+          room =>
+            +room.assignedDoctorId !== +selectedDoctor.id ||
+            +selectedDoctor.id === -1,
+        ) || [],
     });
   }, [doctors, rooms, selectedDoctor]);
 
-  const selectDocotor = doctor => {
+  const selectDocotor = (doctor: Doctor) => {
     setSelectedDoctor(doctor);
   };
 
@@ -86,7 +103,19 @@ export default function Sequence({navigation}: HeaderProps) {
       },
     });
 
-  const onEdit = (room: Room) => console.log(room);
+  const onEdit = (room: Room) => {
+    setIsView(true);
+    setItem(room);
+  };
+  const onAdd = () => setIsView(true);
+
+  const onSave = (room: Room) => {
+    setItem(null);
+    setIsView(false);
+    if (room.id) {
+      console.log(room);
+    }
+  };
   return (
     <>
       <Header navigation={navigation} />
@@ -102,8 +131,10 @@ export default function Sequence({navigation}: HeaderProps) {
           onEdit={onEdit}
           onSelect={onSelect}
           onDrop={onDrop}
+          onAdd={onAdd}
         />
       </ScrollView>
+      {isView ? <Modal onSave={onSave} room={item} /> : null}
     </>
   );
 }

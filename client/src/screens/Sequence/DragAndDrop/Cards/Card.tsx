@@ -96,13 +96,13 @@ export default function Card({
         nativeEvent.pageY > fieldProps.y &&
         nativeEvent.pageY < fieldProps.y + fieldProps.height;
 
-      if (!flag) {
-        return Animated.spring(move, {
-          toValue: {x: 0, y: 0},
-          useNativeDriver: true,
-        }).start();
+      if (flag) {
+        onSelect(room);
       }
-      onSelect(room);
+      return Animated.spring(move, {
+        toValue: {x: 0, y: 0},
+        useNativeDriver: true,
+      }).start();
     },
   });
 
@@ -117,7 +117,6 @@ export default function Card({
         styles.wrapper,
         {
           transform: [{translateX: move.x}, {translateY: move.y}],
-          zIndex: move?.x || 2 % 1,
         },
         style,
       ]}>
