@@ -51,6 +51,11 @@ export const ADD_ROOM = gql`
   mutation addRoom($room: RoomInput!) {
     addRoom(room: $room) {
       id
+      name
+      assignedDoctorId
+      assignedDoctor {
+        name
+      }
     }
   }
 `;

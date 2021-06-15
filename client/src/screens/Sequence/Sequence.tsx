@@ -7,7 +7,7 @@ import DragAndDrop, {Room} from './DragAndDrop/DragAndDrop';
 import {Doctor} from '../../types/OtherTypes';
 
 import {HeaderProps} from '../../types/OtherTypes';
-import {useSequanceFeetch} from './hooks';
+import {useSequenceFetch} from './hooks';
 import Modal from './Modal/Modal';
 
 const styles = StyleSheet.create({
@@ -22,8 +22,10 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: 'white',
     paddingHorizontal: 16,
-    paddingVertical: 30,
     minHeight: '100%',
+  },
+  head: {
+    marginVertical: 30,
   },
 });
 
@@ -39,8 +41,14 @@ type StateRooms = {
 };
 
 export default function Sequence({navigation}: HeaderProps) {
-  const {rooms, doctors, updateAssignedRooms, deleteRooms} =
-    useSequanceFeetch();
+  const {
+    rooms,
+    doctors,
+    addRoom,
+    updateRoom,
+    updateAssignedRooms,
+    deleteRooms,
+  } = useSequenceFetch();
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | StateDoctor>({
     id: -1,
     rooms: [],
@@ -113,26 +121,43 @@ export default function Sequence({navigation}: HeaderProps) {
     setItem(null);
     setIsView(false);
     if (room.id) {
-      console.log(room);
+      updateRoom({
+        variables: {
+          room: {
+            id: room.id,
+            name: room.name,
+          },
+        },
+      });
+    } else {
+      addRoom({
+        variables: {
+          room: {
+            name: room.name,
+          },
+        },
+      });
     }
   };
   return (
     <>
       <Header navigation={navigation} />
       <ScrollView style={styles.wrapper}>
-        <View>
-          <Text style={styles.title}>Choose a Doctor</Text>
-          <Picker options={doctors || []} onSelect={selectDocotor} />
+        <View style={styles.head}>
+          <View>
+            <Text style={styles.title}>Choose a Doctor</Text>
+            <Picker options={doctors || []} onSelect={selectDocotor} />
+          </View>
+          <DragAndDrop
+            rooms={allRooms.rooms}
+            assignedRooms={allRooms.assignedRooms}
+            onDelete={onDelete}
+            onEdit={onEdit}
+            onSelect={onSelect}
+            onDrop={onDrop}
+            onAdd={onAdd}
+          />
         </View>
-        <DragAndDrop
-          rooms={allRooms.rooms}
-          assignedRooms={allRooms.assignedRooms}
-          onDelete={onDelete}
-          onEdit={onEdit}
-          onSelect={onSelect}
-          onDrop={onDrop}
-          onAdd={onAdd}
-        />
       </ScrollView>
       {isView ? <Modal onSave={onSave} room={item} /> : null}
     </>
