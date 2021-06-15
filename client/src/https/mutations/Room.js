@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import {gql} from '@apollo/client';
 
 export const ASSIGNED_ROOM_TO_DOCTOR = gql`
   mutation ($room: RoomInput!) {
@@ -27,6 +27,21 @@ export const EDIT_NAME_ROOM = gql`
       assignedDoctorId
       assignedDoctor {
         name
+      }
+    }
+  }
+`;
+
+export const UPDATE_ROOM = gql`
+  mutation editRoom($roomId: ID, $roomInput: RoomInput) {
+    updateRoom(roomId: $roomId, roomInput: $roomInput) {
+      id
+      statusId
+      status {
+        id
+        name
+        color
+        textColor
       }
     }
   }

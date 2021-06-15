@@ -1,7 +1,6 @@
 import React from 'react';
 import {StyleProp, StyleSheet, TextStyle, View, Text} from 'react-native';
 
-
 const styles = StyleSheet.create({
   ellipse: {
     borderWidth: 2,
@@ -24,16 +23,14 @@ const styles = StyleSheet.create({
 interface AlertsEllipseProps {
   color: string;
   style?: StyleProp<TextStyle>;
-  text?: string;
+  name?: string;
   textColor?: string;
-};
-
-
+}
 
 export default function AlertsEllipse({
   color,
   textColor = 'black',
-  text,
+  name,
   style,
 }: AlertsEllipseProps) {
   return (
@@ -44,9 +41,8 @@ export default function AlertsEllipse({
           {borderColor: color?.replace('0.19', '1'), backgroundColor: color},
           style,
         ]}>
-        <Text style={[styles.text, {color: textColor}]}>{text && text[0]}</Text>
+        <Text style={[styles.text, {color: textColor}]}>{name && name[0]}</Text>
       </View>
     </>
-
   );
 }

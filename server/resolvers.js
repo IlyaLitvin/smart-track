@@ -19,9 +19,10 @@ const receptionists = [
 
 let rooms = Array.apply(null, { length: 20 }).map((_, index) => ({ id: index, name: index + "b", timeStatus: "", statusId: -1, assignedDoctorId: Math.floor(Math.random() * 4) }))
 
-const colors = ["rgba(238, 88, 151, 0.19)", "rgba(134, 232, 238, 0.19)", "rgba(250, 112, 12, 0.19)", "rgba(228, 133, 243, 0.19)", "rgba(196, 230, 233, 0.19)", "rgba(120, 242, 117, 0.19)"]
+let colors = ["rgba(238, 88, 151, 0.19)", "rgba(134, 232, 238, 0.19)", "rgba(250, 112, 12, 0.19)", "rgba(228, 133, 243, 0.19)", "rgba(196, 230, 233, 0.19)", "rgba(120, 242, 117, 0.19)"]
 
-let alerts = Array.apply(null, { length: 35 }).map((_, index) => ({ id: index, name: `Doctor in ${index + 1}`, color: colors[Math.floor(Math.random() * 6)], textColor: "" }))
+let alerts = Array.apply(null, { length: 25 }).map((_,index) => ({ id: index+1, name: `Doctor in ${index+1}`, color: colors[Math.floor(Math.random() * 6)], textColor: "" }))
+
 
 
 
@@ -140,6 +141,10 @@ const resolvers = {
             room.timeStatus = "";
             rooms.push(room);
             return room;
+        },
+        updateRoom: (_, {roomId, roomInput }) => {
+            rooms = rooms.map(room => +room.id === +roomId ? { ...room, ...roomInput } : room);
+            return rooms.find(room => +room.id === +roomId);
         },
         assignRoomToDoctor: (_, { room }) => {
             rooms = rooms.map(el => +el.id === +room.id ? { ...el, ...room } : el)

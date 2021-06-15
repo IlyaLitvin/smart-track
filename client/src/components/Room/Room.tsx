@@ -2,7 +2,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
-import ModalDropdown from 'react-native-modal-dropdown';
 import AlertsEllipse from '../AlertsEllipse/AlertsEllipse';
 import ModalDropDownMenu from '../Modals/ModalDropDownMenu';
 
@@ -12,9 +11,9 @@ export interface IRoom {
   timeStatus: string;
   status: {
     id: number;
+    name: string;
     color: string;
     textColor: string;
-    text: string;
   };
 }
 interface IProps {
@@ -23,7 +22,7 @@ interface IProps {
 
 export default function Room({room}: IProps) {
   const [modalVisible, setModalVisible] = useState(false);
-
+  console.log(room);
   return (
     <>
       <View key={room.id} style={styles.roomContainer}>
@@ -69,29 +68,25 @@ export default function Room({room}: IProps) {
             {room.timeStatus}
           </Text>
         </View>
-        <View style={{width: '100%', alignItems: 'center', marginTop: 17}}>
+        <View
+          style={{
+            width: '100%',
+            alignItems: 'center',
+            marginTop: 17,
+          }}>
           <TouchableOpacity onPress={() => setModalVisible(true)}>
             <AlertsEllipse
-              {...(room?.status ? room.status : {color: 'transparant'})}
+              {...(room.status
+                ? room.status
+                : {color: 'transparent', style: {borderColor: 'black'}})}
             />
-            <Text style={{fontSize: 15, marginTop: 10}}>Empty</Text>
+            <Text style={{fontSize: 15, marginTop: 10}}>
+              {room.status ? room.status.name : 'Empty'}
+            </Text>
           </TouchableOpacity>
-          {/* <ModalDropdown
-            defaultValue={'Empty'}
-            options={[
-              'Empty',
-              'Assistant In',
-              'Assistant Required',
-              'Doctor In',
-              'Doctor Required',
-              'Patient in',
-              'Financial In',
-              'Financial Required',
-              'Emergency',
-            ]}
-          /> */}
         </View>
         <ModalDropDownMenu
+          room={room}
           show={modalVisible}
           onHide={() => setModalVisible(false)}
         />

@@ -17,8 +17,6 @@ export default function Assistants() {
     }
   }, [data, loading, error]);
 
-  console.log(assistants);
-
   return (
     <>
       {assistants.map((assistant: IAssistant, index: number) => (
