@@ -25,7 +25,7 @@ export default function CurrentDoctor() {
           <View
             key={doctor.id}
             style={{
-              height: 502,
+              minHeight: 502,
               borderBottomWidth: 9,
               borderBottomColor: '#fff',
             }}>
