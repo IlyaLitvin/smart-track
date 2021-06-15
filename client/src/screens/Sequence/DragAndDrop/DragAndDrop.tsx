@@ -92,6 +92,8 @@ export default function DragAndDrop({
           style={styles.field}
           ref={ref}
           onLayout={() => {
+            console.log(ref);
+            ref.current?.measureInWindow;
             ref.current?.measure((x, y, width, height, pageX, pageY) => {
               setFieldProps({x: pageX, y: pageY, width, height});
             });

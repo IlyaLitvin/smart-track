@@ -59,7 +59,36 @@ const updateCacheAfterDelete: MutationUpdaterFn = (store, {data: resp}) => {
   });
 };
 
-export function useSequanceFeetch(): {
+const updateCacheAfterEdit: MutationUpdaterFn = (store, {data: resp}) => {
+  const data = store.readQuery<QueryDoctorsAndRoomsTypes>({
+    query: GET_ALL_ROOMS_AND_DOCTORS,
+  });
+  const id = resp?.assignRoomToDoctor.id;
+  store.writeQuery({
+    query: GET_ALL_ROOMS_AND_DOCTORS,
+    data: {
+      getAllRooms: data?.getAllRooms.map(room =>
+        +room.id === +id ? {...room, ...resp?.assignRoomToDoctor} : room,
+      ),
+      getAllDoctors: data?.getAllDoctors,
+    },
+  });
+};
+
+const updateCacheAfterAdd: MutationUpdaterFn = (store, {data: resp}) => {
+  const data = store.readQuery<QueryDoctorsAndRoomsTypes>({
+    query: GET_ALL_ROOMS_AND_DOCTORS,
+  });
+  store.writeQuery({
+    query: GET_ALL_ROOMS_AND_DOCTORS,
+    data: {
+      getAllRooms: data ? [...data.getAllRooms, resp?.addRoom] : [],
+      getAllDoctors: data?.getAllDoctors,
+    },
+  });
+};
+
+export function useSequenceFetch(): {
   rooms: Room[] | undefined;
   doctors: Array<any> | undefined;
   updateAssignedRooms(item: MutationFunctionOptions): void;
@@ -76,8 +105,10 @@ export function useSequanceFeetch(): {
     update: updateCacheAfterDelete,
   });
 
-  const [updateRoom] = useMutation(EDIT_NAME_ROOM);
-  const [addRoom] = useMutation(ADD_ROOM);
+  const [updateRoom] = useMutation(EDIT_NAME_ROOM, {
+    update: updateCacheAfterEdit,
+  });
+  const [addRoom] = useMutation(ADD_ROOM, {update: updateCacheAfterAdd});
 
   return {
     rooms: data?.getAllRooms,

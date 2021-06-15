@@ -17,25 +17,11 @@ const receptionists = [
     { id: 3, name: "Josh Sample", email: "Josh@gmail.com", phone: "0959423146" },
 ];
 
-let rooms = [
-    { id: 2, name: "1b", timeStatus: "", statusId:-1, assignedDoctorId: 1 },
-    { id: 3, name: "1c", timeStatus: "", statusId:-1, assignedDoctorId: 1 },
-    { id: 4, name: "1d", timeStatus: "", statusId:-1, assignedDoctorId: 1 },
-    { id: 1, name: "1a", timeStatus: "", statusId:-1, assignedDoctorId: 1 },
-    { id: 5, name: "2a", timeStatus: "", statusId:-1, assignedDoctorId: 2 },
-    { id: 6, name: "2b", timeStatus: "", statusId:-1, assignedDoctorId: 2 },
-    { id: 7, name: "2c", timeStatus: "", statusId:-1, assignedDoctorId: 2 },
-    { id: 8, name: "2d", timeStatus: "", statusId:-1, assignedDoctorId: 2 },
-    { id: 9, name: "3a", timeStatus: "", statusId:-1, assignedDoctorId: 3 },
-    { id: 10, name: "3b", timeStatus: "",statusId:-1, assignedDoctorId: 3 },
-    { id: 11, name: "3c", timeStatus: "",statusId:-1, assignedDoctorId: 3 },
-    { id: 12, name: "3d", timeStatus: "",statusId:-1, assignedDoctorId: 3 },
-];
+let rooms = Array.apply(null, { length: 20 }).map((_, index) => ({ id: index, name: index + "b", timeStatus: "", statusId: -1, assignedDoctorId: Math.floor(Math.random() * 4) }))
 
 const colors = ["rgba(238, 88, 151, 0.19)", "rgba(134, 232, 238, 0.19)", "rgba(250, 112, 12, 0.19)", "rgba(228, 133, 243, 0.19)", "rgba(196, 230, 233, 0.19)", "rgba(120, 242, 117, 0.19)"]
 
-const alerts = Array.apply(null, { length: 35 }).map((_,index) => ({ id: index, name: `Doctor in ${index+1}`, color: colors[Math.floor(Math.random() * 6)], textColor: "" }))
-
+let alerts = Array.apply(null, { length: 35 }).map((_, index) => ({ id: index, name: `Doctor in ${index + 1}`, color: colors[Math.floor(Math.random() * 6)], textColor: "" }))
 
 
 
@@ -179,7 +165,6 @@ const resolvers = {
 
         },
         updateAlert: (_, { alertId, alert }) => {
-            console.log(alert)
             alerts = alerts.map((a => +a.id === +alertId ? { ...a, ...alert } : a))
             return alert
         }
@@ -191,9 +176,8 @@ const resolvers = {
     },
     Room: {
         assignedDoctor: (data) => {
-            console.log(data)
             return doctors.find(el => el.id === data.assignedDoctorId)
-        },  
+        },
         status: (data) => {
             return alerts.find(alert => +alert.id === +data.statusId)
         },
