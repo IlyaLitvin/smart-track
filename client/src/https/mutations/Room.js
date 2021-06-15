@@ -36,7 +36,6 @@ export const UPDATE_ROOM = gql`
   mutation editRoom($roomId: ID, $roomInput: RoomInput) {
     updateRoom(roomId: $roomId, roomInput: $roomInput) {
       id
-      name
       statusId
       status {
         id

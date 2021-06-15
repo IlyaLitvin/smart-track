@@ -1,4 +1,4 @@
-import {useQuery} from '@apollo/client';
+import {useMutation, useQuery} from '@apollo/client';
 import React, {useEffect, useState} from 'react';
 import {
   View,
@@ -8,11 +8,13 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
+import {UPDATE_ROOM} from '../../https/mutations/Room';
 import {GET_ALL_ALERTS} from '../../https/query/Alerts';
 import AlertsEllipse from '../AlertsEllipse/AlertsEllipse';
-import CloseSVG from '../../assets/images/Close.svg';
+import {IRoom} from '../Room/Room';
 
-interface IAlert {
+interface IStatusAlert {
+  id: number;
   color: string;
   textColor: string;
   name: string;
@@ -21,12 +23,15 @@ interface IAlert {
 interface IProps {
   show: boolean;
   onHide: () => void;
-  alert?: IAlert;
+  status?: IStatusAlert;
+  handleChange?: (id: number, status: IStatusAlert) => void;
+  room: IRoom;
 }
 
-export default function ModalDropDownMenu({show, onHide}: IProps) {
+export default function ModalDropDownMenu({show, onHide, room}: IProps) {
   const {data, loading, error} = useQuery(GET_ALL_ALERTS);
   const [alerts, setAlerts] = useState([]);
+  const [updateRoom] = useMutation(UPDATE_ROOM);
 
   useEffect(() => {
     if (!error) {
@@ -38,7 +43,13 @@ export default function ModalDropDownMenu({show, onHide}: IProps) {
     }
   }, [data, loading, error]);
 
-  const chousebleAlert = () => {
+  const statusUpdate = (alertId: number) => {
+    updateRoom({
+      variables: {
+        roomId: room.id,
+        roomInput: {id: room.id, statusId: +alertId},
+      },
+    });
     onHide();
   };
 
@@ -50,20 +61,22 @@ export default function ModalDropDownMenu({show, onHide}: IProps) {
         transparent={true}
         visible={show}>
         <View style={styles.centeredView}>
-          <TouchableOpacity
-            style={[styles.button, styles.buttonClose]}
-            onPress={onHide}>
-            <Text style={styles.textStyle}>X</Text>
-          </TouchableOpacity>
           <ScrollView style={styles.modalView}>
-            {alerts.map((alert: IAlert, index: number) => (
-              <TouchableOpacity key={index} onPress={chousebleAlert}>
+            <TouchableOpacity
+              style={[styles.button, styles.buttonClose]}
+              onPress={onHide}>
+              <Text style={styles.textStyle}>X</Text>
+            </TouchableOpacity>
+            {alerts.map((alert: IStatusAlert, index: number) => (
+              <TouchableOpacity
+                key={index}
+                onPress={() => statusUpdate(alert.id)}>
                 <View style={styles.wrapper}>
                   <View style={styles.modalItem}>
                     <AlertsEllipse
                       color={alert.color}
                       textColor={alert.textColor}
-                      text={alert.name}
+                      name={alert.name}
                     />
                     <Text style={styles.alertName}>{alert.name}</Text>
                   </View>
@@ -106,13 +119,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#F6FAF9',
   },
   button: {
+    position: 'relative',
     borderRadius: 20,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
     elevation: 2,
-    position: 'absolute',
-    right: 5,
-    top: 5,
+    marginBottom: 10,
+    width: 25,
+    height: 25,
+    alignSelf: 'flex-end',
+    alignContent: 'center',
   },
   buttonClose: {
     backgroundColor: '#2196F3',
@@ -121,6 +135,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+    fontSize: 18,
   },
   alertName: {
     fontFamily: 'Poppins',
