@@ -13,7 +13,7 @@ export default function Receptionists() {
         setReceptionist(data.getAllReceptionists);
       }
     } else {
-      console.log(error.message);
+      console.log(error);
     }
   }, [data, loading, error]);
 

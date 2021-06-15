@@ -2,6 +2,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {scale, verticalScale} from '../../assets/SizeControl/SizeControl';
 import AlertsEllipse from '../AlertsEllipse/AlertsEllipse';
 import ModalDropDownMenu from '../Modals/ModalDropDownMenu';
 
@@ -22,7 +23,7 @@ interface IProps {
 
 export default function Room({room}: IProps) {
   const [modalVisible, setModalVisible] = useState(false);
-  console.log(room);
+
   return (
     <>
       <View key={room.id} style={styles.roomContainer}>
@@ -100,13 +101,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     shadowColor: 'black',
     shadowOffset: {
-      width: 5,
-      height: 5,
+      width: scale(5),
+      height: verticalScale(5),
     },
     elevation: 5,
     shadowOpacity: 0.8,
-    width: 156,
-    height: 146,
+    width: scale(156),
+    height: verticalScale(146),
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomLeftRadius: 20,
@@ -128,8 +129,8 @@ const styles = StyleSheet.create({
     marginRight: 16,
   },
   roomStatus: {
-    width: 50,
-    height: 50,
+    width: scale(50),
+    height: verticalScale(50),
     marginTop: 16,
     marginLeft: 53,
   },

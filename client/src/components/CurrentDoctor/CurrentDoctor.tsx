@@ -5,6 +5,7 @@ import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import Room, {IRoom} from '../Room/Room';
 import {GET_ALL_DOCTORS} from '../../https/query/Doctor';
 import {IDoctor} from '../../types/OtherTypes';
+import {scale, verticalScale} from '../../assets/SizeControl/SizeControl';
 
 export default function CurrentDoctor() {
   const {data, loading, error} = useQuery(GET_ALL_DOCTORS);
@@ -25,8 +26,8 @@ export default function CurrentDoctor() {
           <View
             key={doctor.id}
             style={{
-              minHeight: 502,
-              borderBottomWidth: 9,
+              minHeight: verticalScale(502),
+              borderBottomWidth: scale(9),
               borderBottomColor: '#fff',
             }}>
             <View style={styles.doctorInfoWrapper}>
@@ -36,9 +37,9 @@ export default function CurrentDoctor() {
                 <Text
                   style={{
                     color: '#6AC7BE',
-                    fontSize: 12,
+                    fontSize: scale(12),
                     fontWeight: '500',
-                    lineHeight: 18,
+                    lineHeight: verticalScale(18),
                   }}>
                   Reset
                 </Text>
@@ -46,40 +47,40 @@ export default function CurrentDoctor() {
             </View>
             <View
               style={{
-                height: 61,
+                height: verticalScale(61),
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
               }}>
               <View style={{flexDirection: 'row'}}>
-                <TouchableOpacity style={{marginRight: 15}}>
+                <TouchableOpacity style={{marginRight: scale(15)}}>
                   <Text
                     style={{
                       color: '#212155',
                       fontWeight: '500',
-                      fontSize: 18,
-                      lineHeight: 27,
+                      fontSize: scale(18),
+                      lineHeight: verticalScale(27),
                     }}>
                     -
                   </Text>
                 </TouchableOpacity>
                 <Text
                   style={{
-                    marginRight: 15,
+                    marginRight: scale(15),
                     color: '#FC7E55',
                     fontWeight: '500',
-                    fontSize: 18,
-                    lineHeight: 27,
+                    fontSize: scale(18),
+                    lineHeight: verticalScale(27),
                   }}>
                   5
                 </Text>
-                <TouchableOpacity style={{marginRight: 19}}>
+                <TouchableOpacity style={{marginRight: scale(19)}}>
                   <Text
                     style={{
                       color: '#212155',
                       fontWeight: '500',
-                      fontSize: 18,
-                      lineHeight: 27,
+                      fontSize: scale(18),
+                      lineHeight: verticalScale(27),
                     }}>
                     +
                   </Text>
@@ -89,8 +90,8 @@ export default function CurrentDoctor() {
                     style={{
                       color: '#969696',
                       fontWeight: '500',
-                      fontSize: 14,
-                      lineHeight: 21,
+                      fontSize: scale(14),
+                      lineHeight: verticalScale(21),
                     }}>
                     in line
                   </Text>
@@ -121,49 +122,49 @@ export default function CurrentDoctor() {
 
 const styles = StyleSheet.create({
   doctorInfoWrapper: {
-    height: 100,
+    height: verticalScale(100),
     borderBottomColor: '#C0E7E5',
     borderBottomWidth: 1,
-    paddingTop: 20,
-    paddingBottom: 20,
+    paddingTop: scale(20),
+    paddingBottom: scale(20),
   },
   doctorName: {
     fontWeight: '500',
-    fontSize: 18,
-    lineHeight: 21,
+    fontSize: scale(18),
+    lineHeight: verticalScale(21),
     color: '#212121',
-    marginBottom: 10,
+    marginBottom: scale(10),
   },
   doctorProf: {
     fontWeight: '500',
-    fontSize: 14,
-    lineHeight: 21,
+    fontSize: scale(14),
+    lineHeight: verticalScale(21),
     color: '#4F4F4F',
   },
   resetBtn: {
     position: 'absolute',
-    right: 16,
-    top: 21,
+    right: scale(16),
+    top: scale(21),
     borderWidth: 1,
     borderColor: '#6AC7BE',
-    borderRadius: 8,
-    paddingRight: 13,
-    paddingLeft: 13,
-    paddingTop: 3,
-    paddingBottom: 3,
+    borderRadius: scale(8),
+    paddingRight: scale(13),
+    paddingLeft: scale(13),
+    paddingTop: scale(3),
+    paddingBottom: scale(3),
   },
   stopBtn: {
     color: '#FC7E55',
     fontWeight: '500',
-    fontSize: 12,
-    lineHeight: 18,
+    fontSize: scale(12),
+    lineHeight: verticalScale(18),
     borderWidth: 1,
     borderColor: '#FC7E55',
-    borderRadius: 20,
-    paddingRight: 13,
-    paddingLeft: 13,
-    paddingTop: 3,
-    paddingBottom: 3,
+    borderRadius: scale(20),
+    paddingRight: scale(13),
+    paddingLeft: scale(13),
+    paddingTop: scale(3),
+    paddingBottom: scale(3),
   },
   rooms: {
     flexDirection: 'row',
