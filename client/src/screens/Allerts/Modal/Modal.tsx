@@ -81,14 +81,16 @@ type Colors = {
 interface ModalProps {
   style?: StyleProp<ViewStyle>;
   onSave(item: Alert | {name: string; color: string}): void;
-  alert: Alert;
+  alert?: Alert | {name: ''; color: ''};
 }
 
-export default function Modal({style, onSave, alert}: ModalProps) {
+export default function Modal({
+  style,
+  onSave,
+  alert = {name: '', color: ''},
+}: ModalProps) {
   const {data: colors} = useQuery<Colors>(GET_ALL_COLORS_ALERTS);
-  const [value, setValue] = useState(
-    alert.id < 0 ? alert : {name: '', color: ''},
-  );
+  const [value, setValue] = useState(alert);
 
   const onPress = () => {
     onSave(value);

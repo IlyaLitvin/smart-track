@@ -90,6 +90,7 @@ export default function Card({
       {useNativeDriver: false},
     ),
     onPanResponderRelease: ({nativeEvent}) => {
+      console.log(nativeEvent, fieldProps);
       const flag =
         nativeEvent.pageX > fieldProps.x &&
         nativeEvent.pageX < fieldProps.x + fieldProps.width &&
