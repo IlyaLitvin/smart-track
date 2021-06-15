@@ -6,7 +6,7 @@ import DocModal from '../../../../components/Modals/DoctorsModal';
 import {CREATE_DOCTOR} from '../../../../https/mutations/Doctor';
 import {useMutation} from '@apollo/client';
 import {GET_ALL_DOCTORS} from '../../../../https/query/Doctor';
-import {IDoctor} from '../../../../components/Doctors/Doctor';
+import {IDoctor} from '../../../../types/OtherTypes';
 
 export default function DoctorsTab() {
   const [modalVisible, setModalVisible] = useState(false);

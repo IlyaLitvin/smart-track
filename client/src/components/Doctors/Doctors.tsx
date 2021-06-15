@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useQuery} from '@apollo/client';
 import {GET_ALL_DOCTORS} from '../../https/query/Doctor';
-import Doctor, {IDoctor} from './Doctor';
+import Doctor from './Doctor';
+import {IDoctor} from '../../types/OtherTypes';
 
 export default function Doctors() {
   const {data, loading, error} = useQuery(GET_ALL_DOCTORS);
@@ -13,7 +14,7 @@ export default function Doctors() {
         setDoctors(data.getAllDoctors);
       }
     } else {
-      console.log(error.message);
+      console.log(error);
     }
   }, [data, loading, error]);
 

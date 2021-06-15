@@ -5,7 +5,7 @@ import RegisterScreen from './screens/Auth/RegisterScreen';
 
 const AuthStack = createStackNavigator();
 
-const useRoute = isAuth => {
+const useRoute = (isAuth: boolean) => {
   if (!isAuth) {
     return (
       <AuthStack.Navigator>

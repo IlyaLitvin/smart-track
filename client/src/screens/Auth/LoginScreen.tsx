@@ -10,13 +10,14 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from 'react-native';
+import {HeaderProps} from '../../types/OtherTypes';
 
 const initialState = {
   email: '',
   password: '',
 };
 
-export default function LoginScreen({navigation}) {
+export default function LoginScreen({navigation}: HeaderProps) {
   const [isShow, setIsShow] = useState(false);
   const [state, setState] = useState(initialState);
 

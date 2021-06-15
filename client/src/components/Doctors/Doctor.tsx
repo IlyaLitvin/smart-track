@@ -11,24 +11,9 @@ import DoctorAlerts from '../DoctorAlerts/DoctorAlerts';
 import {DELETE_DOCTOR, UPDATE_DOCTOR} from '../../https/mutations/Doctor';
 import DocModal from '../Modals/DoctorsModal';
 import {IRoom} from '../Room/Room';
+import {IDoctor, IDoctorProps} from '../../types/OtherTypes';
 
-export interface IDoctor {
-  id: number;
-  name: string;
-  email: string;
-  phone: string;
-  specialization: string;
-  rooms?: [];
-}
-
-interface IProps {
-  doctor: IDoctor;
-  index: number;
-  docDelete?: (doctorId: number) => void;
-  doctorUpdate?: (doctorId: number, doctor: IDoctor) => void;
-}
-
-export default function Doctors({doctor, index}: IProps) {
+export default function Doctors({doctor, index}: IDoctorProps) {
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteDoctor] = useMutation(DELETE_DOCTOR);
   const [updateDoctor] = useMutation(UPDATE_DOCTOR);

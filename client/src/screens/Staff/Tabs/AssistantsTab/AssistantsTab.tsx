@@ -6,7 +6,7 @@ import {CREATE_ASSISTANT} from '../../../../https/mutations/Assistant';
 import {GET_ALL_ASSISTANTS} from '../../../../https/query/Assistant';
 import Assistants from '../../../../components/Assistant/Assistants';
 import AssistantsModal from '../../../../components/Modals/AssistantsModal';
-import {IAssistant} from '../../../../components/Assistant/Assistant';
+import {IAssistant} from '../../../../types/OtherTypes';
 
 export default function AssistantsTab() {
   const [modalVisible, setModalVisible] = useState(false);

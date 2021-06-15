@@ -5,7 +5,7 @@ import EditSvg from '../../assets/images/Edit.svg';
 import {Alert} from '../../types/OtherTypes';
 import AlertsEllipse from '../AlertsEllipse/AlertsEllipse';
 
-interface CardProps {
+export interface CardProps {
   item: Alert;
   index: number;
   onEdit: (item: Alert) => void;

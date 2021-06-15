@@ -4,7 +4,7 @@ import {View, Text, Modal, TouchableOpacity, StyleSheet} from 'react-native';
 import {Input} from '../../common/inputs/Input';
 import Plus from '../../assets/images/plus.svg';
 import {Button} from '../../common/button/Button';
-import {IAssistant} from '../Assistant/Assistant';
+import {IAssistant} from '../../types/OtherTypes';
 
 const assistantData = {
   id: 0,

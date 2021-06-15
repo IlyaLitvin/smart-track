@@ -26,7 +26,7 @@ export default function ReceptionistTab() {
     <View style={styles.wrapper}>
       <Button
         onPress={() => {
-          console.log('s');
+          setModalVisible(true);
         }}
         text="Add new"
       />

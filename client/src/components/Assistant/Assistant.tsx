@@ -11,21 +11,9 @@ import {
 } from '../../https/mutations/Assistant';
 import {useMutation} from '@apollo/client';
 import {GET_ALL_ASSISTANTS} from '../../https/query/Assistant';
+import {IAssistant, IAssistantProps} from '../../types/OtherTypes';
 
-export interface IAssistant {
-  id: number;
-  name: string;
-  email: string;
-  phone: string;
-}
-interface IProps {
-  assistant: IAssistant;
-  index: number;
-  assistantDelete?: (assistantId: number) => void;
-  assistantUpdate?: (assistantId: number, assistant: IAssistant) => void;
-}
-
-export default function Assistant({assistant, index}: IProps) {
+export default function Assistant({assistant, index}: IAssistantProps) {
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteAssistant] = useMutation(DELETE_ASSISTANT);
   const [updateAssistant] = useMutation(UPDATE_ASSISTANT);

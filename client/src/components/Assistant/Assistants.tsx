@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useQuery} from '@apollo/client';
 import {GET_ALL_ASSISTANTS} from '../../https/query/Assistant';
-import Assistant, {IAssistant} from './Assistant';
+import Assistant from './Assistant';
+import {IAssistant} from '../../types/OtherTypes';
 
 export default function Assistants() {
   const {data, loading, error} = useQuery(GET_ALL_ASSISTANTS);

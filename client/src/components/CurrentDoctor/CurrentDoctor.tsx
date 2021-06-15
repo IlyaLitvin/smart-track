@@ -4,7 +4,7 @@ import {useQuery} from '@apollo/client';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import Room, {IRoom} from '../Room/Room';
 import {GET_ALL_DOCTORS} from '../../https/query/Doctor';
-import {IDoctor} from '../Doctors/Doctor';
+import {IDoctor} from '../../types/OtherTypes';
 
 export default function CurrentDoctor() {
   const {data, loading, error} = useQuery(GET_ALL_DOCTORS);
