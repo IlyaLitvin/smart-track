@@ -29,22 +29,22 @@ export default function Room({room}: IProps) {
       <View key={room.id} style={styles.roomContainer}>
         <View
           style={{
-            height: 31,
+            height: verticalScale(31),
             backgroundColor: '#FAFCFF',
             justifyContent: 'space-around',
             alignItems: 'center',
             flexDirection: 'row',
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
+            borderTopLeftRadius: scale(20),
+            borderTopRightRadius: scale(20),
           }}>
           <View
             style={{
-              width: 46,
-              height: 31,
+              width: scale(46),
+              height: verticalScale(31),
               backgroundColor: '#6AC7BE',
               opacity: 0.3,
-              borderTopLeftRadius: 20,
-              borderBottomRightRadius: 20,
+              borderTopLeftRadius: scale(20),
+              borderBottomRightRadius: scale(20),
               position: 'absolute',
               left: 0,
               top: 0,
@@ -53,8 +53,8 @@ export default function Room({room}: IProps) {
             style={{
               color: '#212155',
               fontWeight: '500',
-              fontSize: 14,
-              lineHeight: 21,
+              fontSize: scale(14),
+              lineHeight: verticalScale(19),
             }}>
             {room.name}
           </Text>
@@ -63,8 +63,8 @@ export default function Room({room}: IProps) {
             style={{
               color: '#FC7E55',
               fontWeight: '500',
-              fontSize: 14,
-              lineHeight: 21,
+              fontSize: scale(14),
+              lineHeight: verticalScale(21),
             }}>
             {room.timeStatus}
           </Text>
@@ -73,7 +73,7 @@ export default function Room({room}: IProps) {
           style={{
             width: '100%',
             alignItems: 'center',
-            marginTop: 17,
+            marginTop: scale(17),
           }}>
           <TouchableOpacity onPress={() => setModalVisible(true)}>
             <AlertsEllipse
@@ -81,7 +81,7 @@ export default function Room({room}: IProps) {
                 ? room.status
                 : {color: 'transparent', style: {borderColor: 'black'}})}
             />
-            <Text style={{fontSize: 15, marginTop: 10}}>
+            <Text style={{fontSize: scale(15), marginTop: scale(10)}}>
               {room.status ? room.status.name : 'Empty'}
             </Text>
           </TouchableOpacity>
@@ -108,30 +108,30 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     width: scale(156),
     height: verticalScale(146),
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderBottomLeftRadius: 20,
-    marginHorizontal: 4,
-    marginBottom: 15,
+    borderTopLeftRadius: scale(20),
+    borderTopRightRadius: scale(20),
+    borderBottomLeftRadius: scale(20),
+    marginHorizontal: scale(4),
+    marginBottom: scale(15),
   },
   roomR: {
     color: '#6AC7BE',
     fontWeight: '500',
-    fontSize: 12,
-    lineHeight: 18,
-    borderWidth: 1,
-    borderRadius: 11.5,
+    fontSize: scale(12),
+    lineHeight: verticalScale(18),
+    borderWidth: scale(1),
+    borderRadius: scale(11.5),
     borderColor: '#6AC7BE',
-    paddingRight: 6,
-    paddingLeft: 8,
-    paddingTop: 2,
-    paddingBottom: 1,
-    marginRight: 16,
+    paddingRight: scale(6),
+    paddingLeft: scale(8),
+    paddingTop: scale(2),
+    paddingBottom: scale(1),
+    marginRight: scale(16),
   },
   roomStatus: {
     width: scale(50),
     height: verticalScale(50),
-    marginTop: 16,
-    marginLeft: 53,
+    marginTop: scale(16),
+    marginLeft: scale(53),
   },
 });
